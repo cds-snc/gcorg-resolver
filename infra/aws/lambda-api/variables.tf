@@ -1,3 +1,8 @@
+variable "env" {
+  description = "The current running environment."
+  type        = string
+}
+
 variable "function_name" {
   type    = string
   default = null

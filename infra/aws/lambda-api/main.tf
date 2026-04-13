@@ -1,5 +1,5 @@
 locals {
-  function_name = coalesce(local.function_name, "gcorg-resolver-${var.env}")
+  function_name = coalesce(var.function_name, "gcorg-resolver-${var.env}")
 }
 
 data "aws_iam_policy_document" "lambda_assume" {
