@@ -41,6 +41,7 @@ administration portuaire quebec,3490
 administration portuaire saguenay,3493
 administration portuaire saint john,3495
 administration portuaire sept-iles,3497
+administration portuaire st john s,3500
 administration portuaire st. john s,3500
 administration portuaire thunder bay,3504
 administration portuaire toronto,3506
@@ -94,12 +95,15 @@ agence spatiale canadienne,2251
 agence spatiale canadienne canadian space agency,2251
 agr,2222
 agr.gc.ca,2222
+agriculture,2222
+agriculture agrifood,2222
 agriculture agri food,2222
 agriculture agri food agriculture agroalimentaire,2222
 agriculture agri-food,2222
 agriculture agri-food agriculture agroalimentaire,2222
 agriculture agroalimentaire,2222
 agriculture agroalimentaire agriculture agri food,2222
+agrifood,2222
 ahs,2285
 amc,2227
 anciens combattants,2239
@@ -112,6 +116,7 @@ appeal board hazardous materials information review act,3600
 arc,2303
 arc-cra.gc.ca,2303
 armee canadienne,3557
+asc,2251
 asc-csa.gc.ca,2251
 asc-nac.gc.ca,2319
 asfc,2300
@@ -185,6 +190,7 @@ bst-tsb.gc.ca,2309
 buffalo fort erie public bridge authority,3440
 bureau ombud veterans,3595
 bureau ombudsman approvisionnement,3585
+bureau ombudsman approvisionnement procurement ombudsman,3585
 bureau ombudsman contribuables,3594
 bureau ombudsman contribuables taxpayers ombudsperson,3594
 bureau ombudsman defense nationale forces armees canadiennes,3583
@@ -193,6 +199,7 @@ business development bank,3646
 business development bank banque developpement,3646
 bvg,2270
 bvg-oag.gc.ca,2270
+cabinet juge militaire en chef,3582
 cadets,2233
 cadets cadets,2233
 caec,2302
@@ -535,6 +542,7 @@ commission relations travail emploi dans secteur public federal,3705
 commission revision agricole,3679
 commission revision lois,3614
 commission sante mentale csmc,3475
+commission toponymie,3604
 commission verite reconciliation relative pensionnats indiens,3672
 commissioner election,3420
 commissioner for federal judicial affairs,2272
@@ -596,10 +604,12 @@ copyright board,2254
 copyright board commission droit auteur,2254
 corcan,3539
 corporation commerciale canadienne,3639
+corporation developpement investissements,3635
 corporation for mitigation mackenzie gas project impacts,3667
 corporation gestion voie maritime saint-laurent,3501
 corporation secretariat commerce interieur,3471
 correctional investigator,2276
+correctional investigator enqueteur correctionnel,2276
 correctional service,2255
 correctional service service correctionnel,2255
 correctional services service correctionnel,2255
@@ -662,6 +672,7 @@ cta-otc.gc.ca,2252
 cwa,3703
 dec,2257
 dec-ced.gc.ca,2257
+defence construction,3652
 defence construction 1951 limited,3652
 defence research development,3540
 defense nationale,2233
@@ -692,6 +703,7 @@ directeur terres destinees anciens combattants,3423
 direction generale biens,3543
 director public prosecutions directeur poursuites penales,2277
 director soldier settlement,3422
+director veterans land act,3423
 dis,2243
 dnd,2233
 dnd-mdn,2233
@@ -726,6 +738,7 @@ employment social development emploi developpement social,2229
 energie atomique limitee,3649
 energie atomique limitee atomic energy ltd,3649
 energy supplies allocation board,3424
+enqueteur correctionnel,2276
 enr,2312
 enterprise cape breton corporation,3668
 entreprise autochtone,3599
@@ -850,6 +863,7 @@ greffe tribunal protection fonctionnaires divulgateurs actes reprehensibles,3695
 greffe tribunal revendications particulieres,3696
 gss,2292
 habitat faunique,3513
+halifax 2011 games host society,3700
 halifax international airport authority,3467
 halifax port authority,3468
 halpa-aphal,3468
@@ -912,6 +926,7 @@ information commissioner,2281
 inforoute sante,3446
 infrastructure,2269
 infrastructure infrastructure,2269
+ingenium  canada s museums science innovation,3627
 ingenium  s museums science innovation,3627
 innovation,3443
 innovation science economic development,2231
@@ -927,6 +942,7 @@ institut canadien sport ontario,3457
 institut international pour grain,3521
 institut national sport quebec,3470
 institut statistique premieres nations,3669
+institut vanier famille,3532
 institutions democratiques,3566
 instituts recherche en sante,2307
 instituts recherche en sante canadian institutes health research,2307
@@ -967,6 +983,7 @@ ised-isde.gc.ca,2231
 ispc,2279
 ispc-psic.gc.ca,2279
 jacques cartier champlain bridges incorporated,3643
+jacques-cartier champlain bridges,3643
 joint public advisory committee jpac commission for environmental cooperation cec,3412
 judicial compensation benefits commission,3575
 juge-arbitre,3688
@@ -983,9 +1000,6 @@ l enqueteur correctionnel correctional investigator,2276
 l institut vanier famille,3532
 l office national film,2266
 l office national film national film board,2266
-commission toponymie,3604
-corporation developpement investissements,3635
-societe ponts federaux limitee,3661
 labour-travail.gc.ca,2229
 lac,2262
 lac-bac,2262
@@ -994,14 +1008,9 @@ lake woods control board,3473
 last post fund,3531
 laurentian pilotage authority,3657
 law commission,2310
-bureau ombudsman approvisionnement procurement ombudsman,3585
-cabinet juge militaire en chef,3582
-verificateur general,2270
-verificateur general auditor general,2270
 leader gouvernement chambre communes,3577
 leader government in house commons,3577
 leaders debates commission,2296
-ponts jacques-cartier champlain,3643
 library archives,2262
 library archives bibliotheque archives,2262
 library parliament,3429
@@ -1014,6 +1023,7 @@ lower churchill development corporation limited,3415
 lp-bp,3429
 management advisory board for rcmp,3578
 marine atlantic,3658
+marine atlantique s.c.c,3658
 marine atlantique s.c.c.,3658
 marine royale canadienne,3589
 maritime forestry complex corporation,3474
@@ -1241,6 +1251,7 @@ pb,3439
 pbc,2267
 pbc-clcc,2267
 pbc-clcc.gc.ca,2267
+pc,2315
 pc.gc.ca,2315
 pca,2315
 pch,2223
@@ -1276,6 +1287,7 @@ polar knowledge savoir polaire,2318
 polar-polaire,2318
 polar-polaire.gc.ca,2318
 policy horizons,3612
+ponts jacques-cartier champlain,3643
 porcupine caribou management board,3485
 port alberni port authority,3486
 ppa.gc.ca,3659
@@ -1349,6 +1361,7 @@ quebec port authority,3490
 rcaanc,2230
 rcaanc-cirnac.gc.ca,2230
 rcm,2288
+rcmh-mrcf inc royal canadian mint,3637
 rcmh-mrcf inc. royal canadian mint,3637
 rcmp,2288
 rcmp external review committee,2289
@@ -1402,8 +1415,11 @@ satj,2256
 satj-cas.gc.ca,2256
 savoir polaire,2318
 savoir polaire polar knowledge,2318
+sc,2228
 sc-hc.gc.ca,2228
+scc,2255
 scc-ccn.ca,3648
+scc-csc,2287
 scc-csc.gc.ca,2255
 scdata,2297
 schl-cmhc.gc.ca,3631
@@ -1488,6 +1504,7 @@ societe financiere internationale,3406
 societe hotesse jeux hiver prince george 2015,3701
 societe immobiliere limitee,3650
 societe legs jeux 2010,3702
+societe ponts federaux limitee,3661
 societe radio-canada,3619
 societe vieux-port montreal,3689
 sopf-cidp,3613
@@ -1515,6 +1532,9 @@ sshrc-crsng.gc.ca,2316
 sshrc.crsh.gc.ca,2316
 sst,3632
 sst-tss.gc.ca,3632
+st john s international airport authority,3499
+st john s port authority,3500
+st lawrence seaway management corporation,3501
 st. john s international airport authority,3499
 st. john s port authority,3500
 st. lawrence seaway management corporation,3501
@@ -1558,10 +1578,6 @@ tc.gc.ca,2238
 tcce-citt.gc.ca,3685
 telefilm,3629
 terry fox humanitarian award,3502
-correctional investigator enqueteur correctionnel,2276
-director veterans land act,3423
-halifax 2011 games host society,3700
-jacques-cartier champlain bridges,3643
 thunder bay international airports authority,3503
 thunder bay port authority,3504
 toronto organizing committee for 2015 pan american parapan american games,3630
@@ -1612,6 +1628,8 @@ vancouver fraser port authority,3509
 vancouver international airport authority,3510
 vancouver organizing committee for 2010 olympic paralympic winter games,3698
 vanier institute family,3532
+verificateur general,2270
+verificateur general auditor general,2270
 veterans affairs,2239
 veterans affairs anciens combattants,2239
 veterans affairs ministere affaires anciens combattants,2239
@@ -1621,9 +1639,9 @@ veterans review appeal board,2294
 veterans review appeal board tribunal anciens combattants revision appel,2294
 veterans.gc.ca,2239
 vfpa-apvf,3509
+via,3662
 via hfr - via tgf,3707
 via rail,3662
-via,3662
 victoria airport authority,3511
 virtual museum,3596
 vrab,2294
