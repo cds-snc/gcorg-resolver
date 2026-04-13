@@ -1,8 +1,8 @@
-"""Download a fresh copy of the GC Organizations Reference Standard concordance.
+"""Download a fresh copy of the GC Organizations Reference Standard.
 
 Run manually when we want to refresh the pinned snapshot:
 
-    python data/download_gcoorgs_refstd.py
+    python data/download_reference_standard.py
 
 Source: https://open.canada.ca/data/en/dataset/57180b36-3428-4a7f-afe3-2161a6b44ec5
 """
