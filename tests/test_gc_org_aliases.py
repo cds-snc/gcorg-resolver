@@ -33,14 +33,15 @@ def test_name_column_has_no_duplicates(rows: list[dict[str, str]]) -> None:
     assert dupes == {}, f"duplicate names: {dupes}"
 
 
-def test_known_unicode_rows_render_correctly(
+def test_known_unicode_aliases_are_present(
     rows: list[dict[str, str]],
 ) -> None:
-    harmonized = {r["harmonized_name"] for r in rows}
-    assert "Montréal Port Authority" in harmonized
-    assert "Québec Port Authority" in harmonized
-    assert "Sept-Îles Port Authority" in harmonized
-    assert "Trois-Rivières Port Authority" in harmonized
+    """Verify that orgs with accented names produce the expected normalized aliases."""
+    aliases = {r["name"] for r in rows}
+    assert "montreal port authority" in aliases
+    assert "quebec port authority" in aliases
+    assert "sept-iles port authority" in aliases
+    assert "trois-rivieres port authority" in aliases
 
 
 def test_no_mojibake(rows: list[dict[str, str]]) -> None:
