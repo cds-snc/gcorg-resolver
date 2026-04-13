@@ -9,7 +9,22 @@ from dataclasses import dataclass
 from functools import cache
 from pathlib import Path
 
-DEFAULT_PATH = Path(__file__).resolve().parents[2] / "data" / "gc_concordance.csv"
+PKG_DIR = Path(__file__).resolve().parent
+
+# The data directory lives two levels up from this file in local dev
+# (src/gcorg_resolver/ → src/ → repo root), but only one level up in Lambda
+CONCORDANCE_FILENAME = "gc_concordance.csv"
+REPO_ROOT_DATA = PKG_DIR.parent.parent / "data" / CONCORDANCE_FILENAME
+LAMBDA_ROOT_DATA = PKG_DIR.parent / "data" / CONCORDANCE_FILENAME
+
+if REPO_ROOT_DATA.exists():
+    DEFAULT_PATH = REPO_ROOT_DATA
+elif LAMBDA_ROOT_DATA.exists():
+    DEFAULT_PATH = LAMBDA_ROOT_DATA
+else:
+    raise FileNotFoundError(
+        f"Could not find gc_concordance.csv at {REPO_ROOT_DATA} or {LAMBDA_ROOT_DATA}"
+    )
 
 
 @dataclass(frozen=True)

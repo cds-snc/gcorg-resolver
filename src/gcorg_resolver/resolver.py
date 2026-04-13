@@ -14,9 +14,22 @@ from pathlib import Path
 
 from gcorg_resolver.normalize import normalize
 
-ALIASES_PATH = (
-    Path(__file__).resolve().parents[2] / "data" / "gc_org_aliases.csv"
-)
+PKG_DIR = Path(__file__).resolve().parent
+
+# The data directory lives two levels up from this file in local dev
+# (src/gcorg_resolver/ → src/ → repo root), but only one level up in Lambda
+ALIASES_FILENAME = "gc_org_aliases.csv"
+REPO_ROOT_ALIASES = PKG_DIR.parent.parent / "data" / ALIASES_FILENAME
+LAMBDA_ROOT_ALIASES = PKG_DIR.parent / "data" / ALIASES_FILENAME
+
+if REPO_ROOT_ALIASES.exists():
+    ALIASES_PATH = REPO_ROOT_ALIASES
+elif LAMBDA_ROOT_ALIASES.exists():
+    ALIASES_PATH = LAMBDA_ROOT_ALIASES
+else:
+    raise FileNotFoundError(
+        f"Could not find gc_org_aliases.csv at {REPO_ROOT_ALIASES} or {LAMBDA_ROOT_ALIASES}"
+    )
 
 # Only fuzzy-match when the normalized query is at least this long. Below
 # this, one typo can shift an abbreviation to a neighbour (``csc`` → ``csa``)
