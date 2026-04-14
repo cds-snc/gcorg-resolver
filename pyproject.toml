@@ -1,4 +1,4 @@
-[build-system]
+ [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
@@ -27,4 +27,5 @@ pythonpath = ["src"]
 [dependency-groups]
 dev = [
     "pytest>=8.0",
+    "ruff>=0.15.10",
 ]
