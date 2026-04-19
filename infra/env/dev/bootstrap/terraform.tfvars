@@ -1,0 +1,7 @@
+account_id        = "624627265345"
+env               = "dev"
+billing_tag_value = "GCOrgResolver"
+region            = "ca-central-1"
+github_org        = "colindouglas"
+github_repo       = "gcorg-resolver"
+state_bucket      = "gcorg-resolver-dev-tfstate"

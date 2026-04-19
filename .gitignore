@@ -24,4 +24,4 @@ infra/**/.terraform/
 infra/**/.terragrunt-cache/
 *.tfstate
 *.tfstate.backup
-.terraform.lock.hcl
+*.tfplan
