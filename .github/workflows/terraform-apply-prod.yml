@@ -1,0 +1,64 @@
+name: Terraform apply (prod)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "infra/**"
+      - "src/**"
+      - "data/**"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".github/workflows/terraform-apply-prod.yml"
+
+concurrency:
+  group: terraform-apply-prod
+  cancel-in-progress: false
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ca-central-1
+  TF_INPUT: "false"
+  TF_IN_AUTOMATION: "true"
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Build Lambda zip
+        run: bash infra/build_lambda.sh
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/gcorg-resolver-apply-prod
+          role-session-name: TFApplyProd
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.8
+
+      - name: Terraform init
+        run: terraform -chdir=infra/env/prod init
+
+      - name: Terraform apply
+        run: terraform -chdir=infra/env/prod apply -auto-approve -input=false

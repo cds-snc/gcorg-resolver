@@ -3,14 +3,14 @@ name: Terraform apply (dev)
 on:
   push:
     branches:
-      - main
+      - dev
     paths:
       - "infra/**"
       - "src/**"
       - "data/**"
       - "pyproject.toml"
       - "uv.lock"
-      - ".github/workflows/terraform-apply.yml"
+      - ".github/workflows/terraform-apply-dev.yml"
 
 concurrency:
   group: terraform-apply-dev
@@ -48,8 +48,8 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v5
         with:
-          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/gcorg-resolver-apply
-          role-session-name: TFApply
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/gcorg-resolver-apply-dev
+          role-session-name: TFApplyDev
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Set up Terraform

@@ -1,13 +1,10 @@
 locals {
   state_bucket_arn = "arn:aws:s3:::${var.state_bucket}"
-  app_name_glob    = "gcorg-resolver-${var.env}*"
 }
 
-# --- Plan role: read-only AWS + full state bucket access --------------------
+# --- Dev plan role ----------------------------------------------------------
 
-# Terraform plan refreshes state, which can write the state object and the
-# native S3 lockfile. Scope is the app's state bucket only.
-data "aws_iam_policy_document" "plan_state" {
+data "aws_iam_policy_document" "plan_state_dev" {
   statement {
     sid       = "ListStateBucket"
     actions   = ["s3:ListBucket"]
@@ -15,37 +12,35 @@ data "aws_iam_policy_document" "plan_state" {
   }
 
   statement {
-    sid = "ReadWriteStateObjects"
+    sid = "ReadWriteDevStateObjects"
     actions = [
       "s3:GetObject",
       "s3:PutObject",
       "s3:DeleteObject",
     ]
-    resources = ["${local.state_bucket_arn}/*"]
+    # dev state lives at lambda-api/* (no env prefix — existing key)
+    resources = ["${local.state_bucket_arn}/lambda-api*"]
   }
 }
 
-resource "aws_iam_policy" "plan_state" {
-  name        = "gcorg-resolver-plan-state"
-  description = "Access to the Terraform state bucket for the plan role."
-  policy      = data.aws_iam_policy_document.plan_state.json
+resource "aws_iam_policy" "plan_state_dev" {
+  name        = "gcorg-resolver-plan-state-dev"
+  description = "State bucket access for the dev plan role."
+  policy      = data.aws_iam_policy_document.plan_state_dev.json
 }
 
-# --- Apply role: scoped write access to the services this stack uses --------
+# --- Dev apply role ---------------------------------------------------------
 
-data "aws_iam_policy_document" "apply" {
+data "aws_iam_policy_document" "apply_dev" {
   statement {
-    sid     = "StateBucket"
+    sid     = "StateBucketDev"
     actions = ["s3:*"]
     resources = [
       local.state_bucket_arn,
-      "${local.state_bucket_arn}/*",
+      "${local.state_bucket_arn}/lambda-api*",
     ]
   }
 
-  # Lambda and API Gateway don't support meaningful ARN-level IAM for most of
-  # the actions Terraform calls (CreateFunction, CreateApi, etc. require
-  # resource "*"). Scoping by service is the practical limit.
   statement {
     sid       = "LambdaAll"
     actions   = ["lambda:*"]
@@ -70,24 +65,20 @@ data "aws_iam_policy_document" "apply" {
     resources = ["*"]
   }
 
-  # IAM is scoped to the app's role name prefix so the apply role cannot
-  # modify the OIDC provider, the bootstrap roles, or unrelated account IAM.
   statement {
-    sid     = "IamAppRoles"
+    sid     = "IamDevRoles"
     actions = ["iam:*"]
     resources = [
-      "arn:aws:iam::${var.account_id}:role/${local.app_name_glob}",
+      "arn:aws:iam::${var.account_id}:role/gcorg-resolver-dev*",
     ]
   }
 
   statement {
-    sid       = "IamPassAppRoles"
+    sid       = "IamPassDevRoles"
     actions   = ["iam:PassRole"]
-    resources = ["arn:aws:iam::${var.account_id}:role/${local.app_name_glob}"]
+    resources = ["arn:aws:iam::${var.account_id}:role/gcorg-resolver-dev*"]
   }
 
-  # Read-only IAM calls Terraform makes during planning that have no
-  # resource-level scoping.
   statement {
     sid = "IamRead"
     actions = [
@@ -100,10 +91,105 @@ data "aws_iam_policy_document" "apply" {
   }
 }
 
-resource "aws_iam_policy" "apply" {
-  name        = "gcorg-resolver-apply"
-  description = "Scoped permissions for the CI apply role."
-  policy      = data.aws_iam_policy_document.apply.json
+resource "aws_iam_policy" "apply_dev" {
+  name        = "gcorg-resolver-apply-dev"
+  description = "Scoped permissions for the CI dev apply role."
+  policy      = data.aws_iam_policy_document.apply_dev.json
+}
+
+# --- Prod plan role ---------------------------------------------------------
+
+data "aws_iam_policy_document" "plan_state_prod" {
+  statement {
+    sid       = "ListStateBucket"
+    actions   = ["s3:ListBucket"]
+    resources = [local.state_bucket_arn]
+  }
+
+  statement {
+    sid = "ReadWriteProdStateObjects"
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:DeleteObject",
+    ]
+    # prod state lives at prod/*
+    resources = ["${local.state_bucket_arn}/prod*"]
+  }
+}
+
+resource "aws_iam_policy" "plan_state_prod" {
+  name        = "gcorg-resolver-plan-state-prod"
+  description = "State bucket access for the prod plan role."
+  policy      = data.aws_iam_policy_document.plan_state_prod.json
+}
+
+# --- Prod apply role --------------------------------------------------------
+
+data "aws_iam_policy_document" "apply_prod" {
+  statement {
+    sid     = "StateBucketProd"
+    actions = ["s3:*"]
+    resources = [
+      local.state_bucket_arn,
+      "${local.state_bucket_arn}/prod*",
+    ]
+  }
+
+  statement {
+    sid       = "LambdaAll"
+    actions   = ["lambda:*"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "ApiGatewayAll"
+    actions   = ["apigateway:*"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "LogsAll"
+    actions   = ["logs:*"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "AcmAll"
+    actions   = ["acm:*"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid     = "IamProdRoles"
+    actions = ["iam:*"]
+    resources = [
+      "arn:aws:iam::${var.account_id}:role/gcorg-resolver-prod*",
+    ]
+  }
+
+  statement {
+    sid       = "IamPassProdRoles"
+    actions   = ["iam:PassRole"]
+    resources = ["arn:aws:iam::${var.account_id}:role/gcorg-resolver-prod*"]
+  }
+
+  statement {
+    sid = "IamRead"
+    actions = [
+      "iam:GetPolicy",
+      "iam:GetPolicyVersion",
+      "iam:ListPolicies",
+      "iam:ListPolicyVersions",
+    ]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "apply_prod" {
+  name        = "gcorg-resolver-apply-prod"
+  description = "Scoped permissions for the CI prod apply role."
+  policy      = data.aws_iam_policy_document.apply_prod.json
 }
 
 # --- OIDC provider + roles --------------------------------------------------
@@ -116,18 +202,33 @@ module "github_oidc" {
 
   roles = [
     {
-      name  = "gcorg-resolver-plan"
+      name  = "gcorg-resolver-plan-dev"
       claim = "pull_request"
       policy_arns = [
         "arn:aws:iam::aws:policy/ReadOnlyAccess",
-        aws_iam_policy.plan_state.arn,
+        aws_iam_policy.plan_state_dev.arn,
       ]
     },
     {
-      name  = "gcorg-resolver-apply"
+      name  = "gcorg-resolver-apply-dev"
+      claim = "ref:refs/heads/dev"
+      policy_arns = [
+        aws_iam_policy.apply_dev.arn,
+      ]
+    },
+    {
+      name  = "gcorg-resolver-plan-prod"
+      claim = "pull_request"
+      policy_arns = [
+        "arn:aws:iam::aws:policy/ReadOnlyAccess",
+        aws_iam_policy.plan_state_prod.arn,
+      ]
+    },
+    {
+      name  = "gcorg-resolver-apply-prod"
       claim = "ref:refs/heads/main"
       policy_arns = [
-        aws_iam_policy.apply.arn,
+        aws_iam_policy.apply_prod.arn,
       ]
     },
   ]

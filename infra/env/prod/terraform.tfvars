@@ -1,6 +1,6 @@
 account_id        = "624627265345"
-env               = "dev"
+env               = "prod"
 billing_tag_value = "GCOrgResolver"
 region            = "ca-central-1"
 domain_name       = "donairpoutine.com"
-subdomain         = "dev.gcorgs"
+subdomain         = "gcorgs"
