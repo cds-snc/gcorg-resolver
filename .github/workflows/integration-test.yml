@@ -1,0 +1,62 @@
+name: Integration tests
+
+on:
+  workflow_run:
+    workflows: ["Terraform apply (dev)", "Terraform apply (prod)"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "API base URL to test"
+        required: false
+        default: "https://gcorgs.donairpoutine.com"
+  schedule:
+    - cron: "30 6 * * *"  # 30 min after the daily data update
+
+jobs:
+  integration-test:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine API base URL
+        id: url
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "base_url=${{ inputs.base_url }}" >> "$GITHUB_OUTPUT"
+          elif [[ "${{ github.event.workflow_run.name }}" == "Terraform apply (dev)" ]]; then
+            echo "base_url=https://dev.gcorgs.donairpoutine.com" >> "$GITHUB_OUTPUT"
+          else
+            echo "base_url=https://gcorgs.donairpoutine.com" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run integration tests
+        env:
+          BASE_URL: ${{ steps.url.outputs.base_url }}
+        run: |
+          set -euo pipefail
+
+          echo "Testing $BASE_URL"
+
+          # POST /resolve — batch with known match, acronym match, and no-match
+          result=$(curl -sf -X POST "$BASE_URL/resolve" \
+            -H 'Content-Type: application/json' \
+            -d '{"names": ["Bibliothèque et Archives Canada", "CRA", "Department of Unicorns"]}')
+          [[ $(echo "$result" | jq '.results[0].gc_orgID') == 2262 ]]
+          [[ $(echo "$result" | jq '.results[1].gc_orgID') == 2303 ]]
+          [[ $(echo "$result" | jq '.results[2].matched') == false ]]
+          echo "PASS  POST /resolve"
+
+          # GET /resolve — plain text org ID
+          got=$(curl -sf "$BASE_URL/resolve?name=Agriculture")
+          [[ "$got" == "2222" ]]
+          echo "PASS  GET /resolve?name=Agriculture"
+
+          # GET /name — English
+          got=$(curl -sf "$BASE_URL/name?gc_orgID=2222&lang=en")
+          [[ "$got" == "Agriculture and Agri-Food Canada" ]]
+          echo "PASS  GET /name?gc_orgID=2222&lang=en"
+
+          # GET /name — French
+          got=$(curl -sf "$BASE_URL/name?gc_orgID=2222&lang=fr")
+          [[ "$got" == "Agriculture et Agroalimentaire Canada" ]]
+          echo "PASS  GET /name?gc_orgID=2222&lang=fr"
