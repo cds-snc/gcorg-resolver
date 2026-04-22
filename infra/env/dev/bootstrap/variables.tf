@@ -1,8 +1,3 @@
-variable "account_id" {
-  description = "The account ID to perform actions on."
-  type        = string
-}
-
 variable "billing_tag_value" {
   description = "The value used to track billing."
   type        = string

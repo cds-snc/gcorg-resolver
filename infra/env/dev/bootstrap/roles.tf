@@ -69,14 +69,14 @@ data "aws_iam_policy_document" "apply_dev" {
     sid     = "IamDevRoles"
     actions = ["iam:*"]
     resources = [
-      "arn:aws:iam::${var.account_id}:role/gcorg-resolver-dev*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/gcorg-resolver-dev*",
     ]
   }
 
   statement {
     sid       = "IamPassDevRoles"
     actions   = ["iam:PassRole"]
-    resources = ["arn:aws:iam::${var.account_id}:role/gcorg-resolver-dev*"]
+    resources = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/gcorg-resolver-dev*"]
   }
 
   statement {
@@ -164,14 +164,14 @@ data "aws_iam_policy_document" "apply_prod" {
     sid     = "IamProdRoles"
     actions = ["iam:*"]
     resources = [
-      "arn:aws:iam::${var.account_id}:role/gcorg-resolver-prod*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/gcorg-resolver-prod*",
     ]
   }
 
   statement {
     sid       = "IamPassProdRoles"
     actions   = ["iam:PassRole"]
-    resources = ["arn:aws:iam::${var.account_id}:role/gcorg-resolver-prod*"]
+    resources = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/gcorg-resolver-prod*"]
   }
 
   statement {
