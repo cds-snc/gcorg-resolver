@@ -50,7 +50,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v5
         with:
-          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/gcorg-resolver-plan-prod
+          role-to-assume: arn:aws:iam::${{ vars.SDR_AWS_ACCOUNT }}:role/gcorg-resolver-plan-prod
           role-session-name: TFPlanProd
           aws-region: ${{ env.AWS_REGION }}
 
