@@ -9,7 +9,7 @@ on:
       base_url:
         description: "API base URL to test"
         required: false
-        default: ${{ vars.API_BASE_URL_PROD }}
+        default: ""
   schedule:
     - cron: "30 6 * * *"  # 30 min after the daily data update
 
@@ -18,11 +18,18 @@ jobs:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Determine API base URL
         id: url
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "base_url=${{ inputs.base_url }}" >> "$GITHUB_OUTPUT"
+            if [[ -n "${{ inputs.base_url }}" ]]; then
+              echo "base_url=${{ inputs.base_url }}" >> "$GITHUB_OUTPUT"
+            else
+              echo "base_url=${{ vars.API_BASE_URL_PROD }}" >> "$GITHUB_OUTPUT"
+            fi
           elif [[ "${{ github.event.workflow_run.name }}" == "Terraform apply (dev)" ]]; then
             echo "base_url=${{ vars.API_BASE_URL_DEV }}" >> "$GITHUB_OUTPUT"
           else
@@ -32,41 +39,4 @@ jobs:
       - name: Run integration tests
         env:
           BASE_URL: ${{ steps.url.outputs.base_url }}
-        run: |
-          set -euo pipefail
-
-          echo "Testing $BASE_URL"
-
-          # GET /health - just check it returns 200
-          status=$(curl -s -o /dev/null -w "%{http_code}" "$BASE_URL/health")
-          [[ "$status" == "200" ]]
-          echo "PASS  GET /health"
-
-          # POST /resolve - batch with known match, acronym match, and no-match
-          result=$(curl -sf -X POST "$BASE_URL/resolve" \
-            -H 'Content-Type: application/json' \
-            -d '{"names": ["Bibliothèque et Archives Canada", "CRA", "Department of Unicorns"]}')
-          [[ $(echo "$result" | jq '.results[0].gc_orgID') == 2262 ]]
-          [[ $(echo "$result" | jq '.results[1].gc_orgID') == 2303 ]]
-          [[ $(echo "$result" | jq '.results[2].matched') == false ]]
-          echo "PASS  POST /resolve"
-
-          # GET /resolve - plain text org ID
-          got=$(curl -sf "$BASE_URL/resolve?name=Agriculture")
-          [[ "$got" == "2222" ]]
-          echo "PASS  GET /resolve?name=Agriculture"
-
-          # GET /name - English
-          got=$(curl -sf "$BASE_URL/name?gc_orgID=2222&lang=en")
-          [[ "$got" == "Agriculture and Agri-Food Canada" ]]
-          echo "PASS  GET /name?gc_orgID=2222&lang=en"
-
-          # GET /name - French
-          got=$(curl -sf "$BASE_URL/name?gc_orgID=2222&lang=fr")
-          [[ "$got" == "Agriculture et Agroalimentaire Canada" ]]
-          echo "PASS  GET /name?gc_orgID=2222&lang=fr"
-
-          # GET /.well-known/security.txt - must return text/plain
-          content_type=$(curl -s -o /dev/null -w "%{content_type}" "$BASE_URL/.well-known/security.txt")
-          [[ "$content_type" == "text/plain" ]]
-          echo "PASS  GET /.well-known/security.txt"
+        run: bash tests/integration_api.sh
