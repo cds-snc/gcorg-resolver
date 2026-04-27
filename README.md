@@ -7,15 +7,15 @@ addresses like `"user@inspection.gc.ca"` and returns the numeric ID from the
 
 ## Usage
 
-For now, the API can be found at https://gcorgs.donairpoutine.com. It is rate limited to
-50 requests per second and no more than 1000 names in one POST.
+For now, the dev API environment can be found at https://dev.gcorgs.cdssandbox.xyz. It 
+is rate limited to 50 requests per second and no more than 1000 names in one POST.
 
 ### POST /resolve
 
 Resolve a batch of names. Returns one result per input.
 
 ```sh
-curl -X POST https://gcorgs.donairpoutine.com/resolve \
+curl -X POST https://dev.gcorgs.cdssandbox.xyz/resolve \
   -H 'Content-Type: application/json' \
   -d '{"names": ["Bibliothèque et Archives Canada", "CRA", "Department of Unicorns"]}'
 ```
@@ -57,13 +57,13 @@ formulas below into your workbook.
 
 ```
 # Returns the gc_orgID of the name in cell A1
-=WEBSERVICE("https://gcorgs.donairpoutine.com/resolve?name=" & ENCODEURL(A1))
+=WEBSERVICE("https://dev.gcorgs.cdssandbox.xyz/resolve?name=" & ENCODEURL(A1))
 
 # Returns the English name corresponding to the gc_orgID in cell A2
-=WEBSERVICE("https://gcorgs.donairpoutine.com/name?lang=en&gc_orgID=" & A2)
+=WEBSERVICE("https://dev.gcorgs.cdssandbox.xyz/name?lang=en&gc_orgID=" & A2)
 
 # Returns the French name
-=WEBSERVICE("https://gcorgs.donairpoutine.com/name?lang=fr&gc_orgID=" & A2)    
+=WEBSERVICE("https://dev.gcorgs.cdssandbox.xyz/name?lang=fr&gc_orgID=" & A2)    
 ```
 
 Note that the `=WEBSERVICE()` function only works in Excel on Windows. **It does not 
@@ -77,11 +77,11 @@ providing a delimiter that doesn't exist in any canonical organization names.
 
 ```
 # Returns the gc_orgID of the name in cell A1
-=IMPORTDATA("https://gcorgs.donairpoutine.com/resolve?name=" & ENCODEURL(A1))
+=IMPORTDATA("https://dev.gcorgs.cdssandbox.xyz/resolve?name=" & ENCODEURL(A1))
 
 # Returns the English name corresponding to the gc_orgID in cell A2
-=IMPORTDATA("https://gcorgs.donairpoutine.com/name?lang=en&gc_orgID=" & A2, "\")
+=IMPORTDATA("https://dev.gcorgs.cdssandbox.xyz/name?lang=en&gc_orgID=" & A2, "\")
 
 # Returns the French name
-=IMPORTDATA("https://gcorgs.donairpoutine.com/name?lang=fr&gc_orgID=" & A2, "\")
+=IMPORTDATA("https://dev.gcorgs.cdssandbox.xyz/name?lang=fr&gc_orgID=" & A2, "\")
 ```

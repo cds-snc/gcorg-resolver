@@ -84,8 +84,7 @@ def load_reference_standard(path: Path | None = None) -> list[Org]:
 
 @cache
 def _default_index() -> dict[int, Org]:
-    return {o.gc_orgID: o for o in load_reference_standard
-            ()}
+    return {o.gc_orgID: o for o in load_reference_standard()}
 
 
 def lookup(gc_org_id: int) -> Org:

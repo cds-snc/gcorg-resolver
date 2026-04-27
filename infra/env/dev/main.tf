@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket       = "gcorg-resolver-dev-tfstate"
+    bucket       = "gcorg-resolver-dev-tfstate-a7f3k9"
     key          = "lambda-api/terraform.tfstate"
     region       = "ca-central-1"
     encrypt      = true
@@ -17,9 +17,10 @@ terraform {
   }
 }
 
+data "aws_caller_identity" "current" {}
+
 provider "aws" {
-  region              = var.region
-  allowed_account_ids = [var.account_id]
+  region = var.region
 
   default_tags {
     tags = {

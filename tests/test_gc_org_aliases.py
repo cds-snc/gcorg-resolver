@@ -4,17 +4,15 @@ from pathlib import Path
 
 import pytest
 
-ALIASES_CSV = (
-    Path(__file__).resolve().parents[1] / "data" / "gc_org_aliases.csv"
-)
+ALIASES_CSV = Path(__file__).resolve().parents[1] / "data" / "gc_org_aliases.csv"
 
 # Look for UTF-8 characters that have been rendered in Latin-1
 MOJIBAKE_MARKERS = (
-    "Ã", 
-    "Â", 
-    "â€", 
+    "Ã",
+    "Â",
+    "â€",
     "\ufffd",
-    )
+)
 
 
 @pytest.fixture(scope="module")

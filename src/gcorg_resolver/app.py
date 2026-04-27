@@ -1,6 +1,8 @@
 """Flask REST API for resolving free-text GC org names to ``gc_orgID``."""
 
-from flask import Flask, jsonify, request
+import os
+
+from flask import Flask, jsonify, request, send_from_directory
 
 from gcorg_resolver.load_reference_standard import lookup
 from gcorg_resolver.resolver import resolve
@@ -110,7 +112,7 @@ def create_app() -> Flask:
     #   =WEBSERVICE("http://example.com:5000/name?gc_orgID=" & A1 & "&lang=en")
     @app.get("/name")
     def org_name():
-        
+
         # Convert arguments to lowercase so gc_orgid and gc_orgID and GC_ORGID all work
         args = {k.lower(): v for k, v in request.args.items()}
         raw_id = args.get("gc_orgid", "")
@@ -148,5 +150,13 @@ def create_app() -> Flask:
     @app.get("/health")
     def health():
         return jsonify({"status": "ok"})
+
+    @app.route("/.well-known/security.txt")
+    def send_security_txt():
+        return send_from_directory(
+            os.path.join(app.root_path, "static"),
+            "security.txt",
+            mimetype="text/plain",
+        )
 
     return app

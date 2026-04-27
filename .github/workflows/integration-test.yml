@@ -9,7 +9,7 @@ on:
       base_url:
         description: "API base URL to test"
         required: false
-        default: "https://gcorgs.donairpoutine.com"
+        default: ""
   schedule:
     - cron: "30 6 * * *"  # 30 min after the daily data update
 
@@ -18,45 +18,42 @@ jobs:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Determine API base URL
         id: url
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "base_url=${{ inputs.base_url }}" >> "$GITHUB_OUTPUT"
+            if [[ -n "${{ inputs.base_url }}" ]]; then
+              echo "base_url=${{ inputs.base_url }}" >> "$GITHUB_OUTPUT"
+              echo "IS_PROD=false" >> "$GITHUB_ENV"
+            else
+              echo "base_url=${{ vars.API_BASE_URL_PROD }}" >> "$GITHUB_OUTPUT"
+              echo "IS_PROD=true" >> "$GITHUB_ENV"
+            fi
           elif [[ "${{ github.event.workflow_run.name }}" == "Terraform apply (dev)" ]]; then
-            echo "base_url=https://dev.gcorgs.donairpoutine.com" >> "$GITHUB_OUTPUT"
+            echo "base_url=${{ vars.API_BASE_URL_DEV }}" >> "$GITHUB_OUTPUT"
+            echo "IS_PROD=false" >> "$GITHUB_ENV"
           else
-            echo "base_url=https://gcorgs.donairpoutine.com" >> "$GITHUB_OUTPUT"
+            echo "base_url=${{ vars.API_BASE_URL_PROD }}" >> "$GITHUB_OUTPUT"
+            echo "IS_PROD=true" >> "$GITHUB_ENV"
           fi
 
       - name: Run integration tests
+        continue-on-error: true
         env:
           BASE_URL: ${{ steps.url.outputs.base_url }}
         run: |
-          set -euo pipefail
+          if bash tests/integration_api.sh; then
+            echo "TEST_FAILED=false" >> $GITHUB_ENV
+          else
+            echo "TEST_FAILED=true" >> $GITHUB_ENV
+            exit 1
+          fi
 
-          echo "Testing $BASE_URL"
-
-          # POST /resolve — batch with known match, acronym match, and no-match
-          result=$(curl -sf -X POST "$BASE_URL/resolve" \
-            -H 'Content-Type: application/json' \
-            -d '{"names": ["Bibliothèque et Archives Canada", "CRA", "Department of Unicorns"]}')
-          [[ $(echo "$result" | jq '.results[0].gc_orgID') == 2262 ]]
-          [[ $(echo "$result" | jq '.results[1].gc_orgID') == 2303 ]]
-          [[ $(echo "$result" | jq '.results[2].matched') == false ]]
-          echo "PASS  POST /resolve"
-
-          # GET /resolve — plain text org ID
-          got=$(curl -sf "$BASE_URL/resolve?name=Agriculture")
-          [[ "$got" == "2222" ]]
-          echo "PASS  GET /resolve?name=Agriculture"
-
-          # GET /name — English
-          got=$(curl -sf "$BASE_URL/name?gc_orgID=2222&lang=en")
-          [[ "$got" == "Agriculture and Agri-Food Canada" ]]
-          echo "PASS  GET /name?gc_orgID=2222&lang=en"
-
-          # GET /name — French
-          got=$(curl -sf "$BASE_URL/name?gc_orgID=2222&lang=fr")
-          [[ "$got" == "Agriculture et Agroalimentaire Canada" ]]
-          echo "PASS  GET /name?gc_orgID=2222&lang=fr"
+      - name: Slack message if integration testing fails in prod
+        if: ${{ env.TEST_FAILED == 'true' && env.IS_PROD == 'true' }}
+        run: |
+          json='{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":":wave: Integration tests failed in the <https://github.com/cds-snc/gcorg-resolver|GC Organization Name Resolution API>. Please investigate or reach out to <@U07QX02BQS2> for help."}}]}'
+          curl -X POST -H 'Content-type: application/json' --data "$json" ${{ secrets.SRE_BOT_WEBHOOK_ALERT }}
