@@ -27,16 +27,33 @@ jobs:
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             if [[ -n "${{ inputs.base_url }}" ]]; then
               echo "base_url=${{ inputs.base_url }}" >> "$GITHUB_OUTPUT"
+              echo "IS_PROD=false" >> "$GITHUB_ENV"
             else
               echo "base_url=${{ vars.API_BASE_URL_PROD }}" >> "$GITHUB_OUTPUT"
+              echo "IS_PROD=true" >> "$GITHUB_ENV"
             fi
           elif [[ "${{ github.event.workflow_run.name }}" == "Terraform apply (dev)" ]]; then
             echo "base_url=${{ vars.API_BASE_URL_DEV }}" >> "$GITHUB_OUTPUT"
+            echo "IS_PROD=false" >> "$GITHUB_ENV"
           else
             echo "base_url=${{ vars.API_BASE_URL_PROD }}" >> "$GITHUB_OUTPUT"
+            echo "IS_PROD=true" >> "$GITHUB_ENV"
           fi
 
       - name: Run integration tests
+        continue-on-error: true
         env:
           BASE_URL: ${{ steps.url.outputs.base_url }}
-        run: bash tests/integration_api.sh
+        run: |
+          if bash tests/integration_api.sh; then
+            echo "TEST_FAILED=false" >> $GITHUB_ENV
+          else
+            echo "TEST_FAILED=true" >> $GITHUB_ENV
+            exit 1
+          fi
+
+      - name: Slack message if integration testing fails in prod
+        if: ${{ env.TEST_FAILED == 'true' && env.IS_PROD == 'true' }}
+        run: |
+          json='{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":":wave: Integration tests failed in the <https://github.com/cds-snc/gcorg-resolver|GC Organization Name Resolution API>. Please investigate or reach out to <@U07QX02BQS2> for help."}}]}'
+          curl -X POST -H 'Content-type: application/json' --data "$json" ${{ secrets.SRE_BOT_WEBHOOK_ALERT }}
