@@ -57,3 +57,9 @@ jobs:
         run: |
           json='{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":":wave: Integration tests failed in the <https://github.com/cds-snc/gcorg-resolver|GC Organization Name Resolution API>. Please investigate or reach out to <@U07QX02BQS2> for help."}}]}'
           curl -X POST -H 'Content-type: application/json' --data "$json" ${{ secrets.SRE_BOT_WEBHOOK_ALERT }}
+
+      - name: Fail job if integration tests failed
+        if: ${{ env.TEST_FAILED == 'true' }}
+        run: |
+          echo "Integration tests failed"
+          exit 1
