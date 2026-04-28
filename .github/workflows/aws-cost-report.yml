@@ -1,0 +1,32 @@
+name: AWS cost report
+
+on:
+  schedule:
+    - cron: "0 13 * * 1" # Monday morning (13:00 UTC)
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  weekly-cost-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.SDR_AWS_ACCOUNT }}:role/Billing-ReadOnly
+          role-session-name: AwsCostReport
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Query weekly tagged cost and post to Slack
+        env:
+          SRE_BOT_WEBHOOK_INFO: ${{ secrets.SRE_BOT_WEBHOOK_INFO }}
+        run: python3 .github/workflows/scripts/aws_cost_report.py
