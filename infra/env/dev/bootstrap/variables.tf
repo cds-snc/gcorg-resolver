@@ -23,7 +23,12 @@ variable "github_repo" {
   type        = string
 }
 
-variable "state_bucket" {
-  description = "Name of the S3 bucket holding Terraform state for the app stack."
+variable "state_bucket_dev" {
+  description = "Name of the S3 bucket holding Terraform state for the dev app stack."
+  type        = string
+}
+
+variable "state_bucket_prod" {
+  description = "Name of the S3 bucket holding Terraform state for the prod app stack."
   type        = string
 }
