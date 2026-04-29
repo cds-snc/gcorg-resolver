@@ -1,7 +1,7 @@
 lang = "en"
 title = "GC Organization Name Resolution API"
 description = "API for resolving free-form text into Government of Canada organizations."
-lang_toggle_href = "fr"
+lang_toggle_href = "/fr"
 date_modified = "2026-04-29"
 footer_heading = "Canadian Digital Service"
 
