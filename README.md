@@ -1,5 +1,7 @@
 # GC Organization Name Resolution API
 
+[A French version of this document is available here](README_fr.md).
+
 Resolves free-text Government of Canada organization names to a canonical `gc_orgID`. 
 Takes messy strings like `"CRA"`, `"Bibliothèque et Archives Canada"`, or email 
 addresses like `"user@inspection.gc.ca"` and returns the numeric ID from the 
