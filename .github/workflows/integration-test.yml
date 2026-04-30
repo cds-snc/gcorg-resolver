@@ -41,31 +41,12 @@ jobs:
           fi
 
       - name: Run integration tests
-        continue-on-error: true
         env:
           BASE_URL: ${{ steps.url.outputs.base_url }}
-        run: |
-          set -o pipefail
-          bash tests/integration_api.sh 2>&1 | tee /tmp/integration_api.log
-          status=${PIPESTATUS[0]}
-
-          if [[ "$status" -eq 0 ]]; then
-            echo "TEST_FAILED=false" >> $GITHUB_ENV
-          else
-            echo "TEST_FAILED=true" >> $GITHUB_ENV
-            echo "Integration script failed with exit code $status"
-          fi
-
-          exit "$status"
+        run: bash tests/integration_api.sh
 
       - name: Slack message if integration testing fails in prod
-        if: ${{ env.TEST_FAILED == 'true' && env.IS_PROD == 'true' }}
+        if: ${{ failure() && env.IS_PROD == 'true' }}
         run: |
           json='{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":":rotating_light: Integration tests failed in the <https://github.com/cds-snc/gcorg-resolver|GC Organization Name Resolution API>. Please investigate or reach out to <@U07QX02BQS2> for help."}}]}'
           curl -X POST -H 'Content-type: application/json' --data "$json" ${{ secrets.SRE_BOT_WEBHOOK_ALERT }}
-
-      - name: Fail job if integration tests failed
-        if: ${{ env.TEST_FAILED == 'true' }}
-        run: |
-          echo "Integration tests failed"
-          exit 1
