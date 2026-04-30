@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GC Org Resolver - Example</title>
+    <link rel="stylesheet" href="https://cdn.design-system.canada.ca/@gcds-core/css-shortcuts@1.0.1/dist/gcds-css-shortcuts.min.css" />
+    <link rel="stylesheet" href="https://cdn.design-system.canada.ca/@gcds-core/components@1.1.0/dist/gcds/gcds.css" />
+    <script type="module" src="https://cdn.design-system.canada.ca/@gcds-core/components@1.1.0/dist/gcds/gcds.esm.js"></script>
+    <style>
+      .example-block {
+        margin-bottom: 2rem;
+      }
+
+      .suggestion {
+        margin-top: 0.75rem;
+      }
+    </style>
+  </head>
+  <body>
+    <gcds-container id="main-content" layout="page" tag="main">
+      <gcds-heading tag="h1">Suggest a Correction</gcds-heading>
+
+      <section class="example-block">
+        <gcds-heading tag="h2">About these examples</gcds-heading>
+        <gcds-text>
+          These examples suggest corrections to a user's organization based on what they
+          type. The user can choose to ignore the suggestion and keep their original 
+          free-text input.
+        </gcds-text>
+      </section>
+
+      <section class="example-block">
+        <gcds-heading tag="h2">Suggest in English</gcds-heading>
+        <gcds-input
+          input-id="org-input-en"
+          name="org-en"
+          label="What's the coolest Government of Canada organization?"
+          hint="Start typing to see a suggestion"
+        ></gcds-input>
+        <div id="suggestion-en" class="suggestion" style="display: none;"></div>
+      </section>
+
+      <section class="example-block">
+        <gcds-heading tag="h2">Suggérer en français</gcds-heading>
+        <gcds-input
+          input-id="org-input-fr"
+          name="org-fr"
+          label="Quelle est l'organisation la plus cool du gouvernement du Canada ?"
+          hint="Commencez à saisir pour voir une suggestion"
+        ></gcds-input>
+        <div id="suggestion-fr" class="suggestion" style="display: none;"></div>
+      </section>
+    </gcds-container>
+
+    <script>
+      function readValue(event) {
+        if (event.detail && typeof event.detail.value === 'string') return event.detail.value;
+        if (event.target && 'value' in event.target) return event.target.value;
+        return '';
+      }
+
+      function setupResolver({ inputSelector, suggestionId, nameKey, prefixText, suffixText }) {
+        const input = document.querySelector(inputSelector);
+        const suggestion = document.getElementById(suggestionId);
+        let debounceTimer;
+
+        async function handle(value) {
+          if (!value) {
+            suggestion.style.display = 'none';
+            suggestion.textContent = '';
+            return;
+          }
+
+          try {
+            const response = await fetch('https://dev.gcorgs.cdssandbox.xyz/resolve', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ names: [value] }),
+            });
+            if (!response.ok) return;
+            const { results } = await response.json();
+            const result = results[0];
+            const normalizedName = result?.[nameKey];
+
+            if (result?.matched === true && normalizedName) {
+              // Build the suggestion via textContent + createElement so any
+              // characters in the API response are treated as text, never HTML.
+              suggestion.textContent = '';
+              suggestion.append(prefixText + ' ');
+
+              const link = document.createElement('gcds-link');
+              link.setAttribute('href', '#');
+              link.textContent = normalizedName;
+              suggestion.append(link);
+              suggestion.append(suffixText);
+              suggestion.style.display = 'block';
+
+              link.addEventListener(
+                'click',
+                (e) => {
+                  e.preventDefault();
+                  input.value = normalizedName;
+                  suggestion.style.display = 'none';
+                  suggestion.textContent = '';
+                },
+                { once: true }
+              );
+            } else {
+              suggestion.style.display = 'none';
+              suggestion.textContent = '';
+            }
+          } catch (_) {
+            // Ignore network errors in this minimal demo.
+          }
+        }
+
+        function onInput(event) {
+          const value = readValue(event);
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(() => handle(value), 500);
+        }
+
+        input.addEventListener('gcdsInput', onInput);
+        input.addEventListener('input', onInput);
+      }
+
+      setupResolver({
+        inputSelector: 'gcds-input[input-id="org-input-en"]',
+        suggestionId: 'suggestion-en',
+        nameKey: 'harmonized_name',
+        prefixText: 'Did you mean',
+        suffixText: '?',
+      });
+
+      setupResolver({
+        inputSelector: 'gcds-input[input-id="org-input-fr"]',
+        suggestionId: 'suggestion-fr',
+        nameKey: 'nom_harmonise',
+        prefixText: 'Voulez-vous dire',
+        suffixText: ' ?',
+      });
+    </script>
+  </body>
+</html>

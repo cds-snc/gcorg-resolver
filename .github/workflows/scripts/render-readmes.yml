@@ -1,0 +1,37 @@
+name: Render READMEs to HTML
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - README.md
+      - README_fr.md
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Render HTML
+        run: uv run .github/workflows/scripts/render_markdown.py
+
+      - name: Commit rendered HTML
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/gcorg_resolver/static/index_en.html
+          git add src/gcorg_resolver/static/index_en.toml
+          git add src/gcorg_resolver/static/index_fr.html
+          git add src/gcorg_resolver/static/index_fr.toml
+          git diff --staged --quiet || git commit -m "chore: re-render HTML from READMEs"
+          git push

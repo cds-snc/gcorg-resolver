@@ -1,0 +1,101 @@
+<!-- template.html -->
+<!-- Based on https://design-system.canada.ca/en/page-templates/basic/code/ -->
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="API for resolving free-form text into Government of Canada organizations." />
+    <title>GC Organization Name Resolution API</title>
+    <link rel="stylesheet" href="https://cdn.design-system.canada.ca/@gcds-core/css-shortcuts@1.0.1/dist/gcds-css-shortcuts.min.css" />
+    <link rel="stylesheet" href="https://cdn.design-system.canada.ca/@gcds-core/components@1.1.0/dist/gcds/gcds.css" />
+    <script type="module" src="https://cdn.design-system.canada.ca/@gcds-core/components@1.1.0/dist/gcds/gcds.esm.js"></script>
+    <style>
+      pre {
+        font-size: 0.8125rem;
+        line-height: 1.35;
+        background-color: #f1f3f5;
+        max-width: 60%;
+        box-sizing: border-box;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+
+      pre code {
+        font-size: inherit;
+        line-height: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <gcds-header lang-href="/fr" skip-to-href="#main-content">
+      <gcds-search slot="search"></gcds-search>
+      <gcds-breadcrumbs slot="breadcrumb">
+        
+        <gcds-breadcrumbs-item href="https://digital.canada.ca/about/">Canadian Digital Service</gcds-breadcrumbs-item>
+        
+        <gcds-breadcrumbs-item href="#">GC Organization Name Resolution API</gcds-breadcrumbs-item>
+        
+      </gcds-breadcrumbs>
+    </gcds-header>
+
+    <gcds-container id="main-content" layout="page" tag="main">
+      <gcds-heading tag="h1">GC Organization Name Resolution API</gcds-heading>
+<gcds-text><gcds-link href="https://github.com/your-org/gcorg-resolver">View this project on GitHub</gcds-link></gcds-text>
+<gcds-text>Resolves free-text Government of Canada organization names to a canonical <code>gc_orgID</code>. Takes messy strings like <code>&quot;CRA&quot;</code>, <code>&quot;Bibliothèque et Archives Canada&quot;</code>, or email addresses like <code>&quot;user@inspection.gc.ca&quot;</code> and returns the numeric ID from the <gcds-link href="https://open.canada.ca/data/en/dataset/57180b36-3428-4a7f-afe3-2161a6b44ec5/resource/3faaafb4-00e2-4303-947d-ac786b62559f">GC Organization Names and Codes dataset</gcds-link> on open.canada.ca.</gcds-text>
+<gcds-heading tag="h2">Usage</gcds-heading>
+<gcds-text>For now, the API  can be found at https://gcorgs.cdssandbox.xyz. It is rate limited to 50 requests per second and no more than 1000 names in one POST.</gcds-text>
+<gcds-heading tag="h3">POST /resolve</gcds-heading>
+<gcds-text>Resolve a batch of names. Returns one result per input.</gcds-text>
+<pre><code class="language-sh">curl -X POST https://gcorgs.cdssandbox.xyz/resolve \
+  -H 'Content-Type: application/json' \
+  -d '{&quot;names&quot;: [&quot;Bibliothèque et Archives Canada&quot;, &quot;CRA&quot;, &quot;Department of Unicorns&quot;]}'</code></pre>
+<pre><code class="language-json">{
+  &quot;results&quot;: [
+    {&quot;input&quot;: &quot;Bibliothèque et Archives Canada&quot;, &quot;gc_orgID&quot;: 2262, &quot;harmonized_name&quot;: &quot;Library and Archives Canada&quot;, &quot;nom_harmonise&quot;: &quot;Bibliothèque et Archives Canada&quot;, &quot;matched&quot;: true},
+    {&quot;input&quot;: &quot;CRA&quot;, &quot;gc_orgID&quot;: 2303, &quot;harmonized_name&quot;: &quot;Canada Revenue Agency&quot;, &quot;nom_harmonise&quot;: &quot;Agence du revenu du Canada&quot;, &quot;matched&quot;: true},
+    {&quot;input&quot;: &quot;Department of Unicorns&quot;, &quot;gc_orgID&quot;: null, &quot;harmonized_name&quot;: null, &quot;nom_harmonise&quot;: null, &quot;matched&quot;: false}
+  ]
+}</code></pre>
+<gcds-heading tag="h3">GET /resolve and GET /name</gcds-heading>
+<gcds-text>Two simplified endpoints intended for use with Excel's <code>WEBSERVICE()</code> and Google Sheet's <code>IMPORTDATA()</code> functions.  <code>GET /resolve</code> returns the <code>gc_orgID</code> as plain text, or an empty string on no match. The result can be passed to <code>GET /name</code> to resolve to a canonical name. The two-step process encourages users to store the unique <code>gc_orgID</code> alongside the name of the department.</gcds-text>
+<pre><code>GET /resolve?name=Agriculture
+-&gt; 2222
+
+GET /name?gc_orgID=2222&amp;lang=en
+-&gt; Agriculture and Agri-Food Canada
+
+GET /name?gc_orgID=2222&amp;lang=fr
+-&gt; Agriculture et Agroalimentaire Canada</code></pre>
+<gcds-heading tag="h3">Excel</gcds-heading>
+<gcds-text>You can use this API from Excel to automatically resolve organizations in a workbook without having to use PowerQuery or any external tools. Simply cut and paste the formulas below into your workbook.</gcds-text>
+<pre><code># Returns the gc_orgID of the name in cell A1
+=WEBSERVICE(&quot;https://gcorgs.cdssandbox.xyz/resolve?name=&quot; &amp; ENCODEURL(A1))
+
+# Returns the English name corresponding to the gc_orgID in cell A2
+=WEBSERVICE(&quot;https://gcorgs.cdssandbox.xyz/name?lang=en&amp;gc_orgID=&quot; &amp; A2)
+
+# Returns the French name
+=WEBSERVICE(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;gc_orgID=&quot; &amp; A2)</code></pre>
+<gcds-text>Note that the <code>=WEBSERVICE()</code> function only works in Excel on Windows. <strong>It does not work in Excel for Mac.</strong> This is a limitation of Excel, not a limitation of this project.</gcds-text>
+<gcds-heading tag="h3">Google Sheets</gcds-heading>
+<gcds-text>The same API calls work in Google Sheets, using the <code>=IMPORTDATA()</code> function and providing a delimiter that doesn't exist in any canonical organization names.</gcds-text>
+<pre><code># Returns the gc_orgID of the name in cell A1
+=IMPORTDATA(&quot;https://gcorgs.cdssandbox.xyz/resolve?name=&quot; &amp; ENCODEURL(A1))
+
+# Returns the English name corresponding to the gc_orgID in cell A2
+=IMPORTDATA(&quot;https://gcorgs.cdssandbox.xyz/name?lang=en&amp;gc_orgID=&quot; &amp; A2, &quot;\&quot;)
+
+# Returns the French name
+=IMPORTDATA(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;gc_orgID=&quot; &amp; A2, &quot;\&quot;)</code></pre>
+      <gcds-date-modified>2026-04-29</gcds-date-modified>
+    </gcds-container>
+
+    <gcds-footer
+      display="full"
+      contextual-heading="Canadian Digital Service"
+      contextual-links='{"Contact CDS": "mailto:cds-snc@servicecanada.gc.ca", "LinkedIn": "https://www.linkedin.com/company/cds-snc", "Newsletter": "https://canada.us15.list-manage.com/subscribe?u=729a207773f7324e217a1d945\u0026id=eb357181d2"}'
+    ></gcds-footer>
+  </body>
+</html>

@@ -24,6 +24,8 @@ def test_resolve_known_names(client):
     assert results[0]["gc_orgID"] == 2222
     assert results[0]["matched"] is True
     assert results[0]["harmonized_name"] == "Agriculture and Agri-Food Canada"
+    assert results[0]["abbreviation"] == "AAFC"
+    assert results[0]["abreviation"] == "AAC"
     assert results[1]["gc_orgID"] == 2303
     assert results[1]["matched"] is True
 
@@ -40,6 +42,8 @@ def test_resolve_unknown_name(client):
     assert result["gc_orgID"] is None
     assert result["harmonized_name"] is None
     assert result["nom_harmonise"] is None
+    assert result["abbreviation"] is None
+    assert result["abreviation"] is None
     assert result["matched"] is False
 
 

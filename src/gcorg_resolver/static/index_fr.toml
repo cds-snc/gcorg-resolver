@@ -1,0 +1,19 @@
+lang = "fr"
+title = "API de résolution des noms d'organisations du GC"
+description = "API pour résoudre le texte libre en organisations du gouvernement du Canada."
+lang_toggle_href = "/"
+date_modified = "2026-04-29"
+footer_heading = "Service numérique canadien"
+
+[footer_links]
+"Contactez le SNC" = "mailto:cds-snc@servicecanada.gc.ca"
+"Infolettre" = "https://canada.us15.list-manage.com/subscribe?u=729a207773f7324e217a1d945&id=eb357181d2"
+"LinkedIn" = "https://www.linkedin.com/company/cds-snc"
+
+[[breadcrumbs]] 
+label = "Service numérique canadien"
+href = "https://numerique.canada.ca/a-propos/"
+ 
+ [[breadcrumbs]]
+label = "API de résolution des noms d'organisations du GC"
+href = "#"

@@ -1,0 +1,52 @@
+<!-- template.html -->
+<!-- Based on https://design-system.canada.ca/en/page-templates/basic/code/ -->
+<!DOCTYPE html>
+<html dir="ltr" lang="{{ config.lang }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="{{ config.description }}" />
+    <title>{{ config.title }}</title>
+    <link rel="stylesheet" href="https://cdn.design-system.canada.ca/@gcds-core/css-shortcuts@1.0.1/dist/gcds-css-shortcuts.min.css" />
+    <link rel="stylesheet" href="https://cdn.design-system.canada.ca/@gcds-core/components@1.1.0/dist/gcds/gcds.css" />
+    <script type="module" src="https://cdn.design-system.canada.ca/@gcds-core/components@1.1.0/dist/gcds/gcds.esm.js"></script>
+    <style>
+      pre {
+        font-size: 0.8125rem;
+        line-height: 1.35;
+        background-color: #f1f3f5;
+        max-width: 60%;
+        box-sizing: border-box;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+
+      pre code {
+        font-size: inherit;
+        line-height: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <gcds-header lang-href="{{ config.lang_toggle_href }}" skip-to-href="#main-content">
+      <gcds-search slot="search"></gcds-search>
+      <gcds-breadcrumbs slot="breadcrumb">
+        {% for label, href in config.breadcrumbs %}
+        <gcds-breadcrumbs-item href="{{ href }}">{{ label }}</gcds-breadcrumbs-item>
+        {% endfor %}
+      </gcds-breadcrumbs>
+    </gcds-header>
+
+    <gcds-container id="main-content" layout="page" tag="main">
+      {{ body }}
+      <gcds-date-modified>{{ config.date_modified }}</gcds-date-modified>
+    </gcds-container>
+
+    <gcds-footer
+      display="full"
+      contextual-heading="{{ config.footer_heading }}"
+      contextual-links='{{ config.footer_links | tojson }}'
+    ></gcds-footer>
+  </body>
+</html>

@@ -1,5 +1,7 @@
 # GC Organization Name Resolution API
 
+[A French version of this document is available here](README_fr.md).
+
 Resolves free-text Government of Canada organization names to a canonical `gc_orgID`. 
 Takes messy strings like `"CRA"`, `"Bibliothèque et Archives Canada"`, or email 
 addresses like `"user@inspection.gc.ca"` and returns the numeric ID from the 
@@ -48,6 +50,7 @@ GET /name?gc_orgID=2222&lang=en
 GET /name?gc_orgID=2222&lang=fr
 -> Agriculture et Agroalimentaire Canada
 ```
+## Examples
 
 ### Excel
 
@@ -67,7 +70,7 @@ formulas below into your workbook.
 ```
 
 Note that the `=WEBSERVICE()` function only works in Excel on Windows. **It does not 
-work in Excel for Mac.** This is a limitation of Excel, not a limitation of this 
+work in Excel for Mac.** This is a limitation of Excel for Mac, not a limitation of this 
 project.
 
 ### Google Sheets
@@ -85,3 +88,11 @@ providing a delimiter that doesn't exist in any canonical organization names.
 # Returns the French name
 =IMPORTDATA("https://gcorgs.cdssandbox.xyz/name?lang=fr&gc_orgID=" & A2, "\")
 ```
+
+### Online
+
+You can see some *rudimentary* examples of how to use the API to improve data
+quality when collecting information from users here:
+
+* [Suggest a correction to an organization name](https://gcorgs.cdssandbox.xyz/examples/suggest)
+* [Infer an organisation name from a user's email](https://gcorgs.cdssandbox.xyz/examples/infer)

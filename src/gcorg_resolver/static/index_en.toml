@@ -1,0 +1,19 @@
+lang = "en"
+title = "GC Organization Name Resolution API"
+description = "API for resolving free-form text into Government of Canada organizations."
+lang_toggle_href = "/fr"
+date_modified = "2026-04-29"
+footer_heading = "Canadian Digital Service"
+
+[footer_links]
+"Contact CDS" = "mailto:cds-snc@servicecanada.gc.ca"
+"Newsletter" = "https://canada.us15.list-manage.com/subscribe?u=729a207773f7324e217a1d945&id=eb357181d2"
+"LinkedIn" = "https://www.linkedin.com/company/cds-snc"
+
+[[breadcrumbs]] 
+label = "Canadian Digital Service"
+href = "https://digital.canada.ca/about/"
+ 
+ [[breadcrumbs]]
+label = "GC Organization Name Resolution API"
+href = "#"

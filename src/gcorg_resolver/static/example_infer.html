@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GC Org Resolver - Infer Example</title>
+    <link rel="stylesheet" href="https://cdn.design-system.canada.ca/@gcds-core/css-shortcuts@1.0.1/dist/gcds-css-shortcuts.min.css" />
+    <link rel="stylesheet" href="https://cdn.design-system.canada.ca/@gcds-core/components@1.1.0/dist/gcds/gcds.css" />
+    <script type="module" src="https://cdn.design-system.canada.ca/@gcds-core/components@1.1.0/dist/gcds/gcds.esm.js"></script>
+    <style>
+      .example-block {
+        margin-bottom: 2rem;
+      }
+
+      .suggestion {
+        margin-top: 0.75rem;
+      }
+    </style>
+  </head>
+  <body>
+    <gcds-container id="main-content" layout="page" tag="main">
+      <gcds-heading tag="h1">Infer an Organization</gcds-heading>
+
+      <section class="example-block">
+        <gcds-heading tag="h2">About these examples</gcds-heading>
+        <gcds-text>
+            These examples infer a user's organization based on their email domain. If a
+             match is found, the organization field is auto-populated and locked. If no 
+             match is found, the user can enter their organization manually.
+        </gcds-text>
+      </section>
+
+      <section class="example-block">
+        <gcds-heading tag="h2">Infer from email</gcds-heading>
+        <gcds-input
+          input-id="email-input"
+          name="email"
+          label="Email address"
+          hint="Type a work email to infer organization"
+        ></gcds-input>
+        <gcds-input
+          input-id="org-inferred"
+          name="org-inferred"
+          label="Organization"
+          hint="Auto-populates when matched; editable when unmatched"
+        ></gcds-input>
+        <div id="inference-status" class="suggestion" style="display: none;"></div>
+      </section>
+
+      <section class="example-block">
+        <gcds-heading tag="h2">Déduire à partir du courriel</gcds-heading>
+        <gcds-input
+          input-id="email-input-fr"
+          name="email-fr"
+          label="Adresse courriel"
+          hint="Entrez un courriel professionnel pour déduire l'organisation"
+        ></gcds-input>
+        <gcds-input
+          input-id="org-inferred-fr"
+          name="org-inferred-fr"
+          label="Organisation"
+          hint="Rempli automatiquement si trouvé; modifiable sinon"
+        ></gcds-input>
+        <div id="inference-status-fr" class="suggestion" style="display: none;"></div>
+      </section>
+    </gcds-container>
+
+    <script>
+      function readValue(event) {
+        if (event.detail && typeof event.detail.value === 'string') return event.detail.value;
+        if (event.target && 'value' in event.target) return event.target.value;
+        return '';
+      }
+
+      function setupEmailInference({
+        emailInputSelector,
+        orgInputSelector,
+        statusId,
+        nameKey,
+        matchedText,
+        unmatchedText,
+      }) {
+        const emailInput = document.querySelector(emailInputSelector);
+        const orgInput = document.querySelector(orgInputSelector);
+        const status = document.getElementById(statusId);
+        let debounceTimer;
+
+        function setStatus(text) {
+          if (!text) {
+            status.style.display = 'none';
+            status.textContent = '';
+            return;
+          }
+          // textContent treats the value as plain text, so any characters
+          // returned from the API can never be parsed as HTML.
+          status.textContent = text;
+          status.style.display = 'block';
+        }
+
+        async function infer(email) {
+          if (!email) {
+            orgInput.value = '';
+            orgInput.disabled = false;
+            setStatus('');
+            return;
+          }
+
+          try {
+            const response = await fetch('https://dev.gcorgs.cdssandbox.xyz/resolve', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ names: [email] }),
+            });
+            if (!response.ok) return;
+            const { results } = await response.json();
+            const result = results[0];
+
+            if (result?.matched === true && result?.[nameKey]) {
+              orgInput.value = result[nameKey];
+              orgInput.disabled = true;
+              setStatus(matchedText);
+            } else {
+              orgInput.disabled = false;
+              orgInput.value = '';
+              setStatus(unmatchedText);
+            }
+          } catch (_) {
+            orgInput.disabled = false;
+            setStatus('');
+          }
+        }
+
+        function onEmailInput(event) {
+          const email = readValue(event).trim();
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(() => infer(email), 500);
+        }
+
+        emailInput.addEventListener('gcdsInput', onEmailInput);
+        emailInput.addEventListener('input', onEmailInput);
+      }
+
+      setupEmailInference({
+        emailInputSelector: 'gcds-input[input-id="email-input"]',
+        orgInputSelector: 'gcds-input[input-id="org-inferred"]',
+        statusId: 'inference-status',
+        nameKey: 'harmonized_name',
+        matchedText: 'Organization inferred from email domain.',
+        unmatchedText: 'No match found. Enter organization manually.',
+      });
+
+      setupEmailInference({
+        emailInputSelector: 'gcds-input[input-id="email-input-fr"]',
+        orgInputSelector: 'gcds-input[input-id="org-inferred-fr"]',
+        statusId: 'inference-status-fr',
+        nameKey: 'nom_harmonise',
+        matchedText: "Organisation déduite à partir du domaine du courriel.",
+        unmatchedText: "Aucune correspondance trouvée. Entrez l'organisation manuellement.",
+      });
+    </script>
+  </body>
+</html>

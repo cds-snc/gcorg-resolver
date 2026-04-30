@@ -45,8 +45,8 @@ got=$(curl -sf "$BASE_URL/name?gc_orgID=2222&lang=fr")
 [[ "$got" == "Agriculture et Agroalimentaire Canada" ]]
 echo "PASS  GET /name?gc_orgID=2222&lang=fr"
 
-# GET /.well-known/security.txt - must return text/plain
+# GET /.well-known/security.txt - must return something STARTING with text/plain
 echo "Testing /.well-known/security.txt endpoint..."
 content_type=$(curl -s -o /dev/null -w "%{content_type}" "$BASE_URL/.well-known/security.txt")
-[[ "$content_type" == "text/plain" ]]
+[[ "$content_type" == text/plain* ]]
 echo "PASS  GET /.well-known/security.txt"
