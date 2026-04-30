@@ -88,3 +88,11 @@ providing a delimiter that doesn't exist in any canonical organization names.
 # Returns the French name
 =IMPORTDATA("https://gcorgs.cdssandbox.xyz/name?lang=fr&gc_orgID=" & A2, "\")
 ```
+
+### Online
+
+You can see some *rudimentary* examples of how to use the API to improve data
+quality when collecting information from users here:
+
+* [Suggest a correction to an organization name](https://gcorgs.cdssandbox.xyz/examples/suggest)
+* [Infer an organisation name from a user's email](https://gcorgs.cdssandbox.xyz/examples/infer)

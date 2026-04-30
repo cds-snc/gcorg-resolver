@@ -83,3 +83,11 @@ Les mêmes appels d'API fonctionnent dans Google Sheets, en utilisant la fonctio
 # Renvoie le nom français
 =IMPORTDATA("https://gcorgs.cdssandbox.xyz/name?lang=fr&gc_orgID=" & A2, "\")
 ```
+
+### En ligne
+
+Vous trouverez ici quelques exemples *rudimentaires* d'utilisation de l'API pour améliorer 
+la qualité des données lors de la collecte de renseignements auprès des utilisateurs :
+
+* [Suggérer une correction au nom d'une organisation](https://gcorgs.cdssandbox.xyz/examples/suggest)
+* [Déduire le nom d'une organisation à partir de l'adresse courriel d'un utilisateur](https://gcorgs.cdssandbox.xyz/examples/infer)
