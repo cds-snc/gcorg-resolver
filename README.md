@@ -94,5 +94,5 @@ providing a delimiter that doesn't exist in any canonical organization names.
 You can see some *rudimentary* examples of how to use the API to improve data
 quality when collecting information from users here:
 
-* [Suggest a correction to an organization name](https://gcorgs.cdssandbox.xyz/examples/suggest)
-* [Infer an organisation name from a user's email](https://gcorgs.cdssandbox.xyz/examples/infer)
+* [Suggest a correction to an organization name](https://gcorgs.cdssandbox.xyz/examples/suggest) ([source](src/gcorg_resolver/static/example_suggest.html))
+* [Infer an organisation name from a user's email](https://gcorgs.cdssandbox.xyz/examples/infer) ([source](src/gcorg_resolver/static/example_infer.html))

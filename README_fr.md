@@ -89,5 +89,5 @@ Les mêmes appels d'API fonctionnent dans Google Sheets, en utilisant la fonctio
 Vous trouverez ici quelques exemples *rudimentaires* d'utilisation de l'API pour améliorer 
 la qualité des données lors de la collecte de renseignements auprès des utilisateurs :
 
-* [Suggérer une correction au nom d'une organisation](https://gcorgs.cdssandbox.xyz/examples/suggest)
-* [Déduire le nom d'une organisation à partir de l'adresse courriel d'un utilisateur](https://gcorgs.cdssandbox.xyz/examples/infer)
+* [Suggérer une correction au nom d'une organisation](https://gcorgs.cdssandbox.xyz/examples/suggest)  ([source](src/gcorg_resolver/static/example_suggest.html))
+* [Déduire le nom d'une organisation à partir de l'adresse courriel d'un utilisateur](https://gcorgs.cdssandbox.xyz/examples/infer) ([source](src/gcorg_resolver/static/example_infer.html))
