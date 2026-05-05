@@ -76,7 +76,7 @@ from markdown_it import MarkdownIt
 
 GITHUB_URL = "https://github.com/your-org/gcorg-resolver"
 
-BASE_PATH = Path("../../..").resolve()
+BASE_PATH = Path(__file__).resolve().parents[3]
 STATIC_PATH = BASE_PATH / "src/gcorg_resolver/static"
 TEMPLATE_PATH = STATIC_PATH / "gcds_template.html"
 
