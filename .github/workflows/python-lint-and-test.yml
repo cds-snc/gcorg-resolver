@@ -2,6 +2,9 @@
 
 name: Python Lint and Test
 
+permissions:
+  contents: read
+
 on:
   push:
     paths:
