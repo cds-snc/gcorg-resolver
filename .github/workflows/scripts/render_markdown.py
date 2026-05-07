@@ -74,7 +74,7 @@ from markdown_it import MarkdownIt
 # --- Pages ---
 # Add one dict per page to render.
 
-GITHUB_URL = "https://github.com/your-org/gcorg-resolver"
+GITHUB_URL = "https://github.com/cds-snc/gcorg-resolver"
 
 BASE_PATH = Path(__file__).resolve().parents[3]
 STATIC_PATH = BASE_PATH / "src/gcorg_resolver/static"

@@ -1,5 +1,8 @@
 name: Integration tests
 
+permissions:
+  contents: read
+
 on:
   workflow_run:
     workflows: ["Terraform apply (dev)", "Terraform apply (prod)"]
