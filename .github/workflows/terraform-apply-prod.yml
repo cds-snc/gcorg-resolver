@@ -11,6 +11,15 @@ on:
       - "pyproject.toml"
       - "uv.lock"
       - ".github/workflows/terraform-apply-prod.yml"
+  workflow_run:
+    workflows:
+      - "Update reference data"
+      - "Render READMEs to HTML"
+    types:
+      - completed
+    branches:
+      - main
+  workflow_dispatch:
 
 concurrency:
   group: terraform-apply-prod
@@ -27,6 +36,7 @@ env:
 
 jobs:
   apply:
+    if: ${{ github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
