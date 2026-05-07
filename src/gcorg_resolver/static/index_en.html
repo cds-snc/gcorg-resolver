@@ -42,7 +42,7 @@
 
     <gcds-container id="main-content" layout="page" tag="main">
       <gcds-heading tag="h1">GC Organization Name Resolution API</gcds-heading>
-<gcds-text><gcds-link href="https://github.com/your-org/gcorg-resolver">View this project on GitHub</gcds-link></gcds-text>
+<gcds-text><gcds-link href="https://github.com/cds-snc/gcorg-resolver">View this project on GitHub</gcds-link></gcds-text>
 <gcds-text>Resolves free-text Government of Canada organization names to a canonical <code>gc_orgID</code>. Takes messy strings like <code>&quot;CRA&quot;</code>, <code>&quot;Bibliothèque et Archives Canada&quot;</code>, or email addresses like <code>&quot;user@inspection.gc.ca&quot;</code> and returns the numeric ID from the <gcds-link href="https://open.canada.ca/data/en/dataset/57180b36-3428-4a7f-afe3-2161a6b44ec5/resource/3faaafb4-00e2-4303-947d-ac786b62559f">GC Organization Names and Codes dataset</gcds-link> on open.canada.ca.</gcds-text>
 <gcds-heading tag="h2">Usage</gcds-heading>
 <gcds-text>For now, the API  can be found at https://gcorgs.cdssandbox.xyz. It is rate limited to 50 requests per second and no more than 1000 names in one POST.</gcds-text>
@@ -68,6 +68,7 @@ GET /name?gc_orgID=2222&amp;lang=en
 
 GET /name?gc_orgID=2222&amp;lang=fr
 -&gt; Agriculture et Agroalimentaire Canada</code></pre>
+<gcds-heading tag="h2">Examples</gcds-heading>
 <gcds-heading tag="h3">Excel</gcds-heading>
 <gcds-text>You can use this API from Excel to automatically resolve organizations in a workbook without having to use PowerQuery or any external tools. Simply cut and paste the formulas below into your workbook.</gcds-text>
 <pre><code># Returns the gc_orgID of the name in cell A1
@@ -78,7 +79,7 @@ GET /name?gc_orgID=2222&amp;lang=fr
 
 # Returns the French name
 =WEBSERVICE(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;gc_orgID=&quot; &amp; A2)</code></pre>
-<gcds-text>Note that the <code>=WEBSERVICE()</code> function only works in Excel on Windows. <strong>It does not work in Excel for Mac.</strong> This is a limitation of Excel, not a limitation of this project.</gcds-text>
+<gcds-text>Note that the <code>=WEBSERVICE()</code> function only works in Excel on Windows. <strong>It does not work in Excel for Mac.</strong> This is a limitation of Excel for Mac, not a limitation of this project.</gcds-text>
 <gcds-heading tag="h3">Google Sheets</gcds-heading>
 <gcds-text>The same API calls work in Google Sheets, using the <code>=IMPORTDATA()</code> function and providing a delimiter that doesn't exist in any canonical organization names.</gcds-text>
 <pre><code># Returns the gc_orgID of the name in cell A1
@@ -89,7 +90,17 @@ GET /name?gc_orgID=2222&amp;lang=fr
 
 # Returns the French name
 =IMPORTDATA(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;gc_orgID=&quot; &amp; A2, &quot;\&quot;)</code></pre>
-      <gcds-date-modified>2026-04-29</gcds-date-modified>
+<gcds-heading tag="h3">Online</gcds-heading>
+<gcds-text>You can see some <em>rudimentary</em> examples of how to use the API to improve data quality when collecting information from users here:</gcds-text>
+<ul>
+<li>
+<gcds-link href="https://gcorgs.cdssandbox.xyz/examples/suggest">Suggest a correction to an organization name</gcds-link> (<gcds-link href="src/gcorg_resolver/static/example_suggest.html">source</gcds-link>)
+</li>
+<li>
+<gcds-link href="https://gcorgs.cdssandbox.xyz/examples/infer">Infer an organization name from a user's email</gcds-link> (<gcds-link href="src/gcorg_resolver/static/example_infer.html">source</gcds-link>)
+</li>
+</ul>
+      <gcds-date-modified>2026-05-07</gcds-date-modified>
     </gcds-container>
 
     <gcds-footer
