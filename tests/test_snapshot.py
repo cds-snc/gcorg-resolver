@@ -254,6 +254,51 @@ CANONICAL_ORGS_FR: list[tuple[str, int]] = [
     ("Conseil de la radiodiffusion et des télécommunications canadiennes", 2396),
 ]
 
+# These are bilingual acronym pairs that should resolve the same always.
+# These are commonly used in ECM products.
+
+BILINGUAL_ACRONYMS = [
+    ("CRA / ARC", 2303),
+    ("IRCC / IRCC", 2224),
+    ("ESDC / EDSC", 2229),
+    ("RCMP / GRC", 2288),
+    ("PC / PC", 2315),
+    ("ISED / ISDE", 2231),
+    ("CBSA / ASFC", 2300),
+    ("TC / TC", 2238),
+    ("VAC / ACC", 2239),
+    ("TBS / SCT", 2242),
+    ("NRCan / RNCan", 2234),
+    ("DND / MDN", 2233),
+    ("PCH / PCH", 2223),
+    ("DFO / MPO", 2226),
+    ("PSPC / SPAC", 2236),
+    ("CFIA / ACIA", 2306),
+    ("GAC / AMC", 2227),
+    ("ECCC / ECCC", 2237),
+    ("PS / SP", 2235),
+    ("HC / SC", 2228),
+    ("IRB / CISR", 2261),
+    ("AAFC / AAC", 2222),
+    ("CDC / CCL", 3615),
+    ("LAC / BAC", 2262),
+    ("CSC / SCC", 2255),
+    ("CRTC / CRTC", 2396),
+    ("ACOA / APECA", 2244),
+    ("SSC / SPC", 2292),
+    ("PSC / CFP", 2286),
+    ("CER / REC", 2312),
+    ("IAAC / AEIC", 2245),
+    ("StatCan / StatCan", 2293),
+    ("WD / DEO", 2240),
+    ("CNSC / CCSN", 2308),
+    ("JUS / JUS", 2232),
+    ("CGC / CCG", 2246),
+    ("ATSSC / SCDATA", 2297),
+    ("ISC / SAC", 2243),
+    ("WAGE / FEGC", 2241),
+]
+
 
 @pytest.mark.parametrize(("name", "expected_id"), CANONICAL_ORGS_EN)
 def test_canonical_english_name_resolves(name: str, expected_id: int):
@@ -262,4 +307,9 @@ def test_canonical_english_name_resolves(name: str, expected_id: int):
 
 @pytest.mark.parametrize(("name", "expected_id"), CANONICAL_ORGS_FR)
 def test_canonical_french_name_resolves(name: str, expected_id: int):
+    assert resolve(name) == expected_id
+
+
+@pytest.mark.parametrize(("name", "expected_id"), BILINGUAL_ACRONYMS)
+def test_bilingual_acronym_resolves(name: str, expected_id: int):
     assert resolve(name) == expected_id

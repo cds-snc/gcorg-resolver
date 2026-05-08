@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "gcorg-resolver"
-version = "0.1.0"
+version = "0.1.1"
 description = "HTTP API that resolves Government of Canada organization names"
 requires-python = ">=3.11"
 dependencies = [
