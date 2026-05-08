@@ -43,7 +43,7 @@
     <gcds-container id="main-content" layout="page" tag="main">
       <gcds-heading tag="h1">API de résolution des noms d'organisations du gouvernement du Canada</gcds-heading>
 <gcds-text><em>Ce contenu est traduit automatiquement.</em></gcds-text>
-<gcds-text><gcds-link href="https://github.com/your-org/gcorg-resolver">Voir ce projet sur GitHub</gcds-link></gcds-text>
+<gcds-text><gcds-link href="https://github.com/cds-snc/gcorg-resolver">Voir ce projet sur GitHub</gcds-link></gcds-text>
 <gcds-text>Permet de convertir les noms d'organisations du gouvernement du Canada en texte libre en un identifiant canonique <code>gc_orgID</code>.</gcds-text>
 <gcds-text>Elle accepte des chaînes de caractères complexes comme « ARC », « Bibliothèque et Archives Canada » ou des adresses courriel comme « user@inspection.gc.ca » et renvoie l'identifiant numérique correspondant dans l'ensemble de données <gcds-link href="https://open.canada.ca/data/en/dataset/57180b36-3428-4a7f-afe3-2161a6b44ec5/resource/3faaafb4-00e2-4303-947d-ac786b62559f">Noms et codes des organisations du gouvernement du Canada</gcds-link> disponible sur ouvert.canada.ca.</gcds-text>
 <gcds-heading tag="h2">Utilisation</gcds-heading>
@@ -92,7 +92,17 @@ GET /name?gc_orgID=2222&amp;lang=fr
 
 # Renvoie le nom français
 =IMPORTDATA(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;gc_orgID=&quot; &amp; A2, &quot;\&quot;)</code></pre>
-      <gcds-date-modified>2026-04-29</gcds-date-modified>
+<gcds-heading tag="h3">En ligne</gcds-heading>
+<gcds-text>Vous trouverez ici quelques exemples <em>rudimentaires</em> d'utilisation de l'API pour améliorer la qualité des données lors de la collecte de renseignements auprès des utilisateurs :</gcds-text>
+<ul>
+<li>
+<gcds-link href="https://gcorgs.cdssandbox.xyz/examples/suggest">Suggérer une correction au nom d'une organisation</gcds-link>  (<gcds-link href="src/gcorg_resolver/static/example_suggest.html">source</gcds-link>)
+</li>
+<li>
+<gcds-link href="https://gcorgs.cdssandbox.xyz/examples/infer">Déduire le nom d'une organisation à partir de l'adresse courriel d'un utilisateur</gcds-link> (<gcds-link href="src/gcorg_resolver/static/example_infer.html">source</gcds-link>)
+</li>
+</ul>
+      <gcds-date-modified>2026-05-07</gcds-date-modified>
     </gcds-container>
 
     <gcds-footer
