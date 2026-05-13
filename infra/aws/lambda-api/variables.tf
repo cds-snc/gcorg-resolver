@@ -21,8 +21,7 @@ variable "log_retention_days" {
 variable "lambda_max_concurrency" {
   description = "Maximum concurrent Lambda executions."
   type        = number
-  default     = -1
-# default     = 10   # TODO: Limit concurrency  
+  default     = 25
 }
 
 variable "api_throttle_rate" {
