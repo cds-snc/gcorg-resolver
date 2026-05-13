@@ -45,19 +45,26 @@ data "aws_iam_policy_document" "apply_dev" {
   statement {
     sid       = "LambdaAll"
     actions   = ["lambda:*"]
-    resources = ["*"]
+    resources = ["arn:aws:lambda:*:${data.aws_caller_identity.current.account_id}:function:gcorg-resolver-*"]
   }
 
   statement {
     sid       = "ApiGatewayAll"
     actions   = ["apigateway:*"]
-    resources = ["*"]
+    resources = [
+      "arn:aws:apigateway:*::/restapis/*/stages*",
+      "arn:aws:apigateway:*::/restapis/*/resources*",
+      "arn:aws:apigateway:*::/restapis/*/deployments*",
+      "arn:aws:apigateway:*::/restapis",
+      "arn:aws:apigateway:*::/apis*",
+      "arn:aws:apigateway:*::/domainnames*",
+    ]
   }
 
   statement {
     sid       = "LogsAll"
     actions   = ["logs:*"]
-    resources = ["*"]
+    resources = ["arn:aws:logs:*:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/gcorg-resolver-*"]
   }
 
   statement {
@@ -140,19 +147,26 @@ data "aws_iam_policy_document" "apply_prod" {
   statement {
     sid       = "LambdaAll"
     actions   = ["lambda:*"]
-    resources = ["*"]
+    resources = ["arn:aws:lambda:*:${data.aws_caller_identity.current.account_id}:function:gcorg-resolver-*"]
   }
 
   statement {
     sid       = "ApiGatewayAll"
     actions   = ["apigateway:*"]
-    resources = ["*"]
+    resources = [
+      "arn:aws:apigateway:*::/restapis/*/stages*",
+      "arn:aws:apigateway:*::/restapis/*/resources*",
+      "arn:aws:apigateway:*::/restapis/*/deployments*",
+      "arn:aws:apigateway:*::/restapis",
+      "arn:aws:apigateway:*::/apis*",
+      "arn:aws:apigateway:*::/domainnames*",
+    ]
   }
 
   statement {
     sid       = "LogsAll"
     actions   = ["logs:*"]
-    resources = ["*"]
+    resources = ["arn:aws:logs:*:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/gcorg-resolver-*"]
   }
 
   statement {

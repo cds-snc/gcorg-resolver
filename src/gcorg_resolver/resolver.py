@@ -62,6 +62,10 @@ def resolve(name: str) -> int | None:
         matches = get_close_matches(
             query, index.keys(), n=1, cutoff=FUZZY_MATCH_MIN_RATIO
         )
+        # In the rare case where we fuzzy match to an ambiguous org, explicitly return 0
         if matches:
-            return index[matches[0]]
+            matched_id = index[matches[0]]
+            if matched_id == 0:
+                return None
+            return matched_id
     return None
