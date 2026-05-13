@@ -15,6 +15,7 @@ dependencies = [
 [project.optional-dependencies]
 lambda = [
     "mangum>=0.19",
+    "asgiref>=3.8",
 ]
 
 [tool.hatch.build.targets.wheel]
