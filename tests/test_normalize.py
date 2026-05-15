@@ -33,9 +33,9 @@ def test_lowercases_and_strips_diacritics():
 
 
 def test_strips_trailing_canada_variants():
-    assert normalize("Department of Finance Canada") == "department finance"
+    assert normalize("Department of Finance Canada") == "finance"
     assert normalize("Finances Canada") == "finances"
-    assert normalize("Ministère des Finances du Canada") == "ministere finances"
+    assert normalize("Ministère des Finances du Canada") == "finances"
 
 
 def test_office_prefix_is_stripped():
@@ -48,7 +48,7 @@ def test_agency_typos_are_fixed():
 
 
 def test_department_typos_are_fixed():
-    assert normalize("Deprtment of Finance") == "department finance"
+    assert normalize("Deprtment of Finance") == "finance"
 
 
 def test_punctuation_collapses():
@@ -118,3 +118,17 @@ def test_abbreviation_dots_are_stripped():
 
 def test_domain_dots_are_preserved():
     assert normalize("agr.gc.ca") == "agr.gc.ca"
+
+
+def test_department_affix_is_stripped_en():
+    assert normalize("Department of Indigenous Services") == "indigenous services"
+    assert normalize("Indigenous Services Department") == "indigenous services"
+    assert normalize("Deparment of Indigenous Services") == "indigenous services"
+
+
+def test_department_affix_is_stripped_fr():
+    assert normalize("Ministère de la Défense nationale") == "defense nationale"
+    assert normalize("Ministère des Finances") == "finances"
+    assert normalize("Ministère du Patrimoine canadien") == "patrimoine"
+    assert normalize("Ministère d'Innovation") == "innovation"
+    assert normalize("Cabinet du Premier ministre") == "cabinet premier ministre"
