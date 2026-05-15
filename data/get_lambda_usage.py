@@ -172,7 +172,8 @@ def parse_args(argv: list[str] | None = None) -> str:
     )
     parser.add_argument(
         "--env",
-        required=True,
+        required=False,
+        default="prod",
         choices=["dev", "prod"],
         help="Environment (dev or prod).",
     )
