@@ -29,7 +29,7 @@ def test_r_docstring_examples(raw: str, expected: str):
 
 
 def test_lowercases_and_strips_diacritics():
-    assert normalize("Ministère de l'Emploi") == "ministere emploi"
+    assert normalize("Ministère de l'Emploi") == "emploi"
 
 
 def test_strips_trailing_canada_variants():

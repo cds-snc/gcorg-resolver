@@ -15,8 +15,7 @@ Pipeline steps (in order):
 7. Strip "Office of the" / "Bureau du/de la/d'" prefixes
 8. Strip trailing "Inc" / "Inc."
 9. Fix common agency/department/ministry typos
-10. Strip leading "Department of" or French ministry prefixes and trailing
-    "Department"/"Ministère" affixes
+10. Strip leading or trailing "Department"/"Ministère" affixes
 11. Drop prepositions and articles (the, of, and, du, de, des, etc.)
 12. Replace non-critical punctuation with a space
 13. Collapse whitespace
@@ -47,12 +46,12 @@ OFFICE_PREFIX = re.compile(r"^(?:office of the|bureau du|bureau de la|bureau d')
 # "inc"; the optional dot handles both punctuated and unpunctuated forms.
 INC_TRAILING = re.compile(r"\s+inc\.?$")
 
-# Strip leading "department of" or French ministry forms that use
-# de la/des/du/d' (but not "de l'", which remains as part of the name),
-# plus trailing "department" / "ministere". This must run before generic
-# preposition/punctuation stripping so these patterns are still recognizable.
+
+# Strip leading/trailing English/French department/ministry nouns.
+# Prepositions/articles such as "of", "de la", "du", "d'", etc. are removed
+# later by PREPOSITIONS, so we intentionally do not match them here.
 DEPARTMENT_AFFIX = re.compile(
-    r"^department of\s+|^ministere\s+(?:(?:de la|des|du)\s+|d')|\s+department$|\s+ministere$"
+    r"^\s*(?:department|ministere)\s+|\s+(?:department|ministere)\s*$"
 )
 
 

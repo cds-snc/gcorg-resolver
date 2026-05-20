@@ -607,13 +607,6 @@ defense nationale forces armees,2233
 defense nationale forces armees national defence,2233
 democratic institutions,3566
 deo wd,2240
-department finance,2225
-department finance ministere finances,2225
-department finance ministeres finances,2225
-department heritage patrimoine,2223
-department justice,2232
-department justice ministere justice,2232
-department national defence defense nationale forces,2233
 deposit insurance corporation,3634
 destination,3647
 development investment corporation,3635
@@ -742,9 +735,12 @@ femmes egalite genres women gender equality,2241
 fin,2225
 fin.gc.ca,2225
 finance,2225
+finance ministere finances,2225
+finance ministeres finances,2225
 financement agricole,3616
 financement agricole farm credit,3616
 finances,2225
+finances department finance,2225
 financial consumer agency,2259
 financial consumer agency agence consommation en matiere financiere,2259
 financial transactions reports analysis centre,2260
@@ -984,6 +980,8 @@ juge-arbitre,3688
 jus,2232
 jus jus,2232
 justice,2232
+justice department justice,2232
+justice ministere justice,2232
 justice.gc.ca,2232
 l administration surete transport aerien,3655
 l administration surete transport aerien air transport security authority,3655
@@ -1036,10 +1034,6 @@ military grievances external review committee,2263
 military grievances external review committee comite externe examen griefs militaires,2263
 military police complaints commission,2264
 military police complaints commission commission examen plaintes concernant police militaire,2264
-ministere finances,2225
-ministere finances department finance,2225
-ministere justice,2232
-ministere justice department justice,2232
 mint.ca,3637
 miscarriage justice review commission,3706
 monnaie royale,3637
@@ -1096,6 +1090,7 @@ national battlefields commission commission champs bataille nationaux,2311
 national capital commission,3653
 national defence,2233
 national defence defense nationale,2233
+national defence defense nationale forces,2233
 national defence defense nationale forces armees,2233
 national defense,2233
 national energy board,2312
