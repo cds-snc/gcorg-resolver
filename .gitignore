@@ -20,9 +20,18 @@ models/
 .vscode/
 .idea/
 
+data/*.html
+data/lambda_usage*.csv
+
 infra/.build/
 infra/**/.terraform/
 infra/**/.terragrunt-cache/
 *.tfstate
 *.tfstate.backup
 *.tfplan
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rproj

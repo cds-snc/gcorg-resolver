@@ -1,0 +1,201 @@
+---
+title: "GC Organization Name Resolution API"
+format: 
+  dashboard:
+    theme: lumen
+    embed-resources: true
+---
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(lubridate)
+library(tsibble)
+library(gt)
+
+dashboard_start <- as_date("2026-04-27")  # When we first deployed
+dashboard_end <- today() - days(1)
+
+# Load the daily CSV
+lambda_usage <- read_csv("lambda_usage_prod.csv") |>
+  mutate(date = as.Date(date)) %>%
+  filter(
+    between(
+      date,
+      dashboard_start,
+      dashboard_end
+    )
+  )
+
+```
+
+```{r}
+# Aggregate to ISO weeks using yearweek
+weekly <- lambda_usage |>
+  mutate(
+    year_week = yearweek(date)
+  ) |>
+  group_by(year_week) |>
+  summarise(
+    week_start = min(date),
+    errors = sum(errors),
+    throttles = sum(throttles),
+    duration_avg_ms = weighted.mean(x = duration_avg_ms, w = invocations),
+    invocations = sum(invocations),
+    total = invocations + errors + throttles,
+    concurrent_max = max(concurrent_max),
+    .groups = "drop"
+  ) |>
+  arrange(week_start)
+```
+
+## Row {height="25%"}
+
+```{r}
+#| content: valuebox
+#| title: "Total Invocations"
+list(
+  icon = "lightning-charge",
+  color = "info",
+  value = scales::comma(sum(weekly$invocations), accuracy = 1)
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Invocations Last Week"
+list(
+  icon = "graph-up",
+  color = "primary",
+  value = scales::comma(last(weekly$invocations), accuracy = 1)
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Errors Last Week"
+total_errors <- last(weekly$errors)
+error_rate <- total_errors / last(weekly$total)
+
+list(
+  icon = "exclamation-triangle",
+  color = case_when(
+    total_errors == 0 ~ "success",
+    error_rate > 0.01 ~ "danger",
+    TRUE ~ "warning"
+  ),
+  value = if (error_rate >= 0.001) {
+    paste0(scales::comma(total_errors, accuracy = 1), " (", scales::percent(error_rate, accuracy = 0.1), ")")
+  } else {
+    scales::comma(total_errors, accuracy = 1)
+  }
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Throttles Last Week"
+total_throttles <- last(weekly$throttles)
+throttle_rate <- total_throttles / last(weekly$total)
+list(
+  icon = "clock",
+  color = case_when(
+    total_throttles == 0 ~ "success",
+    throttle_rate > 0.01 ~ "danger",
+    TRUE ~ "warning"
+  ),
+  value = if (throttle_rate >= 0.001) {
+    paste0(scales::comma(total_throttles, accuracy = 1), " (", scales::percent(throttle_rate, accuracy = 0.1), ")")
+  } else {
+    scales::comma(total_throttles, accuracy = 1)
+  }
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Avg Duration (ms)"
+current_duration <- last(weekly$duration_avg_ms)
+mean_duration <- weighted.mean(x = weekly$duration_avg_ms, w = weekly$total)
+sd_duration <- sd(weekly$duration_avg_ms)
+
+list(
+  icon = "hourglass",
+  color = case_when(
+    current_duration >= mean_duration + 2 * sd_duration ~ "danger",
+    current_duration >= mean_duration + sd_duration ~ "warning",
+    TRUE ~ "success"
+  ),
+  value = round(current_duration, 2)
+)
+```
+
+## Row
+
+```{r}
+#| title: "Daily Usage"
+lambda_usage |>
+  select(-duration_avg_ms, -concurrent_max) |>
+  pivot_longer(
+    cols = c("invocations", "errors", "throttles"),
+    names_to = "type",
+    values_to = "n"
+  ) |>
+  ggplot(aes(x = date, y = n, fill = type)) +
+  geom_col(alpha = 0.8) +
+  scale_fill_manual(
+    name = "",
+    values = c(
+      "invocations" = "steelblue",
+      "errors" = "firebrick",
+      "throttles" = "darkorange"
+    )) +
+  scale_y_continuous(labels = scales::comma) +
+  scale_x_date(date_labels = "%b %d", date_breaks = "1 week") +
+  labs(
+    x = "",
+    y = "Count",
+    fill = "Type",
+    subtitle = "Daily Invocations",
+    title = "GC Organization Name Resolution API"
+  ) +
+  theme_bw()
+```
+
+```{r}
+#| title: "Daily Duration"
+lambda_usage |>
+  ggplot(aes(x = date, y = duration_avg_ms)) +
+  geom_point(color = "mediumseagreen", aes(size = invocations)) +
+  scale_x_date(date_labels = "%b %d", date_breaks = "1 week") +
+  labs(
+    x = "",
+    y = "Duration (ms)",
+    subtitle = "Daily Duration",
+    title = "GC Organization Name Resolution API"
+  ) +
+  scale_y_continuous(limits = c(0, NA)) +
+  theme_bw()
+```
+
+## Row
+
+```{r}
+#| title: "Weekly Breakdown"
+weekly |>
+  gt() |>
+  fmt_date(columns = week_start, date_style = "m_day_year") |>
+  fmt_number(columns = c(invocations, errors, throttles, concurrent_max), decimals = 0) |>
+  fmt_number(columns = duration_avg_ms, decimals = 2) |>
+  cols_hide(c("year_week", "total")) |>
+  cols_label(
+    week_start = "Week Starting",
+    invocations = "Invocations",
+    errors = "Errors",
+    throttles = "Throttles",
+    duration_avg_ms = "Avg Duration (ms)",
+    concurrent_max = "Max Concurrent"
+  ) |>
+  cols_align(align = "right", columns = c(invocations, errors, throttles, duration_avg_ms, concurrent_max)) |>
+  cols_align(align = "left", columns = week_start)
+```
