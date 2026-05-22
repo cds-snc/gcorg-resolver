@@ -326,6 +326,7 @@ GC_EMAILS: list[tuple[str, int]] = [
     ("mock.email@beaux-arts.ca", 3626),
     ("sample.inbox@bibliotheque-archives.canada.ca", 2262),
     ("fake.user@bst-tsb.gc.ca", 2309),
+    ("noreply.demo@cadets.gc.ca", 2233),
     ("fake.address@cadth.ca", 3450),
     ("testing123@canadacouncil.ca", 3618),
     ("dummy.account@canadagames.ca", 3445),
