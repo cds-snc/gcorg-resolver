@@ -91,6 +91,7 @@ CANONICAL_ORGS_EN: list[tuple[str, int]] = [
     ("Office of the Superintendent of Financial Institutions Canada", 2280),
     ("Office of the Information Commissioner of Canada", 2281),
     ("Office of the Privacy Commissioner of Canada", 2282),
+    ("OIC", None),  # Office of Information Commissioner or Intelligence Commissioner?
     ("Patented Medicine Prices Review Board Canada", 2283),
     ("Privy Council Office", 2284),
     ("Public Health Agency of Canada", 2285),
@@ -107,7 +108,7 @@ CANONICAL_ORGS_EN: list[tuple[str, int]] = [
     ("Shared Services Canada", 2292),
     ("Statistics Canada", 2293),
     ("StatsCan", 2293),
-    ("SC", None),  # Shouldn't match, is it StatsCan or Service Canada?
+    ("SC", None),  # StatsCan or Service Canada?
     ("Veterans Review and Appeal Board", 2294),
     ("Leaders’ Debates Commission", 2296),
     ("Administrative Tribunals Support Service of Canada", 2297),
@@ -471,6 +472,7 @@ GC_EMAILS: list[tuple[str, int]] = [
     ("sample.user@oic-ci.gc.ca", 2281),
     ("mock.email@opic.gc.ca", 3537),
     ("sample.user@osfi-bsif.gc.ca", 2280),
+    ("media@ico-bcr.gc.ca", 2275),
     ("fake.user@otc-cta.gc.ca", 2252),
     ("mock.email@ouranos.ca", 3483),
     ("noreply.demo@p3canada.ca", 3645),
@@ -524,8 +526,8 @@ GC_EMAILS: list[tuple[str, int]] = [
     ("sample.inbox@securitepublique.gc.ca", 2235),
     (
         "noreply.demo@sen.parl.gc.ca",
-        3584,
-    ),  # This is only half right, but we only use parl.gc.ca and don't dive into sub-subdomains
+        3584,  # This is only half right, but we only use parl.gc.ca and don't dive into sub-subdomains
+    ),
     ("demo.user@sjport.com", 3495),
     ("sample.user@sshrc-crsh.gc.ca", 2316),
     ("dummy.account@statcan.gc.ca", 2293),
