@@ -49,6 +49,13 @@ KNOWN_CONFLICTS = {
     # Agence spatiale canadienne (2251)
     # Accessibility Standards Canada (2319)
     "asc": 2251,
+    # Service Canada (2256)
+    # Statistics Canada (2293)
+    "sc": 0,  # Too ambiguous to resolve
+    # Office of the Information Commissioner of Canada (2281)
+    # Office of the Intelligence Commissioner of Canada (2276)
+    "oic": 0,  # Too ambiguous to resolve
+    "oic-ci": 0,
 }
 
 if __name__ == "__main__":
