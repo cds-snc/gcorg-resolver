@@ -24,13 +24,39 @@ curl -X POST https://gcorgs.cdssandbox.xyz/resolve \
 
 ```json
 {
-  "results": [
-    {"input": "Bibliothèque et Archives Canada", "gc_orgID": 2262, "harmonized_name": "Library and Archives Canada", "nom_harmonise": "Bibliothèque et Archives Canada", "matched": true},
-    {"input": "CRA", "gc_orgID": 2303, "harmonized_name": "Canada Revenue Agency", "nom_harmonise": "Agence du revenu du Canada", "matched": true},
-    {"input": "Department of Unicorns", "gc_orgID": null, "harmonized_name": null, "nom_harmonise": null, "matched": false}
-  ]
+   "results":[
+      {
+         "abbreviation":"LAC",
+         "abreviation":"BAC",
+         "gc_orgID":2262,
+         "harmonized_name":"Library and Archives Canada",
+         "input":"Bibliothèque et Archives Canada",
+         "matched":true,
+         "nom_harmonise":"Bibliothèque et Archives Canada"
+      },
+      {
+         "abbreviation":"CRA",
+         "abreviation":"ARC",
+         "gc_orgID":2303,
+         "harmonized_name":"Canada Revenue Agency",
+         "input":"CRA",
+         "matched":true,
+         "nom_harmonise":"Agence du revenu du Canada"
+      },
+      {
+         "abbreviation":null,
+         "abreviation":null,
+         "gc_orgID":null,
+         "harmonized_name":null,
+         "input":"Department of Unicorns",
+         "matched":false,
+         "nom_harmonise":null
+      }
+   ]
 }
 ```
+
+
 
 ### GET /resolve and GET /name
 
