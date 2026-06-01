@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "gcorg-resolver"
-version = "0.1.0"
+version = "0.1.2"
 description = "HTTP API that resolves Government of Canada organization names"
 requires-python = ">=3.11"
 dependencies = [
@@ -15,6 +15,13 @@ dependencies = [
 [project.optional-dependencies]
 lambda = [
     "mangum>=0.19",
+    "asgiref>=3.8",
+]
+metrics = [
+    "boto3>=1.34",
+    "matplotlib>=3.9",
+    "pandas>=2.0",
+    "plotly>=5.0",
 ]
 
 [tool.hatch.build.targets.wheel]

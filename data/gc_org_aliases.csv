@@ -1,28 +1,38 @@
 name,gc_orgID
 2010 games operating trust society,3702
 aac,2222
+aac aafc,2222
 aafc,2222
+aafc aac,2222
 aafc-aac,2222
 aandc-aadnc,2230
 aboriginal business,3599
 aboriginal healing foundation,3518
 acc,2239
+acc vac,2239
+accessibilite.canada.ca,2319
 accessibility standards,2319
 accessibility standards development organization,2319
 accessibility standards normes accessibilite,2319
+accessible.canada.ca,2319
 acfc,2259
 acfc-fcac.gc.ca,2259
+acfc.gc.ca,2259
 acia,2306
+acia cfia,2306
+acls-aatc.ca,3438
 aco,2244
 acoa,2244
+acoa apeca,2244
 acoa-apeca,2244
 acoa-apeca.gc.ca,2244
 acsta-catsa.gc.ca,3655
+acsta.gc.ca,3655
+adb.org,3400
 administration aeroport international halifax,3467
 administration aeroport international ottawa,3482
 administration aeroport vancouver,3510
 administration aeroportuaire calgary,3441
-administration canadienne surete transport aerien,3655
 administration pilotage atlantique,3654
 administration pilotage grands lacs,3656
 administration pilotage laurentides,3657
@@ -43,7 +53,6 @@ administration portuaire saguenay,3493
 administration portuaire saint john,3495
 administration portuaire sept-iles,3497
 administration portuaire st john s,3500
-administration portuaire st. john s,3500
 administration portuaire thunder bay,3504
 administration portuaire toronto,3506
 administration portuaire trois-rivieres,3507
@@ -52,30 +61,26 @@ administration portuaire windsor,3514
 administration retablissement agricole prairies,3419
 administration surete transport aerien,3655
 administrative tribunals support service,2297
-administrative tribunals support service service canadien appui tribunaux administratifs,2297
+administrative tribunals support service service appui tribunaux administratifs,2297
+admtl.com,3436
 aec,3703
 aecl.ca,3649
 aeic,2245
+aeic iaac,2245
 aeic-iaac.gc.ca,2245
 aeroport quebec,3435
+aeroportdequebec.com,3435
 aeroports montreal,3436
+afdb.org,3399
 affaires intergouvernementales,3574
 affaires mondiales,2227
 affaires mondiales global affairs,2227
 african development bank,3399
-agence canadienne controle procreation assistee,3664
-agence canadienne developpement economique nord,2249
-agence canadienne developpement economique nord canadian northern economic development agency,2249
-agence canadienne developpement international,3684
-agence canadienne inspection aliments,2306
-agence canadienne inspection aliments canadian food inspection agency,2306
-agence canadienne medicaments technologies sante acmts,3450
-agence canadienne pari mutuel,3538
-agence canadienne pour incitation reduction emissions,2301
 agence consommation en matiere financiere,2259
 agence consommation en matiere financiere financial consumer agency,2259
 agence controle procreation assistee,3664
 agence developpement economique nord,2249
+agence developpement economique nord northern economic development agency,2249
 agence developpement international,3684
 agence eau,3703
 agence eau water agency,3703
@@ -86,8 +91,8 @@ agence federale developpement economique pour nord ontario federal economic deve
 agence federale developpement economique pour sud ontario,2258
 agence federale developpement economique pour sud ontario federal economic development agency for southern ontario,2258
 agence inspection aliments,2306
+agence inspection aliments food inspection agency,2306
 agence logement forces,3535
-agence logement forces canadiennes,3535
 agence medicaments technologies sante acmts,3450
 agence mondiale antidopage,3413
 agence multilaterale garantie investissements,3411
@@ -102,8 +107,7 @@ agence sante publique public health agency,2285
 agence services frontaliers,2300
 agence services frontaliers border services agency,2300
 agence spatiale,2251
-agence spatiale canadienne,2251
-agence spatiale canadienne canadian space agency,2251
+agence spatiale space agency,2251
 agency for drugs technologies in health cadth,3450
 agr,2222
 agr.gc.ca,2222
@@ -119,47 +123,55 @@ agriculture agroalimentaire agriculture agri food,2222
 agriculture food museum,3553
 agrifood,2222
 ahs,2285
+aiib.org,3414
 air transport security authority,3655
+air transport security authority administration surete transport aerien,3655
 amc,2227
+amc gac,2227
 anciens combattants,2239
 anciens combattants veterans affairs,2239
 apeca,2244
+apeca acoa,2244
 apeca-acoa.gc.ca,2244
 apfc-fapc,3437
 apn,2268
 appeal board hazardous materials information review act,3600
 arc,2303
+arc cra,2303
 arc-cra.gc.ca,2303
 armee,3557
-armee canadienne,3557
 army,3557
 artists producers professional relations tribunal,3681
 asc,2251
 asc-csa.gc.ca,2251
 asc-nac.gc.ca,2319
 asfc,2300
+asfc cbsa,2300
 asfc-cbsa.gc.ca,2300
+asfc.gc.ca,2300
 asia pacific foundation,3437
 asia-pacific foundation,3437
 asian development bank,3400
 asian infrastructure investment bank,3414
+asiapacific.ca,3437
 aspc,2285
 aspc-phac.gc.ca,2285
 assisted human reproduction agency,3664
 association arpenteurs terres,3438
-association canadienne entraineurs,3459
 association entraineurs,3459
 association internationale developpement,3405
 association lands surveyors,3438
 atlantic opportunities agency,2244
 atlantic opportunities agency agence promotion economique atlantique,2244
 atlantic pilotage authority,3654
+atlanticpilotage.com,3654
 atn,2252
 atomic energy limited,3649
 atomic energy ltd,3649
 atomic energy ltd energie atomique limitee,3649
 ats,2297
 atssc,2297
+atssc scdata,2297
 atssc-scdata,2297
 aud,2270
 auditor general,2270
@@ -169,13 +181,15 @@ autorite aeroportuaire victoria,3511
 autorite pont windsor-detroit,3644
 avc,2294
 aviation royale,3588
-aviation royale canadienne,3588
 aviation space museum,3554
 bac,2262
+bac lac,2262
 bac-lac.gc.ca,2262
 bal,2262
 bank,3633
 bank museum,3552
+bank-banque-canada.ca,3633
+bankofcanada.ca,3633
 banque,3633
 banque africaine developpement,3399
 banque asiatique developpement,3400
@@ -191,18 +205,23 @@ bc-cb.gc.ca,2231
 bco,3685
 bcp,2284
 bcp-pco.gc.ca,2284
+bcr-ico.gc.ca,2275
 bcsc-ocsa.gc.ca,2231
 bdc.ca,3646
+beaux-arts.ca,3626
 bec,2276
 bec-oci.gc.ca,2276
 belledune port authority,3439
 bibliotheque archives,2262
 bibliotheque archives library archives,2262
 bibliotheque parlement,3429
+bibliotheque-archives.canada.ca,2262
 blue water bridge authority,3665
 boa-opo.gc.ca,3585
 boc-oto.gc.ca,3594
 border services agency,2300
+border services agency agence services frontaliers,2300
+border services agency agence services frontaliers treasury board secretariat secretariat conseil tresor,2300
 broadcasting corporation,3619
 bsf,2300
 bsgg,2278
@@ -217,156 +236,39 @@ bureau ombudsman approvisionnement procurement ombudsman,3585
 bureau ombudsman contribuables,3594
 bureau ombudsman contribuables taxpayers ombudsperson,3594
 bureau ombudsman defense nationale forces armees,3583
-bureau ombudsman defense nationale forces armees canadiennes,3583
 bureau ombudsman federal victimes actes criminels,3571
 business development bank,3646
 business development bank banque developpement,3646
 bvg,2270
 bvg-oag.gc.ca,2270
 cabinet juge militaire en chef,3582
+cabinet premier ministre,3586
 cadets,2233
 cadets cadets,2233
+cadets.gc.ca,2233
+cadth.ca,3450
 caec,2302
 caf,2233
 caisse indemnisation dommages dus pollution par hydrocarbures causee par navires,3613
 caj,2256
 cal,2273
 calgary airport authority,3441
-canad. secutity intl. service service can. renseign securit,2235
-canada agricultural review tribunal,3679
-canada agriculture food museum,3553
-canada aviation space museum,3554
-canada border services agency,2300
-canada border services agency agence services frontaliers,2300
-canada border services agency agence services frontaliers treasury board secretariat secretariat conseil tresor,2300
-canada centre for inland waters,3601
-canada commonwealth legacy fund,3519
-canada council for arts,3618
-canada deposit insurance corporation,3634
-canada development investment corporation,3635
-canada economic development for quebec regions,2257
-canada economic development for quebec regions developpement economique pour regions quebec,2257
-canada emission reduction incentives agency,2301
-canada employment insurance commission,2302
-canada employment insurance commission commission assurance-emploi,2302
-canada employment insurance financing board,3666
-canada energy regulator,2312
-canada energy regulator regie energie,2312
-canada firearms centre,3555
-canada foundation for innovation,3443
-canada foundation for sustainable development technology,3444
-canada games council,3445
-canada health infoway,3446
-canada industrial relations board,3680
-canada infrastructure bank,3642
-canada investment savings,3421
-canada lands company limited,3650
-canada media fund,3447
-canada mortgage housing corporation,3631
-canada mortgage housing corporation societe canadienne hypotheques logement,3631
-canada pension plan investment board,3636
-canada post corporation,3651
-canada research chairs,3556
-canada revenue agency,2303
-canada revenue agency agence revenu,2303
-canada revenue agency external to government,2303
-canada school public service,2304
-canada school public service ecole fonction publique,2304
-canada water agency,3703
-canada water agency agence eau,3703
+canad secutity intl service service can renseign securit,2235
 canada-newfoundland labrador offshore petroleum board,3448
 canada-nova scotia offshore energy regulator,3449
 canada-nova-scotia offshore petroleum board,3449
-canadian accessibility standards development organization,2319
-canadian agency for drugs technologies in health cadth,3450
-canadian air transport security authority,3655
-canadian air transport security authority administration canadienne surete transport aerien,3655
-canadian army,3557
-canadian artists producers professional relations tribunal,3681
-canadian broadcasting corporation,3619
-canadian centre for occupational health safety,2305
-canadian centre for occupational health safety centre canadien hygiene securite travail,2305
-canadian centre on substance use addictions,3451
-canadian coast guard,3533
-canadian commercial corporation,3639
-canadian conservation institute,3534
-canadian cultural property export review board,3682
-canadian dairy commission,3615
-canadian dairy commission commission canadienne lait,3615
-canadian digital service,2229
-canadian digital service employment social development,2229
-canadian digital service service numerique canadien,2229
-canadian energy research institute,3452
-canadian food inspection agency,2306
-canadian food inspection agency agence canadienne inspection aliments,2306
-canadian forces housing agency,3535
-canadian foundation for climate atmospheric sciences,3520
-canadian foundation for healthcare improvement cfhi,3516
-canadian grain commission,2246
-canadian grain commission commission canadienne grains,2246
-canadian heritage,2223
-canadian heritage information network,3536
-canadian heritage patrimoine canadien,2223
-canadian high arctic research station station canadienne recherche dans extreme-arctique,2318
-canadian human rights commission,2247
-canadian human rights commission commission canadienne droits personne,2247
-canadian human rights tribunal,3683
-canadian human rights tribunal tribunal droits personne,3683
-canadian institute for health information cihi,3453
-canadian institutes health research,2307
-canadian institutes health research instituts recherche en sante,2307
-canadian intellectual property office,3537
-canadian intellectual property office office propriete intellectuelle,3537
-canadian intergovernmental conference secretariat,2248
-canadian intergovernmental conference secretariat secretariat conferences intergouvernementales canadiennes,2248
-canadian international development agency,3684
-canadian international grains institute,3521
-canadian international trade tribunal,3685
-canadian international trade tribunal tribunal canadien commerce exterieur,3685
-canadian judicial council,3558
-canadian livestock records corporation,3454
-canadian museum contemporary photography,3602
-canadian museum for human rights,3620
-canadian museum for human rights musee canadien pour droits personne,3620
-canadian museum history,3621
-canadian museum history canadian war museum,3561
-canadian museum history musee canadien histoire,3621
-canadian museum immigration at pier 21,3622
-canadian museum immigration at pier 21 musee canadien immigration quai 21,3622
-canadian museum nature,3623
-canadian museum nature musee canadien nature,3623
-canadian northern economic development agency,2249
-canadian northern economic development agency agence canadienne developpement economique nord,2249
-canadian nuclear safety commission,2308
-canadian nuclear safety commission commission canadienne securite nucleaire,2308
-canadian nuclear safety commission commission canadienne surete nucleaire,2308
-canadian pari-mutuel agency,3538
-canadian partnership against cancer corporation cpac,3455
-canadian patient safety institute cpsi,3456
-canadian polar commission,2318
-canadian polar commission commission affaires polaires,2318
-canadian race relations foundation,3624
-canadian radio-television telecommunications commission,2396
-canadian radio-television telecommunications commission conseil radio diffusion telecommunications canadienne,2396
-canadian radio-television telecommunications commission conseil radiodiffusion telecommunications canadiennes,2396
-canadian security intelligence service,2250
-canadian security intelligence service service canadien renseignement securite,2250
-canadian space agency,2251
-canadian space agency agence spatiale canadienne,2251
-canadian special operations forces command,3559
-canadian sport institute ontario,3457
-canadian tourism commission,3647
-canadian trade commissioner service,3560
-canadian transportation agency,2252
-canadian transportation agency office transports,2252
-canadian war museum,3561
-canadian wheat board,3522
+canada.ca,0
+canada.gc.ca,0
+canadacouncil.ca,3618
+canadagames.ca,3445
+canadapost.ca,3651
 canafe,2260
 canafe-fintrac.gc.ca,2260
 cannor,2249
 cannor.gc.ca,2249
 cap,2315
 caq,2319
+caribank.org,3401
 caribbean development bank,3401
 cas,2256
 cas-satj,2256
@@ -374,36 +276,52 @@ cas-satj.gc.ca,2256
 casdo-ocena,2319
 catsa,3655
 catsa-acsta.gc.ca,3655
+catsa.gc.ca,3655
 cb,2254
 cb-bc.gc.ca,2231
 cb-cda,2254
 cb-cda.gc.ca,2254
+cbc.radio-canada.ca,3619
 cbsa,2300
+cbsa asfc,2300
 cbsa-asfc,2300
 cbsa-asfc.gc.ca,2300
 cbsa.gc.ca,2300
 ccbn,2311
 ccbn-nbc.gc.ca,2311
+ccc.ca,3639
 cccs,2253
 ccdp,2247
 ccdp-chrc.gc.ca,2247
 ccetp,2290
 ccetp-crcc.gc.ca,2290
 ccg,2246
+ccg cgc,2246
+ccg-gcc.gc.ca,3533
 cchst,2305
 cchst.ca,2305
+ccl cdc,3615
 ccl-cdc.gc.ca,3615
+ccn-ncc.gc.ca,3653
+ccn.ca,3648
 ccohs,2305
 ccohs-cchst,2305
 ccohs.ca,2305
+ccsa.ca,3451
 ccsn,2308
+ccsn cnsc,2308
 ccsn-cnsc.gc.ca,2308
 cda,2254
 cda-cb.gc.ca,2254
 cdc,3615
+cdc ccl,3615
 cdc-ccl.gc.ca,3615
+cdc-dcc.gc.ca,3652
+cdev.gc.ca,3635
+cdic.ca,3634
 cds,3591
 cds-snc.ca,3591
+cec.org,3412
 ced,2257
 ced-dec,2257
 ced-dec.gc.ca,2257
@@ -416,14 +334,12 @@ ceic-caec,2302
 centre analyse operations declarations financieres,2260
 centre analyse operations declarations financieres financial transactions reports analysis centre,2260
 centre armes feu,3555
-centre canadien eaux interieures,3601
-centre canadien hygiene securite travail,2305
-centre canadien hygiene securite travail canadian centre for occupational health safety,2305
-centre canadien sur dependances usage substances,3451
 centre eaux interieures,3601
 centre for inland waters,3601
 centre for occupational health safety,2305
+centre for occupational health safety centre hygiene securite travail,2305
 centre hygiene securite travail,2305
+centre hygiene securite travail centre for occupational health safety,2305
 centre international droits personne developpement democratique,3527
 centre national multisport - montreal,3523
 centre national multisport-montreal,3523
@@ -438,17 +354,24 @@ ceo,2271
 cepmb,2283
 cepmb-pmprb.gc.ca,2283
 cer,2312
+cer rec,2312
 cer-rec,2312
 cer-rec.gc.ca,2312
+ceri.ca,3452
 ceria-acire,2301
 ces,2304
 cfc,2260
 cfc-swc.gc.ca,2241
+cfhi-fcass.ca,3516
 cfia,2306
+cfia acia,2306
 cfia-acia,2306
 cfp,2286
+cfp psc,2286
 cfp-psc.gc.ca,2286
+cfta-alec.ca,3471
 cgc,2246
+cgc ccg,2246
 cgc-ccg,2246
 chaires recherche,3556
 chaires-chairs.gc.ca,2316
@@ -463,36 +386,48 @@ chrc,2247
 chrc-ccdp,2247
 chrc-ccdp.gc.ca,2247
 ci,2281
-ci-oic.gc.ca,2275
+ci-oic,0
+ci-oic.gc.ca,2281
 cic,2224
 cic.gc.ca,2224
 cics,2248
 cics-scic,2248
+ciec-ccie.parl.gc.ca,3430
+cihi.ca,3453
 cihr,2307
 cihr-irsc,2307
 cihr-irsc.gc.ca,2307
 cipo,3537
+cipo.gc.ca,3537
 cirnac,2230
 cirnac-rcaanc.gc.ca,2230
 cisr,2261
+cisr irb,2261
 cisr-irb.gc.ca,2261
 citt-tcce.gc.ca,3685
 civilian review complaints commission for rcmp,2290
 civilian review complaints commission for rcmp commission civile examen traitement plaintes relatives gendarmerie royale,2290
-civilian review complaints commission for royal canadian mounted police,2290
 civilian review complaints commission for royal mounted police,2290
+clc-sic.ca,3650
 clcc,2267
 clcc-pbc.gc.ca,2267
 clo,2274
 clo-ocol.gc.ca,2274
+clrc.ca,3454
 cmf,2272
+cmf-fmc.ca,3447
 cmhc-schl.gc.ca,3631
+cmhc.ca,3631
+cna-nac.ca,3625
 cnlopb,3448
 cnrc,2313
 cnrc-nrc.gc.ca,2313
 cnsc,2308
+cnsc ccsn,2308
 cnsc-ccsn,2308
 cnsc-ccsn.gc.ca,2308
+cnsoer.ca,3449
+coach.ca,3459
 coaching association,3459
 coast guard,3533
 col,2274
@@ -530,17 +465,6 @@ commission arbitrage inuvialuit,3673
 commission assurance-emploi,2302
 commission assurance-emploi employment insurance commission,2302
 commission ble,3522
-commission canadienne ble,3522
-commission canadienne droits personne,2247
-commission canadienne droits personne canadian human rights commission,2247
-commission canadienne examen exportations biens culturels,3682
-commission canadienne grains,2246
-commission canadienne grains canadian grain commission,2246
-commission canadienne lait,3615
-commission canadienne lait canadian dairy commission,3615
-commission canadienne surete nucleaire,2308
-commission canadienne surete nucleaire canadian nuclear safety commission,2308
-commission canadienne tourisme,3647
 commission capitale nationale,3653
 commission champs bataille nationaux,2311
 commission champs bataille nationaux national battlefields commission,2311
@@ -554,6 +478,7 @@ commission droit,2310
 commission droit auteur,2254
 commission droit auteur copyright board,2254
 commission droits personne,2247
+commission droits personne human rights commission,2247
 commission examen erreurs systeme judiciaire,3706
 commission examen exportations biens culturels,3682
 commission examen plaintes concernant police militaire,2264
@@ -564,16 +489,18 @@ commission fonction publique,2286
 commission fonction publique public service commission,2286
 commission geologique,3605
 commission grains,2246
+commission grains grain commission,2246
 commission immigration statut refugie,2261
 commission immigration statut refugie immigration refugee board,2261
 commission indemnisation marins marchands,3674
 commission independante examen acquisitions defense,3573
 commission internationale lac memphremagog,3408
 commission lait,3615
+commission lait dairy commission,3615
 commission liberations conditionnelles,2267
 commission liberations conditionnelles parole board,2267
 commission lieux monuments historiques,3572
-commission mixte internationale section canadienne,3407
+commission mixte internationale section,3407
 commission parc international roosevelt campobello,3492
 commission relations travail dans fonction publique,3692
 commission relations travail emploi dans secteur public federal,3705
@@ -581,6 +508,7 @@ commission revision agricole,3679
 commission revision lois,3614
 commission sante mentale csmc,3475
 commission surete nucleaire,2308
+commission surete nucleaire nuclear safety commission,2308
 commission toponymie,3604
 commission tourisme,3647
 commission verite reconciliation relative pensionnats indiens,3672
@@ -592,6 +520,7 @@ commissioner lobbying commissariat lobbying,2273
 commissioner official languages,2274
 commissioner official languages commissariat langues officielles,2274
 commissioner review tribunals,3687
+commissionsantementale.ca,3475
 commissionsport-sportcommission.gc.ca,2223
 commonwealth legacy fund,3519
 communication,3417
@@ -607,11 +536,6 @@ competition tribunal,3564
 concurrence,3563
 conflict interest ethics commissioner,3430
 conseil arts,3618
-conseil canadien magistrature,3558
-conseil canadien normes,3648
-conseil canadien normes standards council,3648
-conseil canadien relations industrielles,3680
-conseil canadien sante,3526
 conseil consultatif gestion pour grc,3578
 conseil consultatif national sur troisieme age,3608
 conseil controle renseignements relatifs matieres dangereuses,3671
@@ -626,12 +550,12 @@ conseil national bien-etre,3609
 conseil national recherches,2313
 conseil national recherches national research council,2313
 conseil normes,3648
+conseil normes standards council,3648
 conseil prive,2284
 conseil prive privy council office,2284
 conseil produits agricoles,2265
 conseil radiodiffusion telecommunications,2396
-conseil radiodiffusion telecommunications canadiennes,2396
-conseil radiodiffusion telecommunications canadiennes canadian radio-television telecommunications commission,2396
+conseil radiodiffusion telecommunications radio-television telecommunications commission,2396
 conseil recherches en sciences en genie,2314
 conseil recherches en sciences humaines,2316
 conseil recherches en sciences humaines social sciences humanities research council,2316
@@ -640,6 +564,7 @@ conseil recherches en sciences naturelles en genie natural sciences engineering 
 conseil relations industrielles,3680
 conseil sante,3526
 conseil tresor,3704
+conseildesarts.ca,3618
 conseiller scientifique en chef,3611
 conseiller senatorial en ethique,3431
 conseils arbitraux assurance-emploi,3686
@@ -652,7 +577,6 @@ copyright board,2254
 copyright board commission droit auteur,2254
 corcan,3539
 corporation commerciale,3639
-corporation commerciale canadienne,3639
 corporation developpement investissements,3635
 corporation for mitigation mackenzie gas project impacts,3667
 corporation gestion voie maritime saint-laurent,3501
@@ -665,7 +589,6 @@ correctional services service correctionnel,2255
 council for arts,3618
 cour appel cour martiale,3565
 cour appel federale,3569
-cour canadienne impot,3593
 cour federale,3570
 cour impot,3593
 court martial appeal court,3565
@@ -674,30 +597,39 @@ courts administration service service administratif tribunaux judiciaires,2256
 cpac,2265
 cpc-cpp,2290
 cpm,2264
+cpma-acpm.agr.gc.ca,3538
+cppib.com,3636
 cppm,2264
 cppm-mpcc.gc.ca,2264
 cpsnr-nsicop.gc.ca,2295
 cpvp,2282
 cra,2303
+cra arc,2303
 cra-arc,2303
 cra-arc.gc.ca,2303
 crcc,2290
 crcc-ccetp.gc.ca,2290
+crdi.ca,3641
+crdsc-sdrcc.ca,3498
 cri,2307
 crown-indigenous relations northern affairs,2230
 crown-indigenous relations northern affairs relations couronne-autochtones affaires nord,2230
+crr.ca,3624
+crrf-fcrr.ca,3624
 crsh,2316
 crsh-sshrc.gc.ca,2316
 crsng,2314
 crsng-nserc.gc.ca,2314
 crsng-sshrc.gc.ca,2316
 crtc,2396
+crtc crtc,2396
 crtc.gc.ca,2396
 csa,2251
 csa-asc,2251
 csa-asc.gc.ca,2251
 csc,2255
 csc pbc,2255
+csc scc,2255
 csc-scc,2255
 csc-scc.gc.ca,2255
 csd,2229
@@ -706,6 +638,7 @@ cse-cst.gc.ca,2253
 csec,2253
 csec-cstc,2253
 csi,2250
+csiontario.ca,3457
 csis,2250
 csis-scrs,2250
 csn,2308
@@ -722,23 +655,21 @@ cta-otc,2252
 cta-otc.gc.ca,2252
 cultural property export review board,3682
 cwa,3703
+cyqm.ca,3465
 dairy commission,3615
+dairy commission commission lait,3615
+dcc-cdc.gc.ca,3652
+debates-debats.ca,2296
 dec,2257
 dec-ced.gc.ca,2257
 defence construction,3652
 defence construction 1951 limited,3652
 defence research development,3540
 defense nationale,2233
-defense nationale forces armees canadiennes,2233
-defense nationale forces armees canadiennes national defence,2233
+defense nationale forces armees,2233
+defense nationale forces armees national defence,2233
 democratic institutions,3566
-department canadian heritage patrimoine canadien,2223
-department finance,2225
-department finance ministere finances,2225
-department finance ministeres finances,2225
-department justice,2232
-department justice ministere justice,2232
-department national defence defense nationale forces canadiennes,2233
+deo wd,2240
 deposit insurance corporation,3634
 destination,3647
 development investment corporation,3635
@@ -750,8 +681,12 @@ developpement economique pour regions quebec,2257
 developpement economique pour regions quebec economic development for quebec regions,2257
 dfatd-maecd,2227
 dfo,2226
+dfo mpo,2226
 dfo-mpo,2226
 dfo-mpo.gc.ca,2226
+digital service,2229
+digital service employment social development,2229
+digital service service numerique,2229
 directeur etablissement soldats,3422
 directeur parlementaire budget,3433
 directeur terres destinees anciens combattants,3423
@@ -761,25 +696,34 @@ director soldier settlement,3422
 director veterans land act,3423
 dis,2243
 dnd,2233
+dnd mdn,2233
 dnd-mdn,2233
 doe,2237
+downsviewpark.ca,3690
 drdc-rddc,3540
+drdc-rddc.gc.ca,3540
+droitsdelapersonne.ca,3620
 dus,2231
 dva,2239
 eaa,2245
+ebrd.com,3402
 ec,2237
 ec.gc.ca,2237
 eccc,2237
+eccc eccc,2237
 ecn.forces.gc.ca,2233
 ecole fonction publique,2304
 ecole fonction publique school public service,2304
 economic development agency for regions quebec,2257
 economic development agency for regions quebec agence developpement economique pour regions quebec,2257
 economic development for quebec regions,2257
+economic development for quebec regions developpement economique pour regions quebec,2257
 edc,3640
 edc.ca,3640
 edmonton regional airports authority,3461
 edsc,2229
+edsc esdc,2229
+edsc.gc.ca,2302
 efpc,2304
 efpc-csps.gc.ca,2304
 elections,2271
@@ -790,13 +734,16 @@ emploi developpement social,2229
 emploi developpement social employment social development,2229
 employment insurance boards referees,3686
 employment insurance commission,2302
+employment insurance commission commission assurance-emploi,2302
 employment insurance financing board,3666
 employment social development,2229
-employment social development canadian digital service,2229
+employment social development digital service,2229
 employment social development emploi developpement social,2229
+en-corporate.canada.travel,3647
 energie atomique limitee,3649
 energie atomique limitee atomic energy ltd,3649
 energy regulator,2312
+energy regulator regie energie,2312
 energy research institute,3452
 energy supplies allocation board,3424
 enqueteur correctionnel,2276
@@ -812,9 +759,12 @@ environnement changement climatique,2237
 environnement changement climatique environment climate change,2237
 erc,2289
 erc-cee,2289
+erc-cee.gc.ca,2289
 esab-orad,3424
 esdc,2229
+esdc edsc,2229
 esdc-edsc,2229
+esdc.gc.ca,2302
 eso,2258
 european bank for reconstruction development,3402
 excellence en sante esc,3517
@@ -830,9 +780,12 @@ fbcl,2238
 fcac,2259
 fcac-acfc,2259
 fcac-acfc.gc.ca,2259
+fcac.gc.ca,2259
 fcas,2259
+fcass-cfhi.ca,3516
 fcc-fac.ca,3616
 fcg,2263
+fdr.net,3492
 feddev ontario,2258
 feddevontario,2258
 feddevontario.gc.ca,2258
@@ -843,12 +796,14 @@ federal economic development agency for northern ontario,2299
 federal economic development agency for northern ontario agence federale developpement economique pour nord ontario,2299
 federal economic development agency for southern ontario,2258
 federal economic development agency for southern ontario agence federale developpement economique pour sud ontario,2258
-federal judges not part any department,3427
+federal judges not part any,3427
 federal ombudsperson for victims crime,3571
 federal public sector labour relations employment board,3705
+federalbridge.ca,3661
 fednor,2299
 fednor.gc.ca,2299
 fegc,2241
+fegc wage,2241
 fegc-wage.gc.ca,2241
 fegc.wage.gc.ca,2241
 femmes egalite genres,2241
@@ -856,10 +811,12 @@ femmes egalite genres women gender equality,2241
 fin,2225
 fin.gc.ca,2225
 finance,2225
-finance department,2225
+finance ministere finances,2225
+finance ministeres finances,2225
 financement agricole,3616
 financement agricole farm credit,3616
-finances ministere,2225
+finances,2225
+finances department finance,2225
 financial consumer agency,2259
 financial consumer agency agence consommation en matiere financiere,2259
 financial transactions reports analysis centre,2260
@@ -877,27 +834,29 @@ fisheries oceans ministeres peches oceans,2226
 fisheries oceans peches oceans,2226
 fja,2272
 fja-cmf,2272
+fja-cmf.gc.ca,2272
+flyeia.com,3461
+flylondon.ca,3464
+flypei.com,3458
 fna,2259
 fnfmb-cgfpn,3524
 fntc-cfpn,3525
 fondation asie-pacifique,3437
 fondation autochtone guerison,3518
-fondation canadienne pour amelioration services sante fcass,3516
-fondation canadienne pour innovation,3443
-fondation canadienne pour sciences climat atmosphere,3520
-fondation canadienne relations raciales,3624
 fondation pierre elliott trudeau,3484
 fondation pour amelioration services sante fcass,3516
 fondation pour appui technologique developpement durable,3444
 fondation pour innovation,3443
 fondation pour sciences climat atmosphere,3520
 fondation relations raciales,3624
+fondationtrudeau.ca,3484
 fonds legs jeux commonwealth,3519
 fonds medias,3447
 fonds monetaire international,3410
 fonds renouvelable conseils verification,3545
 fonds souvenir,3531
 food inspection agency,2306
+food inspection agency agence inspection aliments,2306
 forces housing agency,3535
 forces.gc.ca,2233
 foundation for climate atmospheric sciences,3520
@@ -906,16 +865,21 @@ foundation for innovation,3443
 foundation for sustainable development technology,3444
 fpcc,2265
 fpcc-cpac,2265
+fpcc-cpac.gc.ca,2265
 frd,2257
 fredericton international airport authority,3462
+frederictonairport.ca,3462
 freshwater fish marketing corporation,3638
+freshwaterfish.com,3638
 gac,2227
+gac amc,2227
+gallery.ca,3626
 games council,3445
 gander international airport authority,3463
+ganderairport.com,3463
 garde cotiere,3533
-garde cotiere canadienne,3533
 gendarmerie royale,2288
-gendarmerie royale royal canadian mounted police,2288
+gendarmerie royale royal mounted police,2288
 geographical names board,3604
 geological survey,3605
 geomatics,3606
@@ -924,17 +888,23 @@ gg.ca,2278
 ggs,2278
 global affairs,2227
 global affairs affaires mondiales,2227
+glpa-apgl.com,3656
+gnb.ca,3474
+gordiehoweinternationalbridge.com,3644
 governor general s secretary,2278
 grain appeal tribunal,3670
 grain commission,2246
+grain commission commission grains,2246
 grainscanada.gc.ca,2246
 grand livre general systeme paye,3548
 grc,2288
+grc rcmp,2288
 grc-rcmp.gc.ca,2288
 great lakes pilotage authority,3656
 greater london international airport authority,3464
 greater moncton international airport authority,3465
 greater toronto airports authority,3466
+greatlakes-seaway.com,3501
 greffe tribunal concurrence,3694
 greffe tribunal protection fonctionnaires divulgateurs actes reprehensibles,3695
 greffe tribunal revendications particulieres,3696
@@ -949,6 +919,7 @@ hamilton-oshawa port authority,3469
 hampa-apham,3469
 hazardous materials information review commission,3671
 hc,2228
+hc sc,2228
 hc-sc,2228
 hc-sc.gc.ca,2228
 health,2228
@@ -957,9 +928,14 @@ health infoway,3446
 health sante,2228
 health sante public health agency agence sante publique,2228
 healthcare excellence hec,3517
+healthcareexcellence.ca,3517
 heritage,2223
 heritage information network,3536
+heritage patrimoine,2223
+hfr-tgf.ca,3707
+hiaa.ca,3467
 hicc,2269
+high arctic research station station recherche dans extreme-arctique,2318
 historic sites monuments board,3572
 historymuseum.ca,3621
 hoc,3428
@@ -972,18 +948,28 @@ house commons members,3428
 house commons members chambre communes deputes,3428
 housing infrastructure communities,2269
 housing infrastructure communities logement infrastructures collectivites,2269
+housing-infrastructure.canada.ca,2269
 hrc,2247
 hrsdc-rhdcc.gc.ca,2229
 hsmbc-clmhc,3572
 human rights commission,2247
+human rights commission commission droits personne,2247
 human rights tribunal,3683
+human rights tribunal tribunal droits personne,3683
 humanrights.ca,3620
 iaac,2245
+iaac aeic,2245
 iaac-aeic,2245
 iaac-aeic.gc.ca,2245
+iadb.org,3403
 ian,2230
 ic,2231
+ic.gc.ca,2231
 ica,2306
+icis.ca,3453
+ico-bcr.gc.ca,2275
+idrc.ca,3641
+ifc.org,3406
 iga-aig,3574
 iic-iac,2317
 imc,2224
@@ -1007,22 +993,25 @@ infc,2269
 infc.gc.ca,2269
 information commissioner,2281
 inforoute sante,3446
+infoway-inforoute.ca,3446
 infrastructure,2269
 infrastructure bank,3642
 infrastructure infrastructure,2269
-ingenium  canada s museums science innovation,3627
+infrastructure.gc.ca,3642
+ingenium,3627
 ingenium  s museums science innovation,3627
+ingenium canadas museums science innovation,3627
+ingenium s museums science innovation,3627
+ingeniumcanada.org,3627
 innovation,3443
 innovation science economic development,2231
 innovation science economic development - innovation sciences developpement economique,2231
 innovation science economic development innovation sciences developpement economique,2231
 innovation sciences developpement economique,2231
 innovation sciences developpement economique innovation science economic development,2231
+innovation.ca,3443
 inspection.gc.ca,2306
-institut canadien conservation,3534
-institut canadien information sur sante icis,3453
-institut canadien pour securite patients icsp,3456
-institut canadien sport ontario,3457
+insquebec.org,3470
 institut conservation,3534
 institut information sur sante icis,3453
 institut international pour grain,3521
@@ -1033,16 +1022,19 @@ institut statistique premieres nations,3669
 institut vanier famille,3532
 institute for health information cihi,3453
 institutes health research,2307
+institutes health research instituts recherche en sante,2307
 institutions democratiques,3566
 instituts recherche en sante,2307
-instituts recherche en sante canadian institutes health research,2307
+instituts recherche en sante institutes health research,2307
 int,2279
 intellectual property office,3537
+intellectual property office office propriete intellectuelle,3537
 intelligence commissioner,2275
 intelligence commissioner commissaire renseignement,2275
 inter-american development bank,3403
 intergovernmental affairs,3574
 intergovernmental conference secretariat,2248
+intergovernmental conference secretariat secretariat conferences intergouvernementales,2248
 internal trade secretariat corporation,3471
 international bank for reconstruction development,3404
 international centre for human rights democratic development,3527
@@ -1052,46 +1044,55 @@ international development research centre,3641
 international finance corporation,3406
 international fisheries commissions pension society,3472
 international grains institute,3521
-international joint commission canadian section,3407
+international joint commission section,3407
 international lake memphremagog levels board,3408
 international lake woods control board,3409
 international monetary fund,3410
 international trade tribunal,3685
+international trade tribunal tribunal commerce exterieur,3685
 international.gc.ca,2227
 inuvialuit arbitration board,3673
 invest in,2317
 invest in hub,2317
 investir,2317
 investment savings,3421
+investpsp.ca,3663
 irb,2261
+irb cisr,2261
 irb-cisr,2261
 irb-cisr.gc.ca,2261
 ircc,2224
+ircc ircc,2224
 irsc,2307
 irsc-cihr.gc.ca,2307
 isc,2243
+isc sac,2243
 isc-sac,2243
 isc-sac.gc.ca,2243
 isde,2231
+isde ised,2231
 isde-ised.gc.ca,2231
 ised,2231
+ised isde,2231
 ised-isde.gc.ca,2231
 ispc,2279
 ispc-psic.gc.ca,2279
 jacques cartier champlain bridges incorporated,3643
 jacques-cartier champlain bridges,3643
+jacquescartierchamplain.ca,3643
 joint public advisory committee jpac commission for environmental cooperation cec,3412
 judicial compensation benefits commission,3575
 judicial council,3558
 juge-arbitre,3688
-juges federaux ne faisant pas partie un ministere,3427
+juges federaux ne faisant pas partie un,3427
 jus,2232
+jus jus,2232
 justice,2232
-justice department,2232
-justice ministere,2232
+justice department justice,2232
+justice ministere justice,2232
 justice.gc.ca,2232
-l administration canadienne surete transport aerien,3655
-l administration canadienne surete transport aerien canadian air transport security authority,3655
+l administration surete transport aerien,3655
+l administration surete transport aerien air transport security authority,3655
 l enqueteur correctionnel,2276
 l enqueteur correctionnel correctional investigator,2276
 l institut vanier famille,3532
@@ -1099,6 +1100,7 @@ l office national film,2266
 l office national film national film board,2266
 labour-travail.gc.ca,2229
 lac,2262
+lac bac,2262
 lac-bac,2262
 lac-bac.gc.ca,2262
 lake woods control board,3473
@@ -1112,6 +1114,7 @@ leaders debates commission,2296
 library archives,2262
 library archives bibliotheque archives,2262
 library parliament,3429
+library-archives.canada.ca,2262
 licc,2269
 livestock records corporation,3454
 lob,2273
@@ -1120,77 +1123,78 @@ logement infrastructures collectivites,2269
 logement infrastructures collectivites housing infrastructure communities,2269
 lower churchill development corporation limited,3415
 lp-bp,3429
+lwcb.ca,3473
 management advisory board for rcmp,3578
 marine atlantic,3658
 marine atlantique s.c.c,3658
-marine atlantique s.c.c.,3658
 marine royale,3589
-marine royale canadienne,3589
+marine-atlantic.ca,3658
 maritime forestry complex corporation,3474
 mdn,2233
+mdn dnd,2233
 measurement,3542
 media fund,3447
 mental health commission mhcc,3475
+mentalhealthcommission.ca,3475
 merchant seamen compensation board,3674
 mesures,3542
 mgerc,2263
 mgerc-ceegm,2263
 mgerc-ceegm.gc.ca,2263
+miga.org,3411
 milit-air,3476
 military grievances external review committee,2263
 military grievances external review committee comite externe examen griefs militaires,2263
 military police complaints commission,2264
 military police complaints commission commission examen plaintes concernant police militaire,2264
-ministere finances,2225
-ministere finances department finance,2225
-ministere justice,2232
-ministere justice department justice,2232
 mint.ca,3637
 miscarriage justice review commission,3706
 monnaie royale,3637
-monnaie royale canadienne,3637
-monnaie royale canadienne royal canadian mint,3637
+monnaie royale royal mint,3637
+monnaie.ca,3637
 montreal port authority,3477
 mortgage housing corporation,3631
+mortgage housing corporation societe hypotheques logement,3631
 mot,2238
 mpa-apm,3477
 mpcc,2264
 mpcc-cppm,2264
 mpcc-cppm.gc.ca,2264
 mpo,2226
+mpo dfo,2226
 mpo-dfo.gc.ca,2226
 multilateral investment guarantee agency,3411
 musee agriculture alimentation,3553
 musee aviation espace,3554
 musee banque,3552
 musee beaux-arts,3626
-musee canadien droits personne,3620
-musee canadien guerre,3561
-musee canadien histoire,3621
-musee canadien histoire canadian museum history,3621
-musee canadien immigration quai 21,3622
-musee canadien immigration quai 21 canadian museum immigration at pier 21,3622
-musee canadien nature,3623
-musee canadien nature canadian museum nature,3623
-musee canadien photographie contemporaine,3602
-musee canadien pour droits personne,3620
-musee canadien pour droits personne canadian museum for human rights,3620
 musee droits personne,3620
 musee guerre,3561
 musee histoire,3621
+musee histoire museum history,3621
 musee immigration quai 21,3622
+musee immigration quai 21 museum immigration at pier 21,3622
 musee national sciences technologie,3627
 musee nature,3623
+musee nature museum nature,3623
 musee photographie contemporaine,3602
+musee pour droits personne,3620
+musee pour droits personne museum for human rights,3620
 musee virtuel,3596
+museedelhistoire.ca,3621
 museum contemporary photography,3602
 museum for human rights,3620
+museum for human rights musee pour droits personne,3620
 museum history,3621
+museum history musee histoire,3621
 museum history war museum,3561
 museum immigration at pier 21,3622
+museum immigration at pier 21 musee immigration quai 21,3622
 museum nature,3623
+museum nature musee nature,3623
 nac,2319
 nac-asc.gc.ca,2319
+nac-cna.ca,3625
 nanaimo port authority,3478
 nar,2303
 national advisory council on aging,3608
@@ -1202,7 +1206,8 @@ national battlefields commission commission champs bataille nationaux,2311
 national capital commission,3653
 national defence,2233
 national defence defense nationale,2233
-national defence defense nationale forces armees canadiennes,2233
+national defence defense nationale forces,2233
+national defence defense nationale forces armees,2233
 national defense,2233
 national energy board,2312
 national energy board office national energie,2312
@@ -1226,11 +1231,14 @@ natural sciences engineering research council,2314
 natural sciences engineering research council conseil recherches en sciences naturelles en genie,2314
 nature trust british columbia,3479
 nature.ca,3623
+naturetrust.bc.ca,3479
 nav,3480
+navcanada.ca,3480
 nbc,2311
 nbc-ccbn,2311
 nbc-ccbn.gc.ca,2311
 ncc ombudsman,2232
+ncc-ccn.gc.ca,3653
 ndcfo-odnfc,3583
 ned,2249
 nfb,2266
@@ -1244,16 +1252,21 @@ normes accessibilite accessibility standards,2319
 north portage development corporation exploitee sous nom forks north portage partnership,3416
 north portage development corporation operating as forks north portage partnership,3416
 northern economic development agency,2249
+northern economic development agency agence developpement economique nord,2249
 northern pipeline agency,2268
+northern-pipeline.canada.ca,2268
 npa,2268
 npa-apn,2268
+npa.ca,3478
 npb,2267
 nra,3579
 nrc,2313
 nrc-cnrc,2313
 nrc-cnrc.gc.ca,2313
+nrc.canada.ca,2313
 nrc.gc.ca,2313
 nrcan,2234
+nrcan rncan,2234
 nrcan-rncan,2234
 nrcan-rncan.gc.ca,2234
 nrcan.gc.ca,2234
@@ -1263,16 +1276,20 @@ nserc,2314
 nserc-crsng,2314
 nserc-crsng.gc.ca,2314
 nsi,3579
+nsicop-cpsnr.ca,2295
 nsicop-cpsnr.gc.ca,2295
 nsira-ossnr,3579
 nsira-ossnr.gc.ca,3579
 nuclear safety commission,2308
+nuclear safety commission commission securite nucleaire,2308
+nuclear safety commission commission surete nucleaire,2308
 oag,2270
 oag-bvg,2270
 oag-bvg.gc.ca,2270
 occ,2305
 occe-bcef,3420
 occupational health safety tribunal,3581
+oceans,2226
 oci,2276
 oci-bec,2276
 oci-bec.gc.ca,2276
@@ -1292,30 +1309,30 @@ office investissement regime pensions,3636
 office investissement regimes pensions secteur public,3663
 office national film,2266
 office propriete intellectuelle,3537
-office propriete intellectuelle canadian intellectual property office,3537
+office propriete intellectuelle intellectual property office,3537
 office repartition approvisionnements energie,3424
 office surveillance activites en matiere securite nationale renseignement,3579
 office surveillance activites en matiere securite nationale renseignement national security intelligence review agency,3579
 office technologies industrielles,3546
 office transports,2252
-office transports canadian transportation agency,2252
-oic,2281
-oic-ci,2281
-oic-ci.gc.ca,2275
+office transports transportation agency,2252
+officiallanguages.gc.ca,2274
+oic,0
+oic-ci,0
+oic-ci.gc.ca,2281
 olc,2275
 old port montreal,3689
 old port montreal corporation,3689
 ombdndcaf,3583
 ombdndcaf part dnd,3583
 ombudsman for department national defence armed forces,3583
-ombudsman for department national defence canadian armed forces,3583
-ombudsman for department national defence canadian forces,3583
 ombudsman for department national defence forces,3583
 onf,2266
 opa-apd,3481
 opc,2282
 opc-cpvp,2282
 operations enquetes statistiques,3426
+opic.gc.ca,3537
 opo-boa.gc.ca,3585
 org231,2310
 osfi,2280
@@ -1331,7 +1348,9 @@ oto-boc,3594
 oto-boc.gc.ca,3594
 ottawa international airport authority,3482
 ouranos consortium,3483
+ouranos.ca,3483
 ovo-bov,3595
+p3canada.ca,3645
 pacific can,2298
 pacific economic development,2298
 pacific economic development developpement economique pour pacifique,2298
@@ -1342,6 +1361,7 @@ pacifican,2298
 pacifican.gc.ca,2298
 papa-appa,3486
 parc downsview park,3690
+parcdownsview.ca,3690
 parcs,2315
 parcs parks,2315
 pari-mutuel agency,3538
@@ -1358,31 +1378,37 @@ parliamentary protective service,3434
 parliamentary protective service service protection parlementaire,3434
 parole board,2267
 parole board commission liberations conditionnelles,2267
-partenariat canadien contre cancer pcc,3455
 partenariat contre cancer pcc,3455
+partenariatcontrelecancer.ca,3455
 partnership against cancer corporation cpac,3455
+partnershipagainstcancer.ca,3455
 passeport,3547
 passport,3547
 patented medicine prices review board,2283
 patented medicine prices review board conseil examen prix medicaments brevetes,2283
 patient safety institute cpsi,3456
+patientsafetyinstitute.ca,3456
 patrimoine,2223
-patrimoine canadien,2223
-patrimoine canadien canadian heritage,2223
+patrimoine heritage,2223
 pay,2235
 payroll system general ledger,3548
 pb,3439
 pbc,2267
 pbc-clcc,2267
 pbc-clcc.gc.ca,2267
+pbo-dpb.gc.ca,3433
 pc,2315
+pc pc,2315
 pc.gc.ca,2315
 pca,2315
 pch,2223
+pch pch,2223
 pch.gc.ca,2223
+pcmb.ca,3485
 pco,2284
 pco-bcp,2284
 pco-bcp.gc.ca,2284
+peacebridge.com,3440
 peches oceans,2226
 peches oceans fisheries oceans,2226
 pen,2255
@@ -1390,9 +1416,10 @@ pension appeals board,3691
 pension plan investment board,3636
 pension retraite fonction publique,3549
 personnel fonds non publics forces,3425
-personnel fonds non publics forces canadiennes,3425
 petf-fpet,3484
 petrole gaz indiens,3541
+pgairport.ca,3488
+pgic-iogc.gc.ca,3541
 phac,2285
 phac-aspc,2285
 phac-aspc.gc.ca,2285
@@ -1400,6 +1427,8 @@ physical resources bureau,3543
 pier21.ca,3622
 pierre eliott trudeau foundation,3484
 pierre elliott trudeau foundation,3484
+pilotagestlaurent.gc.ca,3657
+pipe-line-nord.canada.ca,2268
 placements epargne,3421
 pmprb,2283
 pmprb-cepmb,2283
@@ -1408,6 +1437,8 @@ pol,2318
 polaire,2318
 polaire-polar.gc.ca,2318
 polar,2318
+polar commission,2318
+polar commission commission affaires polaires,2318
 polar knowledge,2318
 polar knowledge savoir polaire,2318
 polar-polaire,2318
@@ -1416,7 +1447,21 @@ policy horizons,3612
 ponts jacques-cartier champlain,3643
 porcupine caribou management board,3485
 port alberni port authority,3486
+port-montreal.com,3477
+portalberniportauthority.ca,3486
+portmetrovancouver.com,3509
+portofbelledune.ca,3439
+portofhalifax.ca,3468
+portofoshawa.ca,3481
+portofthunderbay.com,3504
+portquebec.ca,3490
+portsaguenay.ca,3493
+portsi.com,3497
+portstoronto.com,3506
+porttr.com,3507
+portwindsor.com,3514
 post corporation,3651
+postescanada.ca,3651
 ppa.gc.ca,3659
 ppd,2277
 ppp,3645
@@ -1433,12 +1478,16 @@ prairies economic development prairiescan,2240
 prairiescan,2240
 prairiescan pacifican,2240
 prairiescan.gc.ca,2240
+prariescan,2240
 premier ministre,3586
 prime minister,3586
+prime minister s office,3586
+prime minister s office bureau premier ministre,3586
 prince george 2015 winter games host society,3701
 prince george airport authority,3488
 prince rupert port authority,3489
 prionet,3528
+priv.gc.ca,2282
 privacy commissioner,2282
 privy council office,2284
 privy council office conseil prive,2284
@@ -1448,9 +1497,11 @@ procurement ombudsman,3585
 procurement ombudsman bureau ombudsman approvisionnement,3585
 prpa-appr,3489
 ps,2235
+ps sp,2235
 ps-sp,2235
 ps-sp.gc.ca,2235
 psc,2286
+psc cfp,2286
 psc-cfp,2286
 psc-cfp.gc.ca,2286
 psdpt-tpfd,3587
@@ -1460,6 +1511,7 @@ psic-ispc,2279
 psic-ispc.gc.ca,2279
 psp,2235
 pspc,2236
+pspc spac,2236
 ptr,3507
 public appointments commission secretariat,3676
 public health agency,2285
@@ -1479,25 +1531,30 @@ public service staffing tribunal,3693
 public service superannuation,3549
 public services procurement,2236
 public services procurement services publics approvisionnement,2236
+publicsafety.gc.ca,2235
 pwgsc-tpsgc,2236
 pwgsc-tpsgc.gc.ca,2236
 pwgsc.gc.ca,2236
 pxr,2283
 qpa-apq,3490
+quai21.ca,3622
 quebec port authority,3490
 race relations foundation,3624
 radio-television telecommunications commission,2396
+radio-television telecommunications commission conseil radio diffusion telecommunications,2396
+radio-television telecommunications commission conseil radiodiffusion telecommunications,2396
 rcaanc,2230
 rcaanc-cirnac.gc.ca,2230
 rcm,2288
-rcmh-mrcf inc royal canadian mint,3637
 rcmh-mrcf inc royal mint,3637
-rcmh-mrcf inc. royal canadian mint,3637
 rcmp,2288
 rcmp external review committee,2289
+rcmp grc,2288
 rcmp-grc,2288
 rcmp-grc.gc.ca,2288
+rcneee.ca,3449
 rec,2312
+rec cer,2312
 rec-cer.gc.ca,2312
 recherche developpement pour defense,3540
 refugees citizenship immigration,2224
@@ -1513,39 +1570,41 @@ registry specific claims tribunal,3696
 relations couronne-autochtones affaires nord,2230
 relations couronne-autochtones affaires nord crown-indigenous relations northern affairs,2230
 research chairs,3556
-reseau canadien information sur patrimoine,3536
 reseau information sur patrimoine,3536
 resolution questions pensionnats indiens,3607
 ressources naturelles,2234
 ressources naturelles natural resources,2234
 revenue agency,2303
+revenue agency agence revenu,2303
+revenue agency external to government,2303
 revision protection environnement,3568
 rhdcc-hrsdc.gc.ca,2229
 ridley terminals,3660
 rncan,2234
+rncan nrcan,2234
 rncan-nrcan.gc.ca,2234
 roosevelt campobello international park commission,3492
 royal air force,3588
-royal canadian air force,3588
-royal canadian mint,3637
-royal canadian mint monnaie royale canadienne,3637
-royal canadian mounted police,2288
-royal canadian mounted police external review committee,2289
-royal canadian mounted police gendarmerie royale,2288
-royal canadian navy,3589
 royal military college,3590
 royal mint,3637
+royal mint monnaie royale,3637
 royal mounted police,2288
 royal mounted police external review committee,2289
+royal mounted police gendarmerie royale,2288
 royal navy,3589
 rpp,2290
 rsn,2234
 rtc,2396
+rti.ca,3660
+rupertport.com,3489
 sac,2243
+sac isc,2243
 sac-isc.gc.ca,2243
+sadc.ca,3634
 saguenay port authority,3493
 saint john airport,3494
 saint john port authority,3495
+saintjohnairport.com,3494
 sante,2228
 sante health,2228
 saskatoon airport authority,3496
@@ -1554,14 +1613,21 @@ satj-cas.gc.ca,2256
 savoir polaire,2318
 savoir polaire polar knowledge,2318
 sc,0
+sc hc,2228
 sc-hc.gc.ca,2228
 scc,2255
+scc csc,2255
 scc-ccn.ca,3648
 scc-csc,2287
+scc-csc.ca,2287
 scc-csc.gc.ca,2255
+scc.ca,3648
 scdata,2297
+scdata atssc,2297
 schl-cmhc.gc.ca,3631
+schl.ca,3631
 school public service,2304
+school public service ecole fonction publique,2304
 scic,2248
 scics.ca,2248
 science economic development innovation,2231
@@ -1570,15 +1636,16 @@ scpsnr,2295
 scrr-srcr.gc.ca,2307
 scrs,2250
 sct,2242
+sct tbs,2242
 sct-tbs.gc.ca,2242
+sdtc.ca,3444
 secretaire gouverneur general,2278
 secretaire gouverneur general secretary to governor general,2278
 secretariat comite parlementaires sur securite nationale renseignement,2295
 secretariat comite parlementaires sur securite nationale renseignement secretariat national security intelligence committee parliamentarians,2295
 secretariat commission nominations publiques,3676
 secretariat conferences intergouvernementales,2248
-secretariat conferences intergouvernementales canadiennes,2248
-secretariat conferences intergouvernementales canadiennes canadian intergovernmental conference secretariat,2248
+secretariat conferences intergouvernementales intergovernmental conference secretariat,2248
 secretariat conseil tresor,2242
 secretariat conseil tresor treasury board secretariat,2242
 secretariat national security intelligence committee parliamentarians,2295
@@ -1590,7 +1657,9 @@ securite publique,2235
 securite publique public safety,2235
 securite transports,2309
 securite transports transportation safety board,2309
+securitepublique.gc.ca,2235
 security intelligence service,2250
+security intelligence service service renseignement securite,2250
 sen.parl.gc.ca,3432
 senat,3432
 senate,3432
@@ -1601,10 +1670,7 @@ service,3591
 service administratif tribunaux judiciaires,2256
 service administratif tribunaux judiciaires courts administration service,2256
 service appui tribunaux administratifs,2297
-service canadien appui tribunaux administratifs,2297
-service canadien appui tribunaux administratifs administrative tribunals support service,2297
-service canadien renseignement securite,2250
-service canadien renseignement securite canadian security intelligence service,2250
+service appui tribunaux administratifs administrative tribunals support service,2297
 service correctionnel,2255
 service correctionnel correctional service,2255
 service delegues commerciaux,3560
@@ -1612,6 +1678,7 @@ service poursuites penales,2277
 service poursuites penales public prosecution service,2277
 service protection parlementaire,3434
 service renseignement securite,2250
+service renseignement securite security intelligence service,2250
 service service,3591
 servicecanada.gc.ca,3591
 services autochtones,2243
@@ -1624,6 +1691,7 @@ shared services,2292
 shared services services partages,2292
 ship-source oil pollution fund,3613
 sif,2280
+sjport.com,3495
 smtp.gc.ca,2250
 snsicp,2295
 snsicp-scpssnr,2295
@@ -1635,10 +1703,6 @@ societe accueil jeux 2011 halifax,3700
 societe assurance-depots,3634
 societe attenuation repercussions projet gazier mackenzie,3667
 societe caisse retraite commission internationale pecheries,3472
-societe canadienne enregistrement animaux,3454
-societe canadienne hypotheques logement,3631
-societe canadienne hypotheques logement mortgage housing corporation,3631
-societe canadienne postes,3651
 societe centre national arts,3625
 societe complexe forestier maritimes,3474
 societe enregistrement animaux,3454
@@ -1646,6 +1710,7 @@ societe expansion cap breton,3668
 societe financiere internationale,3406
 societe hotesse jeux hiver prince george 2015,3701
 societe hypotheques logement,3631
+societe hypotheques logement mortgage housing corporation,3631
 societe immobiliere limitee,3650
 societe legs jeux 2010,3702
 societe ponts federaux limitee,3661
@@ -1654,11 +1719,15 @@ societe radio-canada,3619
 societe vieux-port montreal,3689
 sopf-cidp,3613
 sp,2235
+sp ps,2235
 sp-ps.gc.ca,2235
 spa-aps,3493
 spac,2236
+spac pspc,2236
 space agency,2251
+space agency agence spatiale,2251
 spc,2292
+spc ssc,2292
 spc-ssc.gc.ca,2292
 special operations forces command,3559
 sport dispute resolution centre,3498
@@ -1669,6 +1738,7 @@ sppc-ppsc.gc.ca,2277
 srcr-scrr.gc.ca,2307
 srt,2275
 ssc,2292
+ssc spc,2292
 ssc-spc,2292
 ssc-spc-gc.ca,2292
 ssc-spc.gc.ca,2292
@@ -1683,21 +1753,18 @@ sst-tss.gc.ca,3632
 st john s international airport authority,3499
 st john s port authority,3500
 st lawrence seaway management corporation,3501
-st. john s international airport authority,3499
-st. john s port authority,3500
-st. lawrence seaway management corporation,3501
-staff non-public funds canadian forces,3425
 staff non-public funds forces,3425
 standards council,3648
-standards council conseil canadien normes,3648
+standards council conseil normes,3648
 statcan,2293
-statscan,2293
+statcan statcan,2293
 statcan.gc.ca,2293
 statistics,2293
 statistics statistique,2293
 statistics survey operations,3426
 statistique,2293
 statistique statistics,2293
+statscan,2293
 status women condition feminine,2241
 statute revision commission,3614
 stc,2293
@@ -1718,20 +1785,28 @@ tax court,3593
 taxpayers ombudsperson,3594
 taxpayers ombudsperson bureau ombudsman contribuables,3594
 tb,3704
+tbairport.on.ca,3503
 tbd,2242
 tbpa-aptb,3504
 tbs,2242
+tbs sct,2242
 tbs-sct,2242
 tbs-sct.gc.ca,2242
 tc,2238
+tc tc,2238
 tc.gc.ca,2238
 tcce-citt.gc.ca,3685
 telefilm,3629
+telefilm.ca,3629
 terry fox humanitarian award,3502
+terryfoxawards.ca,3502
+tgf-hfr.ca,3707
+theforks.com,3416
 thunder bay international airports authority,3503
 thunder bay port authority,3504
 toronto organizing committee for 2015 pan american parapan american games,3630
 toronto port authority,3506
+torontopearson.com,3466
 tourism commission,3647
 tpa-apt,3506
 tpsgc-pwgsc.gc.ca,2236
@@ -1742,6 +1817,7 @@ translation bureau part pspc,3544
 transport,2238
 transport transports,2238
 transportation agency,2252
+transportation agency office transports,2252
 transportation appeal tribunal,3697
 transportation safety board,2309
 transportation safety board securite transports,2309
@@ -1756,11 +1832,8 @@ tribunal anciens combattants revision appel,2294
 tribunal anciens combattants revision appel veterans review appeal board,2294
 tribunal appel pour grains,3670
 tribunal appel transports,3697
-tribunal canadien commerce exterieur,3685
-tribunal canadien commerce exterieur canadian international trade tribunal,3685
-tribunal canadien droits personne,3683
-tribunal canadien relations professionnelles artistes-producteurs,3681
 tribunal commerce exterieur,3685
+tribunal commerce exterieur international trade tribunal,3685
 tribunal concurrence,3564
 tribunal dotation fonction publique,3693
 tribunal droits personne,3683
@@ -1772,13 +1845,16 @@ tribunal securite sociale,3632
 tribunal securite sociale social security tribunal,3632
 tribunal.gc.ca,2297
 trois-rivieres port authority,3507
+trudeaufoundation.ca,3484
 tsb,2309
 tsb-bst,2309
 tsb-bst.gc.ca,2309
 tss-sst.gc.ca,3632
 tv5 quebec,3508
+tv5.ca,3508
 umpire,3688
 vac,2239
+vac acc,2239
 vac-acc,2239
 vancouver fraser port authority,3509
 vancouver international airport authority,3510
@@ -1798,25 +1874,41 @@ vfpa-apvf,3509
 via,3662
 via hfr - via tgf,3707
 via rail,3662
+viarail.ca,3662
 victoria airport authority,3511
+victoriaairport.com,3511
 virtual museum,3596
 vrab,2294
 vrab-tacra,2294
 vrab-tacra.gc.ca,2294
+waa.ca,3515
+wada-ama.org,3413
 wage,2241
+wage fegc,2241
 wage-fegc.gc.ca,2241
 war museum,3561
 water agency,3703
+water agency agence eau,3703
 waterfront toronto,3512
+waterfrontoronto.ca,3512
+wd deo,2240
 wge,2241
 wgec,2241
+whc.org,3513
 wheat board,3522
 wildlife habitat,3513
 windsor port authority,3514
 windsor-detroit bridge authority,3644
 winnipeg airports authority,3515
 winsport,3442
+winsport.ca,3442
 women gender equality,2241
 women gender equality femmes egalite genres,2241
 world anti-doping agency,3413
+worldbank.org,0
 wpa-apw,3514
+yow.ca,3482
+yqr.ca,3491
+yvr.ca,3510
+yxe.ca,3496
+yyc.com,3441

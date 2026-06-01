@@ -14,12 +14,11 @@ Pipeline steps (in order):
 6. Remove English/French adjective forms: "Canadian", "canadien(ne)(s)"
 7. Strip "Office of the" / "Bureau du/de la/d'" prefixes
 8. Strip trailing "Inc" / "Inc."
-9. Drop prepositions and articles (the, of, and, du, de, des, etc.)
-10. Replace non-critical punctuation with a space
-11. Collapse whitespace
-12. Fix common agency/department typos
-
-"Canada" inside domain names like ``fintrac-canafe.canada.ca``
+9. Fix common agency/department/ministry typos
+10. Strip leading or trailing "Department"/"Ministère" affixes
+11. Drop prepositions and articles (the, of, and, du, de, des, etc.)
+12. Replace non-critical punctuation with a space
+13. Collapse whitespace
 """
 
 import re
@@ -37,8 +36,23 @@ CANADA_ANY = re.compile(r"(?:^|\s)(?:of |au |du )?canada(?=\s|$)")
 # to worry about accents because we've already stripped them
 CANADIAN_ADJ = re.compile(r"(?:^|\s)canad(?:ian|ien|iens|ienne|iennes)(?=\s|$)")
 
-OFFICE_PREFIX = re.compile(r"(office of the)|(bureau du)|(bureau de la)|(bureau d')")
+# Strip "Office of the" / "Bureau du" / "Bureau de la" / "Bureau d'" when
+# they appear as a prefix on org names (e.g. "Office of the Auditor General"
+# -> "Auditor General").
+OFFICE_PREFIX = re.compile(r"^(?:office of the|bureau du|bureau de la|bureau d')\s+")
+
+# Strip a trailing "Inc" or "Inc." preceded by whitespace (e.g. "Acme Inc."
+# -> "Acme"). The leading \s+ ensures we don't chew into a word ending in
+# "inc"; the optional dot handles both punctuated and unpunctuated forms.
 INC_TRAILING = re.compile(r"\s+inc\.?$")
+
+
+# Strip leading/trailing English/French department/ministry nouns.
+# Prepositions/articles such as "of", "de la", "du", "d'", etc. are removed
+# later by PREPOSITIONS, so we intentionally do not match them here.
+DEPARTMENT_AFFIX = re.compile(
+    r"^\s*(?:department|ministere)\s+|\s+(?:department|ministere)\s*$"
+)
 
 
 # Match a preposition/article that sits on its own as a word — i.e. with a
@@ -61,8 +75,10 @@ PUNCTUATION = re.compile(r"[/()&',\":]")
 WHITESPACE = re.compile(r"\s+")
 
 # Fix some common typos
+# We intentially don't correct "Ministre" so as to leave "Premier Ministre" intact
 TYPO_AGENCY = re.compile(r"agnecy|agancy|agincy|agensey|ageny")
 TYPO_DEPARTMENT = re.compile(r"deprtment|departmant|deparment|depatment")
+TYPO_MINISTERE = re.compile(r"minstere|mnistere|ministaire")
 
 # If the input is an email address, strip the local part (before @) and any
 # subdomains, keeping only the registrable domain. GC orgs live under .gc.ca
@@ -93,9 +109,11 @@ def normalize(s: str) -> str:
     o = CANADIAN_ADJ.sub(" ", o)
     o = OFFICE_PREFIX.sub("", o)
     o = INC_TRAILING.sub("", o)
+    o = TYPO_AGENCY.sub("agency", o)
+    o = TYPO_DEPARTMENT.sub("department", o)
+    o = TYPO_MINISTERE.sub("ministere", o)
+    o = DEPARTMENT_AFFIX.sub("", o)
     o = PREPOSITIONS.sub(r"\1", o)
     o = PUNCTUATION.sub(" ", o)
     o = WHITESPACE.sub(" ", o).strip()
-    o = TYPO_AGENCY.sub("agency", o)
-    o = TYPO_DEPARTMENT.sub("department", o)
     return o
