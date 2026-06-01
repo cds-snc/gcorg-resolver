@@ -26,3 +26,9 @@ infra/**/.terragrunt-cache/
 *.tfstate
 *.tfstate.backup
 *.tfplan
+
+.Rproj.user
+.Rhistory
+*.Rproj
+lambda_usage*.csv
+usage_dashboard.html
