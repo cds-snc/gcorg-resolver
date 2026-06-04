@@ -43,6 +43,7 @@ administration pont blue water,3665
 administration portuaire belledune,3439
 administration portuaire halifax,3468
 administration portuaire hamilton,3469
+administration portuaire hamilton-oshawa apho,3469
 administration portuaire montreal,3477
 administration portuaire nanaimo,3478
 administration portuaire oshawa,3481
@@ -92,6 +93,7 @@ agence federale developpement economique pour sud ontario,2258
 agence federale developpement economique pour sud ontario federal economic development agency for southern ontario,2258
 agence inspection aliments,2306
 agence inspection aliments food inspection agency,2306
+agence investissement pour defense,3709
 agence logement forces,3535
 agence medicaments technologies sante acmts,3450
 agence mondiale antidopage,3413
@@ -230,6 +232,8 @@ bsif-osfi.gc.ca,2280
 bst,2309
 bst-tsb.gc.ca,2309
 buffalo fort erie public bridge authority,3440
+build homes,3708
+bureau grands projets,3710
 bureau ombud veterans,3595
 bureau ombudsman approvisionnement,3585
 bureau ombudsman approvisionnement procurement ombudsman,3585
@@ -254,6 +258,7 @@ caj,2256
 cal,2273
 calgary airport authority,3441
 canad secutity intl service service can renseign securit,2235
+canada-newfoundland labrador offshore energy regulator,3448
 canada-newfoundland labrador offshore petroleum board,3448
 canada-nova scotia offshore energy regulator,3449
 canada-nova-scotia offshore petroleum board,3449
@@ -501,6 +506,7 @@ commission liberations conditionnelles,2267
 commission liberations conditionnelles parole board,2267
 commission lieux monuments historiques,3572
 commission mixte internationale section,3407
+commission mixte internationale section canadienne,3407
 commission parc international roosevelt campobello,3492
 commission relations travail dans fonction publique,3692
 commission relations travail emploi dans secteur public federal,3705
@@ -570,6 +576,7 @@ conseiller senatorial en ethique,3431
 conseils arbitraux assurance-emploi,3686
 conservation institute,3534
 consortium ouranos,3483
+construction defense,3652
 construction defense 1951 limitee,3652
 consulting audit revolving fund,3545
 cop,2254
@@ -664,6 +671,7 @@ dec,2257
 dec-ced.gc.ca,2257
 defence construction,3652
 defence construction 1951 limited,3652
+defence investment agency,3709
 defence research development,3540
 defense nationale,2233
 defense nationale forces armees,2233
@@ -789,6 +797,7 @@ fdr.net,3492
 feddev ontario,2258
 feddevontario,2258
 feddevontario.gc.ca,2258
+federal bridge corporation,3661
 federal bridge corporation limited,3661
 federal court,3570
 federal court appeal,3569
@@ -916,6 +925,7 @@ halifax port authority,3468
 halpa-aphal,3468
 hamilton port authority,3469
 hamilton-oshawa port authority,3469
+hamiton-oshawa port authority hopa,3469
 hampa-apham,3469
 hazardous materials information review commission,3671
 hc,2228
@@ -924,6 +934,7 @@ hc-sc,2228
 hc-sc.gc.ca,2228
 health,2228
 health council,3526
+health emergency readiness,3711
 health infoway,3446
 health sante,2228
 health sante public health agency agence sante publique,2228
@@ -999,6 +1010,7 @@ infrastructure bank,3642
 infrastructure infrastructure,2269
 infrastructure.gc.ca,3642
 ingenium,3627
+ingenium  canada s museums science innovation,3627
 ingenium  s museums science innovation,3627
 ingenium canadas museums science innovation,3627
 ingenium s museums science innovation,3627
@@ -1044,6 +1056,7 @@ international development research centre,3641
 international finance corporation,3406
 international fisheries commissions pension society,3472
 international grains institute,3521
+international joint commission canadian section,3407
 international joint commission section,3407
 international lake memphremagog levels board,3408
 international lake woods control board,3409
@@ -1108,6 +1121,7 @@ lands company limited,3650
 last post fund,3531
 laurentian pilotage authority,3657
 law commission,2310
+ldc,2296
 leader gouvernement chambre communes,3577
 leader government in house commons,3577
 leaders debates commission,2296
@@ -1124,6 +1138,8 @@ logement infrastructures collectivites housing infrastructure communities,2269
 lower churchill development corporation limited,3415
 lp-bp,3429
 lwcb.ca,3473
+maisons,3708
+major projects office,3710
 management advisory board for rcmp,3578
 marine atlantic,3658
 marine atlantique s.c.c,3658
@@ -1460,7 +1476,9 @@ portsi.com,3497
 portstoronto.com,3506
 porttr.com,3507
 portwindsor.com,3514
+post,3651
 post corporation,3651
+postes,3651
 postescanada.ca,3651
 ppa.gc.ca,3659
 ppd,2277
@@ -1480,6 +1498,7 @@ prairiescan pacifican,2240
 prairiescan.gc.ca,2240
 prariescan,2240
 premier ministre,3586
+preparation crises sanitaires,3711
 prime minister,3586
 prime minister s office,3586
 prime minister s office bureau premier ministre,3586
@@ -1559,6 +1578,7 @@ rec-cer.gc.ca,2312
 recherche developpement pour defense,3540
 refugees citizenship immigration,2224
 regie canada-nouvelle-ecosse energie extracotiere,3449
+regie canada-terre-neuve labrador energie extracotiere,3448
 regie energie,2312
 regie energie energy regulator,2312
 regina airport authority,3491
@@ -1713,6 +1733,7 @@ societe hypotheques logement,3631
 societe hypotheques logement mortgage housing corporation,3631
 societe immobiliere limitee,3650
 societe legs jeux 2010,3702
+societe ponts federaux,3661
 societe ponts federaux limitee,3661
 societe postes,3651
 societe radio-canada,3619
