@@ -54,11 +54,35 @@
     -H 'Content-Type: application/json' \
     -d '{&quot;names&quot;: [&quot;Bibliothèque et Archives Canada&quot;, &quot;CRA&quot;, &quot;Department of Unicorns&quot;]}'</code></pre>
 <pre><code class="language-json">{
-    &quot;results&quot;: [
-        {&quot;input&quot;: &quot;Bibliothèque et Archives Canada&quot;, &quot;gc_orgID&quot;: 2262, &quot;harmonized_name&quot;: &quot;Library and Archives Canada&quot;, &quot;nom_harmonise&quot;: &quot;Bibliothèque et Archives Canada&quot;, &quot;matched&quot;: true},
-        {&quot;input&quot;: &quot;CRA&quot;, &quot;gc_orgID&quot;: 2303, &quot;harmonized_name&quot;: &quot;Canada Revenue Agency&quot;, &quot;nom_harmonise&quot;: &quot;Agence du revenu du Canada&quot;, &quot;matched&quot;: true},
-        {&quot;input&quot;: &quot;Department of Unicorns&quot;, &quot;gc_orgID&quot;: null, &quot;harmonized_name&quot;: null, &quot;nom_harmonise&quot;: null, &quot;matched&quot;: false}
-]
+   &quot;results&quot;:[
+      {
+         &quot;abbreviation&quot;:&quot;LAC&quot;,
+         &quot;abreviation&quot;:&quot;BAC&quot;,
+         &quot;gc_orgID&quot;:2262,
+         &quot;harmonized_name&quot;:&quot;Library and Archives Canada&quot;,
+         &quot;input&quot;:&quot;Bibliothèque et Archives Canada&quot;,
+         &quot;matched&quot;:true,
+         &quot;nom_harmonise&quot;:&quot;Bibliothèque et Archives Canada&quot;
+      },
+      {
+         &quot;abbreviation&quot;:&quot;CRA&quot;,
+         &quot;abreviation&quot;:&quot;ARC&quot;,
+         &quot;gc_orgID&quot;:2303,
+         &quot;harmonized_name&quot;:&quot;Canada Revenue Agency&quot;,
+         &quot;input&quot;:&quot;CRA&quot;,
+         &quot;matched&quot;:true,
+         &quot;nom_harmonise&quot;:&quot;Agence du revenu du Canada&quot;
+      },
+      {
+         &quot;abbreviation&quot;:null,
+         &quot;abreviation&quot;:null,
+         &quot;gc_orgID&quot;:null,
+         &quot;harmonized_name&quot;:null,
+         &quot;input&quot;:&quot;Department of Unicorns&quot;,
+         &quot;matched&quot;:false,
+         &quot;nom_harmonise&quot;:null
+      }
+   ]
 }</code></pre>
 <gcds-heading tag="h3">GET /resolve et GET /name</gcds-heading>
 <gcds-text>Deux points de terminaison simplifiés destinés à être utilisés avec les fonctions <code>WEBSERVICE()</code> d'Excel et <code>IMPORTDATA()</code> de Google Sheets. <code>GET /resolve</code> renvoie l'identifiant <code>gc_orgID</code> en texte brut, ou une chaîne vide en l'absence de correspondance. Le résultat peut être transmis à <code>GET /name</code> pour obtenir un nom canonique. Ce processus en deux étapes encourage les utilisateurs à stocker l'identifiant unique <code>gc_orgID</code> avec le nom du département.</gcds-text>
@@ -96,13 +120,13 @@ GET /name?gc_orgID=2222&amp;lang=fr
 <gcds-text>Vous trouverez ici quelques exemples <em>rudimentaires</em> d'utilisation de l'API pour améliorer la qualité des données lors de la collecte de renseignements auprès des utilisateurs :</gcds-text>
 <ul>
 <li>
-<gcds-link href="https://gcorgs.cdssandbox.xyz/examples/suggest">Suggérer une correction au nom d'une organisation</gcds-link>  (<gcds-link href="src/gcorg_resolver/static/example_suggest.html">source</gcds-link>)
+<gcds-link href="https://gcorgs.cdssandbox.xyz/examples/suggest">Suggérer une correction au nom d'une organisation</gcds-link>  (<gcds-link href="https://github.com/cds-snc/gcorg-resolver/blob/main/src/gcorg_resolver/static/example_suggest.html">source</gcds-link>)
 </li>
 <li>
-<gcds-link href="https://gcorgs.cdssandbox.xyz/examples/infer">Déduire le nom d'une organisation à partir de l'adresse courriel d'un utilisateur</gcds-link> (<gcds-link href="src/gcorg_resolver/static/example_infer.html">source</gcds-link>)
+<gcds-link href="https://gcorgs.cdssandbox.xyz/examples/infer">Déduire le nom d'une organisation à partir de l'adresse courriel d'un utilisateur</gcds-link> (<gcds-link href="https://github.com/cds-snc/gcorg-resolver/blob/main/src/gcorg_resolver/static/example_infer.html">source</gcds-link>)
 </li>
 </ul>
-      <gcds-date-modified>2026-05-07</gcds-date-modified>
+      <gcds-date-modified>2026-07-09</gcds-date-modified>
     </gcds-container>
 
     <gcds-footer

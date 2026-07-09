@@ -52,11 +52,35 @@
   -H 'Content-Type: application/json' \
   -d '{&quot;names&quot;: [&quot;Bibliothèque et Archives Canada&quot;, &quot;CRA&quot;, &quot;Department of Unicorns&quot;]}'</code></pre>
 <pre><code class="language-json">{
-  &quot;results&quot;: [
-    {&quot;input&quot;: &quot;Bibliothèque et Archives Canada&quot;, &quot;gc_orgID&quot;: 2262, &quot;harmonized_name&quot;: &quot;Library and Archives Canada&quot;, &quot;nom_harmonise&quot;: &quot;Bibliothèque et Archives Canada&quot;, &quot;matched&quot;: true},
-    {&quot;input&quot;: &quot;CRA&quot;, &quot;gc_orgID&quot;: 2303, &quot;harmonized_name&quot;: &quot;Canada Revenue Agency&quot;, &quot;nom_harmonise&quot;: &quot;Agence du revenu du Canada&quot;, &quot;matched&quot;: true},
-    {&quot;input&quot;: &quot;Department of Unicorns&quot;, &quot;gc_orgID&quot;: null, &quot;harmonized_name&quot;: null, &quot;nom_harmonise&quot;: null, &quot;matched&quot;: false}
-  ]
+   &quot;results&quot;:[
+      {
+         &quot;abbreviation&quot;:&quot;LAC&quot;,
+         &quot;abreviation&quot;:&quot;BAC&quot;,
+         &quot;gc_orgID&quot;:2262,
+         &quot;harmonized_name&quot;:&quot;Library and Archives Canada&quot;,
+         &quot;input&quot;:&quot;Bibliothèque et Archives Canada&quot;,
+         &quot;matched&quot;:true,
+         &quot;nom_harmonise&quot;:&quot;Bibliothèque et Archives Canada&quot;
+      },
+      {
+         &quot;abbreviation&quot;:&quot;CRA&quot;,
+         &quot;abreviation&quot;:&quot;ARC&quot;,
+         &quot;gc_orgID&quot;:2303,
+         &quot;harmonized_name&quot;:&quot;Canada Revenue Agency&quot;,
+         &quot;input&quot;:&quot;CRA&quot;,
+         &quot;matched&quot;:true,
+         &quot;nom_harmonise&quot;:&quot;Agence du revenu du Canada&quot;
+      },
+      {
+         &quot;abbreviation&quot;:null,
+         &quot;abreviation&quot;:null,
+         &quot;gc_orgID&quot;:null,
+         &quot;harmonized_name&quot;:null,
+         &quot;input&quot;:&quot;Department of Unicorns&quot;,
+         &quot;matched&quot;:false,
+         &quot;nom_harmonise&quot;:null
+      }
+   ]
 }</code></pre>
 <gcds-heading tag="h3">GET /resolve and GET /name</gcds-heading>
 <gcds-text>Two simplified endpoints intended for use with Excel's <code>WEBSERVICE()</code> and Google Sheet's <code>IMPORTDATA()</code> functions.  <code>GET /resolve</code> returns the <code>gc_orgID</code> as plain text, or an empty string on no match. The result can be passed to <code>GET /name</code> to resolve to a canonical name. The two-step process encourages users to store the unique <code>gc_orgID</code> alongside the name of the department.</gcds-text>
@@ -94,13 +118,13 @@ GET /name?gc_orgID=2222&amp;lang=fr
 <gcds-text>You can see some <em>rudimentary</em> examples of how to use the API to improve data quality when collecting information from users here:</gcds-text>
 <ul>
 <li>
-<gcds-link href="https://gcorgs.cdssandbox.xyz/examples/suggest">Suggest a correction to an organization name</gcds-link> (<gcds-link href="src/gcorg_resolver/static/example_suggest.html">source</gcds-link>)
+<gcds-link href="https://gcorgs.cdssandbox.xyz/examples/suggest">Suggest a correction to an organization name</gcds-link> (<gcds-link href="https://github.com/cds-snc/gcorg-resolver/blob/main/src/gcorg_resolver/static/example_suggest.html">source</gcds-link>)
 </li>
 <li>
-<gcds-link href="https://gcorgs.cdssandbox.xyz/examples/infer">Infer an organization name from a user's email</gcds-link> (<gcds-link href="src/gcorg_resolver/static/example_infer.html">source</gcds-link>)
+<gcds-link href="https://gcorgs.cdssandbox.xyz/examples/infer">Infer an organization name from a user's email</gcds-link> (<gcds-link href="https://github.com/cds-snc/gcorg-resolver/blob/main/src/gcorg_resolver/static/example_infer.html">source</gcds-link>)
 </li>
 </ul>
-      <gcds-date-modified>2026-05-07</gcds-date-modified>
+      <gcds-date-modified>2026-07-09</gcds-date-modified>
     </gcds-container>
 
     <gcds-footer
