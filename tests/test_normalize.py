@@ -161,3 +161,11 @@ def test_trailing_entity_tag_fr():
     assert normalize("Défense nationale (Ministère de la)") == "defense nationale"
     assert normalize("Finances (Ministère des)") == "finances"
     assert normalize("Patrimoine (Ministère du)") == "patrimoine"
+
+
+def test_trailing_entity_tag_fr_elided_article():
+    assert (
+        normalize("Agriculture et de l'Agroalimentaire (Ministère de l')")
+        == "agriculture agroalimentaire"
+    )
+    assert normalize("Environnement (Ministère de l')") == "environnement"

@@ -1,7 +1,8 @@
 # Unmatched GC org names (program codes 2026-27)
 
-Departments in the TBS program-codes dataset (`EntityDept_name_Eng`) that the
-gcorg-resolver at https://gcorgs.cdssandbox.xyz does not resolve. Source list:
+Departments in the TBS program-codes dataset (`EntityDept_name_Eng` /
+`EntityDept_name_Fra`) that the gcorg-resolver at
+https://gcorgs.cdssandbox.xyz does not resolve. Source list:
 `cp-pc-2627-eng.csv`. Generated during the program-code lookup spec work.
 
 - Distinct department names in dataset: **135**
@@ -68,3 +69,42 @@ external pre-processing were added as manual aliases in
 | VIA HFR – VIA TGF Inc. (Crown Corporation) | VIA HFR – VIA TGF Inc. | 3707 | VIA HFR - VIA TGF Inc. |
 | VIA Rail Canada Inc. (Crown Corporation) | VIA Rail Canada Inc. | 3662 | VIA Rail Canada Inc. |
 | Veterans Affairs (Department of) | Department of Veterans Affairs | 2239 | Veterans Affairs Canada |
+
+## French names (`EntityDept_name_Fra`)
+
+The same 34 English rows above have French counterparts using the same
+`"X (Ministère de la/du/des/de l')"` / `"(Bureau du)"` reordering pattern.
+Testing the French column turned up one more gap: `TRAILING_ENTITY_TAG`
+didn't handle the elided article before a vowel - `"(Ministère de l')"`,
+e.g. `"Agriculture et de l'Agroalimentaire (Ministère de l')"` - which left a
+stray `ministere` token in the normalized string instead of resolving. Fixed
+by adding a `ministere de l'` alternative to the regex.
+
+With that fix, 3 French names auto-resolve via `normalize()` alone. The rest
+needed a French alias added to `data/gc_org_aliases.csv`, same as the
+English batch:
+
+| Dataset name (French) | gcorg_ID | Harmonized name |
+|---|---|---|
+| Station canadienne de recherche dans l'Extrême-Arctique | 2318 | Polar Knowledge Canada |
+| Organisation canadienne d'élaboration de normes d'accessibilité | 2319 | Accessibility Standards Canada |
+| Affaires étrangères, du Commerce et du Développement (Ministère des) | 2227 | Global Affairs Canada |
+| Citoyenneté et de l'immigration (Ministère de la) | 2224 | Immigration, Refugees and Citizenship Canada |
+| Diversification de l'économie de l'Ouest canadien (Ministère de la) | 2240 | Prairies Economic Development Canada |
+| Industrie (Ministère de l') | 2231 | Innovation, Science and Economic Development Canada |
+| Bureau du directeur des poursuites pénales | 2277 | Public Prosecution Service of Canada |
+| Commissariats à l'information et à la protection de la vie privée du Canada | 2282 | Office of the Privacy Commissioner of Canada |
+| Agence Parcs Canada (Ministère de l') | 2315 | Parks Canada |
+| Bureau canadien d'enquête sur les accidents de transport et de la sécurité des transports | 2309 | Transportation Safety Board of Canada |
+| Sécurité publique et de la Protection civile (Ministère de la) | 2235 | Public Safety Canada |
+| Comité externe d'examen de la Gendarmerie royale du Canada | 2289 | RCMP External Review Committee |
+| Travaux publics et des Services gouvernementaux (Ministère des) | 2236 | Public Services and Procurement Canada |
+| Bureau du directeur général des élections | 2271 | Elections Canada |
+
+Auto-resolved directly by the `normalize()` fix (no alias needed):
+
+| Dataset name (French) | Normalized | gcorg_ID | Harmonized name |
+|---|---|---|---|
+| Agriculture et de l'Agroalimentaire (Ministère de l') | agriculture agroalimentaire | 2222 | Agriculture and Agri-Food Canada |
+| Emploi et du Développement social (Ministère de l') | emploi developpement social | 2229 | Employment and Social Development Canada |
+| Environnement (Ministère de l') | environnement | 2237 | Environment and Climate Change Canada |
