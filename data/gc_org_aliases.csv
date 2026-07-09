@@ -73,6 +73,7 @@ aeroport quebec,3435
 aeroportdequebec.com,3435
 aeroports montreal,3436
 afdb.org,3399
+affaires etrangeres commerce developpement,2227
 affaires intergouvernementales,3574
 affaires mondiales,2227
 affaires mondiales global affairs,2227
@@ -98,6 +99,7 @@ agence logement forces,3535
 agence medicaments technologies sante acmts,3450
 agence mondiale antidopage,3413
 agence multilaterale garantie investissements,3411
+agence parcs,2315
 agence pari mutuel,3538
 agence pour incitation reduction emissions,2301
 agence promotion economique atlantique,2244
@@ -233,6 +235,7 @@ bst,2309
 bst-tsb.gc.ca,2309
 buffalo fort erie public bridge authority,3440
 build homes,3708
+bureau enquete sur accidents transport securite transports,2309
 bureau grands projets,3710
 bureau ombud veterans,3595
 bureau ombudsman approvisionnement,3585
@@ -410,6 +413,7 @@ cisr,2261
 cisr irb,2261
 cisr-irb.gc.ca,2261
 citizenship immigration,2224
+citoyennete immigration,2224
 citt-tcce.gc.ca,3685
 civilian review complaints commission for rcmp,2290
 civilian review complaints commission for rcmp commission civile examen traitement plaintes relatives gendarmerie royale,2290
@@ -439,6 +443,7 @@ coast guard,3533
 col,2274
 college militaire royal,3590
 comite consultatif public mixte ccpm commission cooperation environnementale cce,3412
+comite externe examen gendarmerie royale,2289
 comite externe examen grc,2289
 comite externe examen griefs militaires,2263
 comite externe examen griefs militaires military grievances external review committee,2263
@@ -464,6 +469,7 @@ commissariat lobbying commissioner lobbying,2273
 commissariat magistrature federale,2272
 commissariat magistrature federale commissioner for federal judicial affairs,2272
 commissariat protection vie privee,2282
+commissariats information protection vie privee,2282
 commission affaires polaires,2318
 commission appel loi sur controle renseignements relatifs matieres dangereuses,3600
 commission appel pensions,3691
@@ -697,7 +703,9 @@ digital service,2229
 digital service employment social development,2229
 digital service service numerique,2229
 directeur etablissement soldats,3422
+directeur general elections,2271
 directeur parlementaire budget,3433
+directeur poursuites penales,2277
 directeur terres destinees anciens combattants,3423
 direction generale biens,3543
 director public prosecutions,2277
@@ -705,6 +713,7 @@ director public prosecutions directeur poursuites penales,2277
 director soldier settlement,3422
 director veterans land act,3423
 dis,2243
+diversification economie ouest,2240
 dnd,2233
 dnd mdn,2233
 dnd-mdn,2233
@@ -1004,6 +1013,7 @@ indigenous services,2243
 indigenous services services autochtones,2243
 industrial relations board,3680
 industrial technologies office,3546
+industrie,2231
 industry,2231
 infc,2269
 infc.gc.ca,2269
@@ -1357,6 +1367,7 @@ operations enquetes statistiques,3426
 opic.gc.ca,3537
 opo-boa.gc.ca,3585
 org231,2310
+organisation elaboration normes accessibilite,2319
 osfi,2280
 osfi-bsif,2280
 osfi-bsif.gc.ca,2280
@@ -1683,6 +1694,7 @@ secretariat office surveillance activites en matiere securite nationale renseign
 secretary to governor general,2278
 secretary to governor general secretaire gouverneur general,2278
 securite publique,2235
+securite publique protection civile,2235
 securite publique public safety,2235
 securite transports,2309
 securite transports transportation safety board,2309
@@ -1789,6 +1801,7 @@ standards council conseil normes,3648
 statcan,2293
 statcan statcan,2293
 statcan.gc.ca,2293
+station recherche dans extreme-arctique,2318
 statistics,2293
 statistics statistique,2293
 statistics survey operations,3426
@@ -1855,6 +1868,7 @@ transportation safety board securite transports,2309
 transports,2238
 transports transport,2238
 travail-labour.gc.ca,2229
+travaux publics services gouvernementaux,2236
 treasury board,3704
 treasury board secretariat,2242
 treasury board secretariat secretariat conseil tresor,2242

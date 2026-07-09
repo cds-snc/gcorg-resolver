@@ -43,12 +43,14 @@ CANADIAN_ADJ = re.compile(r"(?:^|\s)canad(?:ian|ien|iens|ienne|iennes)(?=\s|$)")
 # alphabetize legal names by moving the "Department of" / "Ministère" prefix
 # or a "Crown Corporation" / "Office of the" annotation into a trailing tag,
 # e.g. "Agriculture and Agri-Food (Department of)" or "Marine Atlantic Inc.
-# (Crown Corporation)". Must run while parentheses are still literal, so
-# this happens before PUNCTUATION strips them.
+# (Crown Corporation)". The "ministere de l'" alternative covers the elided
+# article before a vowel, e.g. "Agriculture (Ministère de l')". Must run
+# while parentheses are still literal, so this happens before PUNCTUATION
+# strips them.
 TRAILING_ENTITY_TAG = re.compile(
     r"\s*\("
     r"(?:department of the|department of"
-    r"|ministere de la|ministere du|ministere des|ministere de"
+    r"|ministere de la|ministere de l'|ministere du|ministere des|ministere de"
     r"|crown corporation|societe d'etat"
     r"|office of the|bureau du|bureau de la|bureau d')"
     r"\)\s*$"
