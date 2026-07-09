@@ -41,3 +41,5 @@ infra/**/.terragrunt-cache/
 *.Rproj
 lambda_usage*.csv
 usage_dashboard.html
+
+docs/*
