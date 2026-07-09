@@ -132,3 +132,32 @@ def test_department_affix_is_stripped_fr():
     assert normalize("Ministère du Patrimoine canadien") == "patrimoine"
     assert normalize("Ministère d'Innovation") == "innovation"
     assert normalize("Cabinet du Premier ministre") == "cabinet premier ministre"
+
+
+def test_trailing_department_tag_is_stripped():
+    assert (
+        normalize("Agriculture and Agri-Food (Department of)")
+        == "agriculture agri-food"
+    )
+    assert normalize("Environment (Department of the)") == "environment"
+
+
+def test_trailing_crown_corporation_tag_is_stripped():
+    assert normalize("Marine Atlantic Inc. (Crown Corporation)") == "marine atlantic"
+    assert (
+        normalize("Export Development Canada (Crown Corporation)")
+        == "export development"
+    )
+
+
+def test_trailing_office_tag_is_stripped():
+    assert (
+        normalize("Governor General's Secretary (Office of the)")
+        == "governor general s secretary"
+    )
+
+
+def test_trailing_entity_tag_fr():
+    assert normalize("Défense nationale (Ministère de la)") == "defense nationale"
+    assert normalize("Finances (Ministère des)") == "finances"
+    assert normalize("Patrimoine (Ministère du)") == "patrimoine"

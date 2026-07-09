@@ -12,13 +12,15 @@ Pipeline steps (in order):
 5. Remove "Canada" as a standalone token (anywhere in the string),
    including "of Canada" / "du Canada" / "au Canada"
 6. Remove English/French adjective forms: "Canadian", "canadien(ne)(s)"
-7. Strip "Office of the" / "Bureau du/de la/d'" prefixes
-8. Strip trailing "Inc" / "Inc."
-9. Fix common agency/department/ministry typos
-10. Strip leading or trailing "Department"/"Ministère" affixes
-11. Drop prepositions and articles (the, of, and, du, de, des, etc.)
-12. Replace non-critical punctuation with a space
-13. Collapse whitespace
+7. Strip a trailing parenthetical entity-type tag, e.g. "(Department of)",
+   "(Crown Corporation)", "(Office of the)", "(Ministère de la)"
+8. Strip "Office of the" / "Bureau du/de la/d'" prefixes
+9. Strip trailing "Inc" / "Inc."
+10. Fix common agency/department/ministry typos
+11. Strip leading or trailing "Department"/"Ministère" affixes
+12. Drop prepositions and articles (the, of, and, du, de, des, etc.)
+13. Replace non-critical punctuation with a space
+14. Collapse whitespace
 """
 
 import re
@@ -35,6 +37,22 @@ CANADA_ANY = re.compile(r"(?:^|\s)(?:of |au |du )?canada(?=\s|$)")
 # canadian, canadien, canadiens, canadienne, canadiennes. We don't have
 # to worry about accents because we've already stripped them
 CANADIAN_ADJ = re.compile(r"(?:^|\s)canad(?:ian|ien|iens|ienne|iennes)(?=\s|$)")
+
+# Strip a trailing parenthetical tag that describes the entity type rather
+# than being part of its name - some datasets (e.g. TBS/PSC program codes)
+# alphabetize legal names by moving the "Department of" / "Ministère" prefix
+# or a "Crown Corporation" / "Office of the" annotation into a trailing tag,
+# e.g. "Agriculture and Agri-Food (Department of)" or "Marine Atlantic Inc.
+# (Crown Corporation)". Must run while parentheses are still literal, so
+# this happens before PUNCTUATION strips them.
+TRAILING_ENTITY_TAG = re.compile(
+    r"\s*\("
+    r"(?:department of the|department of"
+    r"|ministere de la|ministere du|ministere des|ministere de"
+    r"|crown corporation|societe d'etat"
+    r"|office of the|bureau du|bureau de la|bureau d')"
+    r"\)\s*$"
+)
 
 # Strip "Office of the" / "Bureau du" / "Bureau de la" / "Bureau d'" when
 # they appear as a prefix on org names (e.g. "Office of the Auditor General"
@@ -107,6 +125,7 @@ def normalize(s: str) -> str:
     o = ABBREV_DOTS.sub("", o)
     o = CANADA_ANY.sub(" ", o)
     o = CANADIAN_ADJ.sub(" ", o)
+    o = TRAILING_ENTITY_TAG.sub("", o)
     o = OFFICE_PREFIX.sub("", o)
     o = INC_TRAILING.sub("", o)
     o = TYPO_AGENCY.sub("agency", o)

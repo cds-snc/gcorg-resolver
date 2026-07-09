@@ -35,3 +35,9 @@ infra/**/.terragrunt-cache/
 .Ruserdata
 .Rproj.user/
 *.Rproj
+
+.Rproj.user
+.Rhistory
+*.Rproj
+lambda_usage*.csv
+usage_dashboard.html

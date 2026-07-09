@@ -24,11 +24,35 @@ curl -X POST https://gcorgs.cdssandbox.xyz/resolve \
 
 ```json
 {
-    "results": [
-        {"input": "Bibliothèque et Archives Canada", "gc_orgID": 2262, "harmonized_name": "Library and Archives Canada", "nom_harmonise": "Bibliothèque et Archives Canada", "matched": true},
-        {"input": "CRA", "gc_orgID": 2303, "harmonized_name": "Canada Revenue Agency", "nom_harmonise": "Agence du revenu du Canada", "matched": true},
-        {"input": "Department of Unicorns", "gc_orgID": null, "harmonized_name": null, "nom_harmonise": null, "matched": false}
-]
+   "results":[
+      {
+         "abbreviation":"LAC",
+         "abreviation":"BAC",
+         "gc_orgID":2262,
+         "harmonized_name":"Library and Archives Canada",
+         "input":"Bibliothèque et Archives Canada",
+         "matched":true,
+         "nom_harmonise":"Bibliothèque et Archives Canada"
+      },
+      {
+         "abbreviation":"CRA",
+         "abreviation":"ARC",
+         "gc_orgID":2303,
+         "harmonized_name":"Canada Revenue Agency",
+         "input":"CRA",
+         "matched":true,
+         "nom_harmonise":"Agence du revenu du Canada"
+      },
+      {
+         "abbreviation":null,
+         "abreviation":null,
+         "gc_orgID":null,
+         "harmonized_name":null,
+         "input":"Department of Unicorns",
+         "matched":false,
+         "nom_harmonise":null
+      }
+   ]
 }
 ```
 
@@ -89,5 +113,5 @@ Les mêmes appels d'API fonctionnent dans Google Sheets, en utilisant la fonctio
 Vous trouverez ici quelques exemples *rudimentaires* d'utilisation de l'API pour améliorer 
 la qualité des données lors de la collecte de renseignements auprès des utilisateurs :
 
-* [Suggérer une correction au nom d'une organisation](https://gcorgs.cdssandbox.xyz/examples/suggest)  ([source](src/gcorg_resolver/static/example_suggest.html))
-* [Déduire le nom d'une organisation à partir de l'adresse courriel d'un utilisateur](https://gcorgs.cdssandbox.xyz/examples/infer) ([source](src/gcorg_resolver/static/example_infer.html))
+* [Suggérer une correction au nom d'une organisation](https://gcorgs.cdssandbox.xyz/examples/suggest)  ([source](https://github.com/cds-snc/gcorg-resolver/blob/main/src/gcorg_resolver/static/example_suggest.html))
+* [Déduire le nom d'une organisation à partir de l'adresse courriel d'un utilisateur](https://gcorgs.cdssandbox.xyz/examples/infer) ([source](https://github.com/cds-snc/gcorg-resolver/blob/main/src/gcorg_resolver/static/example_infer.html))

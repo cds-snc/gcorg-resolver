@@ -24,13 +24,39 @@ curl -X POST https://gcorgs.cdssandbox.xyz/resolve \
 
 ```json
 {
-  "results": [
-    {"input": "Bibliothèque et Archives Canada", "gc_orgID": 2262, "harmonized_name": "Library and Archives Canada", "nom_harmonise": "Bibliothèque et Archives Canada", "matched": true},
-    {"input": "CRA", "gc_orgID": 2303, "harmonized_name": "Canada Revenue Agency", "nom_harmonise": "Agence du revenu du Canada", "matched": true},
-    {"input": "Department of Unicorns", "gc_orgID": null, "harmonized_name": null, "nom_harmonise": null, "matched": false}
-  ]
+   "results":[
+      {
+         "abbreviation":"LAC",
+         "abreviation":"BAC",
+         "gc_orgID":2262,
+         "harmonized_name":"Library and Archives Canada",
+         "input":"Bibliothèque et Archives Canada",
+         "matched":true,
+         "nom_harmonise":"Bibliothèque et Archives Canada"
+      },
+      {
+         "abbreviation":"CRA",
+         "abreviation":"ARC",
+         "gc_orgID":2303,
+         "harmonized_name":"Canada Revenue Agency",
+         "input":"CRA",
+         "matched":true,
+         "nom_harmonise":"Agence du revenu du Canada"
+      },
+      {
+         "abbreviation":null,
+         "abreviation":null,
+         "gc_orgID":null,
+         "harmonized_name":null,
+         "input":"Department of Unicorns",
+         "matched":false,
+         "nom_harmonise":null
+      }
+   ]
 }
 ```
+
+
 
 ### GET /resolve and GET /name
 
@@ -94,5 +120,5 @@ providing a delimiter that doesn't exist in any canonical organization names.
 You can see some *rudimentary* examples of how to use the API to improve data
 quality when collecting information from users here:
 
-* [Suggest a correction to an organization name](https://gcorgs.cdssandbox.xyz/examples/suggest) ([source](src/gcorg_resolver/static/example_suggest.html))
-* [Infer an organization name from a user's email](https://gcorgs.cdssandbox.xyz/examples/infer) ([source](src/gcorg_resolver/static/example_infer.html))
+* [Suggest a correction to an organization name](https://gcorgs.cdssandbox.xyz/examples/suggest) ([source](https://github.com/cds-snc/gcorg-resolver/blob/main/src/gcorg_resolver/static/example_suggest.html))
+* [Infer an organization name from a user's email](https://gcorgs.cdssandbox.xyz/examples/infer) ([source](https://github.com/cds-snc/gcorg-resolver/blob/main/src/gcorg_resolver/static/example_infer.html))
