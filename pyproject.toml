@@ -22,6 +22,7 @@ metrics = [
     "matplotlib>=3.9",
     "pandas>=2.0",
     "plotly>=5.0",
+    "pillow>=12.3.0",
 ]
 
 [tool.hatch.build.targets.wheel]
