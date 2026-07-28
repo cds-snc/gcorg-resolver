@@ -121,6 +121,8 @@ formules ci-dessous dans votre classeur.
 # Renvoie le nom français
 =WEBSERVICE("https://gcorgs.cdssandbox.xyz/name?lang=fr&gc_orgID=" & A2)
 
+# Renvoie l'abréviation anglaise (p. ex. « ASPC ») au lieu du nom complet
+=WEBSERVICE("https://gcorgs.cdssandbox.xyz/name?lang=fr&field=abbreviation&gc_orgID=" & A2)
 ```
 
 Notez que la fonction `=WEBSERVICE()` fonctionne uniquement dans Excel sous Windows. **Elle ne fonctionne pas dans Excel pour Mac.** Il s'agit d'une limitation d'Excel, et non d'une limitation de ce projet.
@@ -138,6 +140,9 @@ Les mêmes appels d'API fonctionnent dans Google Sheets, en utilisant la fonctio
 
 # Renvoie le nom français
 =IMPORTDATA("https://gcorgs.cdssandbox.xyz/name?lang=fr&gc_orgID=" & A2, "\")
+
+# Renvoie l'abréviation française (p. ex. « ASPC ») au lieu du nom complet
+=IMPORTDATA("https://gcorgs.cdssandbox.xyz/name?lang=fr&field=abbreviation&gc_orgID=" & A2, "\")
 ```
 
 ### En ligne

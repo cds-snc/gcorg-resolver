@@ -124,7 +124,10 @@ formulas below into your workbook.
 =WEBSERVICE("https://gcorgs.cdssandbox.xyz/name?lang=en&gc_orgID=" & A2)
 
 # Returns the French name
-=WEBSERVICE("https://gcorgs.cdssandbox.xyz/name?lang=fr&gc_orgID=" & A2)    
+=WEBSERVICE("https://gcorgs.cdssandbox.xyz/name?lang=fr&gc_orgID=" & A2)
+
+# Returns the English abbreviation (e.g. "PHAC") instead of the full name
+=WEBSERVICE("https://gcorgs.cdssandbox.xyz/name?lang=en&field=abbreviation&gc_orgID=" & A2)
 ```
 
 Note that the `=WEBSERVICE()` function only works in Excel on Windows. **It does not 
@@ -145,6 +148,9 @@ providing a delimiter that doesn't exist in any canonical organization names.
 
 # Returns the French name
 =IMPORTDATA("https://gcorgs.cdssandbox.xyz/name?lang=fr&gc_orgID=" & A2, "\")
+
+# Returns the English abbreviation (e.g. "PHAC") instead of the full name
+=IMPORTDATA("https://gcorgs.cdssandbox.xyz/name?lang=en&field=abbreviation&gc_orgID=" & A2, "\")
 ```
 
 ### Online
