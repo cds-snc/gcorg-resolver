@@ -28,27 +28,33 @@ curl -X POST https://gcorgs.cdssandbox.xyz/resolve \
       {
          "abbreviation":"LAC",
          "abreviation":"BAC",
+         "appellation_legale":"Bibliothèque et Archives Canada",
          "gc_orgID":2262,
          "harmonized_name":"Library and Archives Canada",
          "input":"Bibliothèque et Archives Canada",
+         "legal_title":"Library and Archives Canada",
          "matched":true,
          "nom_harmonise":"Bibliothèque et Archives Canada"
       },
       {
          "abbreviation":"CRA",
          "abreviation":"ARC",
+         "appellation_legale":"Agence du revenu du Canada",
          "gc_orgID":2303,
          "harmonized_name":"Canada Revenue Agency",
          "input":"CRA",
+         "legal_title":"Canada Revenue Agency",
          "matched":true,
          "nom_harmonise":"Agence du revenu du Canada"
       },
       {
          "abbreviation":null,
          "abreviation":null,
+         "appellation_legale":null,
          "gc_orgID":null,
          "harmonized_name":null,
          "input":"Department of Unicorns",
+         "legal_title":null,
          "matched":false,
          "nom_harmonise":null
       }
@@ -66,6 +72,17 @@ empty string on no match. The result can be passed to `GET /name` to resolve to 
 canonical name. The two-step process encourages users to store the unique `gc_orgID` 
 alongside the name of the department.
 
+The optional `field` parameter controls what is returned by `GET /name`:
+
+| `field` value | Returns |
+| --- | --- |
+| `name` (default) | Harmonized name |
+| `abbreviation` | Abbreviation (empty string if none on record) |
+| `legal_title` | Legal title from the reference standard |
+
+French synonyms are accepted: `nom`, `abreviation`, `appellation_legale`.
+An unrecognised `field` value returns 400. An absent `field` defaults to `name`.
+
 ```
 GET /resolve?name=Agriculture
 -> 2222
@@ -75,6 +92,21 @@ GET /name?gc_orgID=2222&lang=en
 
 GET /name?gc_orgID=2222&lang=fr
 -> Agriculture et Agroalimentaire Canada
+
+GET /name?gc_orgID=2222&lang=en&field=abbreviation
+-> AAFC
+
+GET /name?gc_orgID=2222&lang=fr&field=abbreviation
+-> AAC
+
+GET /name?gc_orgID=2222&lang=en&field=legal_title
+-> Department of Agriculture and Agri-Food
+
+GET /name?gc_orgID=2222&lang=fr&field=legal_title
+-> Ministère de l'Agriculture et de l'Agroalimentaire
+
+GET /name?gc_orgID=2270&lang=en&field=abbreviation
+->                                  (200, no abbreviation on record)
 ```
 ## Examples
 

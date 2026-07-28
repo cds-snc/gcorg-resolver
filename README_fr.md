@@ -28,27 +28,33 @@ curl -X POST https://gcorgs.cdssandbox.xyz/resolve \
       {
          "abbreviation":"LAC",
          "abreviation":"BAC",
+         "appellation_legale":"Bibliothèque et Archives Canada",
          "gc_orgID":2262,
          "harmonized_name":"Library and Archives Canada",
          "input":"Bibliothèque et Archives Canada",
+         "legal_title":"Library and Archives Canada",
          "matched":true,
          "nom_harmonise":"Bibliothèque et Archives Canada"
       },
       {
          "abbreviation":"CRA",
          "abreviation":"ARC",
+         "appellation_legale":"Agence du revenu du Canada",
          "gc_orgID":2303,
          "harmonized_name":"Canada Revenue Agency",
          "input":"CRA",
+         "legal_title":"Canada Revenue Agency",
          "matched":true,
          "nom_harmonise":"Agence du revenu du Canada"
       },
       {
          "abbreviation":null,
          "abreviation":null,
+         "appellation_legale":null,
          "gc_orgID":null,
          "harmonized_name":null,
          "input":"Department of Unicorns",
+         "legal_title":null,
          "matched":false,
          "nom_harmonise":null
       }
@@ -61,15 +67,41 @@ curl -X POST https://gcorgs.cdssandbox.xyz/resolve \
 Deux points de terminaison simplifiés destinés à être utilisés avec les fonctions `WEBSERVICE()` d'Excel et
 `IMPORTDATA()` de Google Sheets. `GET /resolve` renvoie l'identifiant `gc_orgID` en texte brut, ou une chaîne vide en l'absence de correspondance. Le résultat peut être transmis à `GET /name` pour obtenir un nom canonique. Ce processus en deux étapes encourage les utilisateurs à stocker l'identifiant unique `gc_orgID` avec le nom du département.
 
+Le paramètre optionnel `field` contrôle ce que renvoie `GET /name` :
+
+| Valeur de `field` | Renvoie |
+| --- | --- |
+| `name` (défaut) | Nom harmonisé |
+| `abbreviation` | Abréviation (chaîne vide si aucune n'est enregistrée) |
+| `legal_title` | Appellation légale tirée du référentiel |
+
+Les synonymes français sont acceptés : `nom`, `abreviation`, `appellation_legale`.
+Une valeur de `field` non reconnue retourne 400. En l'absence du paramètre `field`, la valeur par défaut est `name`.
+
 ```
 GET /resolve?name=Agriculture
 -> 2222
 
 GET /name?gc_orgID=2222&lang=en
--> Agriculture et Agroalimentaire Canada
+-> Agriculture and Agri-Food Canada
 
 GET /name?gc_orgID=2222&lang=fr
 -> Agriculture et Agroalimentaire Canada
+
+GET /name?gc_orgID=2222&lang=en&field=abbreviation
+-> AAFC
+
+GET /name?gc_orgID=2222&lang=fr&field=abbreviation
+-> AAC
+
+GET /name?gc_orgID=2222&lang=en&field=legal_title
+-> Department of Agriculture and Agri-Food
+
+GET /name?gc_orgID=2222&lang=fr&field=legal_title
+-> Ministère de l'Agriculture et de l'Agroalimentaire
+
+GET /name?gc_orgID=2270&lang=en&field=abbreviation
+->                                  (200, aucune abréviation enregistrée)
 ```
 
 ### Excel
