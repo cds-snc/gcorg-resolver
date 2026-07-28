@@ -32,6 +32,10 @@ packages = ["src/gcorg_resolver"]
 testpaths = ["tests"]
 pythonpath = ["src"]
 
+[tool.ruff.lint.per-file-ignores]
+"data/update_aliases.py" = ["E402"]
+"data/renormalize_aliases.py" = ["E402"]
+
 [dependency-groups]
 dev = [
     "pytest>=8.0",

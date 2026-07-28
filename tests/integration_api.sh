@@ -50,3 +50,37 @@ echo "Testing /.well-known/security.txt endpoint..."
 content_type=$(curl -s -o /dev/null -w "%{content_type}" "$BASE_URL/.well-known/security.txt")
 [[ "$content_type" == text/plain* ]]
 echo "PASS  GET /.well-known/security.txt"
+
+# GET /name?field=abbreviation - proves gc_org_info.csv is in the Lambda bundle
+echo "Testing /name GET endpoint (field=abbreviation, English)..."
+got=$(curl -sf "$BASE_URL/name?gc_orgID=2222&lang=en&field=abbreviation")
+[[ "$got" == "AAFC" ]]
+echo "PASS  GET /name?gc_orgID=2222&lang=en&field=abbreviation"
+
+echo "Testing /name GET endpoint (field=abbreviation, French)..."
+got=$(curl -sf "$BASE_URL/name?gc_orgID=2222&lang=fr&field=abbreviation")
+[[ "$got" == "AAC" ]]
+echo "PASS  GET /name?gc_orgID=2222&lang=fr&field=abbreviation"
+
+# GET /name?field=legal_title
+echo "Testing /name GET endpoint (field=legal_title, English)..."
+got=$(curl -sf "$BASE_URL/name?gc_orgID=2222&lang=en&field=legal_title")
+[[ "$got" == "Department of Agriculture and Agri-Food" ]]
+echo "PASS  GET /name?gc_orgID=2222&lang=en&field=legal_title"
+
+echo "Testing /name GET endpoint (field=legal_title, French)..."
+got=$(curl -sf "$BASE_URL/name?gc_orgID=2222&lang=fr&field=legal_title")
+[[ "$got" == "Ministère de l'Agriculture et de l'Agroalimentaire" ]]
+echo "PASS  GET /name?gc_orgID=2222&lang=fr&field=legal_title"
+
+# Org with no abbreviation on record should return 200 with empty body
+echo "Testing /name GET endpoint (empty abbreviation returns 200)..."
+http_code=$(curl -s -o /dev/null -w "%{http_code}" "$BASE_URL/name?gc_orgID=2270&lang=en&field=abbreviation")
+[[ "$http_code" == "200" ]]
+echo "PASS  GET /name?gc_orgID=2270&lang=en&field=abbreviation (empty, 200)"
+
+# Unrecognised field returns 400
+echo "Testing /name GET endpoint (bad field returns 400)..."
+http_code=$(curl -s -o /dev/null -w "%{http_code}" "$BASE_URL/name?gc_orgID=2222&lang=en&field=abbrevation")
+[[ "$http_code" == "400" ]]
+echo "PASS  GET /name?gc_orgID=2222&lang=en&field=abbrevation (400)"

@@ -26,6 +26,19 @@ else:
         f"Could not find gc_concordance.csv at {REPO_ROOT_DATA} or {LAMBDA_ROOT_DATA}"
     )
 
+ORG_INFO_FILENAME = "gc_org_info.csv"
+_ORG_INFO_REPO = PKG_DIR.parent.parent / "data" / ORG_INFO_FILENAME
+_ORG_INFO_LAMBDA = PKG_DIR.parent / "data" / ORG_INFO_FILENAME
+
+if _ORG_INFO_REPO.exists():
+    ORG_INFO_PATH = _ORG_INFO_REPO
+elif _ORG_INFO_LAMBDA.exists():
+    ORG_INFO_PATH = _ORG_INFO_LAMBDA
+else:
+    raise FileNotFoundError(
+        f"Could not find gc_org_info.csv at {_ORG_INFO_REPO} or {_ORG_INFO_LAMBDA}"
+    )
+
 
 @dataclass(frozen=True)
 class Org:
@@ -42,6 +55,8 @@ class Org:
     phoenix: str
     website: str
     site_web: str
+    legal_title: str
+    appellation_legale: str
 
     def name_variants(self) -> list[str]:
         """Non-empty name/abbreviation forms from the concordance row."""
@@ -60,6 +75,10 @@ class Org:
 def load_reference_standard(path: Path | None = None) -> list[Org]:
     """Read the concordance CSV from disk and return one ``Org`` per row."""
     target = path if path is not None else DEFAULT_PATH
+
+    with ORG_INFO_PATH.open(encoding="utf-8-sig", newline="") as f:
+        org_info = {int(row["gc_orgID"]): row for row in csv.DictReader(f)}
+
     with target.open(encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
         return [
@@ -77,6 +96,12 @@ def load_reference_standard(path: Path | None = None) -> list[Org]:
                 phoenix=row["phoenix"],
                 website=row["website"],
                 site_web=row["site_web"],
+                legal_title=org_info.get(int(row["gc_orgID"]), {}).get(
+                    "legal_title", ""
+                ),
+                appellation_legale=org_info.get(int(row["gc_orgID"]), {}).get(
+                    "appellation_légale", ""
+                ),
             )
             for row in reader
         ]

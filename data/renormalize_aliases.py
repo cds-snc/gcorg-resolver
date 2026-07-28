@@ -19,7 +19,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "src"))
 
-from gcorg_resolver.normalize import normalize  # noqa: E402
+from gcorg_resolver.normalize import normalize
 
 ALIASES_PATH = HERE / "gc_org_aliases.csv"
 

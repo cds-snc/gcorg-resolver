@@ -178,3 +178,95 @@ def test_health_returns_ok(client):
     resp = client.get("/health")
     assert resp.status_code == 200
     assert resp.get_json() == {"status": "ok"}
+
+
+# --- field= parameter on GET /name ---
+
+
+def test_name_field_absent_defaults_to_name(client):
+    resp = client.get("/name?gc_orgID=2222&lang=en")
+    assert resp.status_code == 200
+    assert resp.data == b"Agriculture and Agri-Food Canada"
+
+
+def test_name_field_name_explicit(client):
+    resp = client.get("/name?gc_orgID=2222&lang=en&field=name")
+    assert resp.status_code == 200
+    assert resp.data == b"Agriculture and Agri-Food Canada"
+
+
+def test_name_field_abbreviation_en(client):
+    resp = client.get("/name?gc_orgID=2222&lang=en&field=abbreviation")
+    assert resp.status_code == 200
+    assert resp.data == b"AAFC"
+
+
+def test_name_field_abbreviation_fr(client):
+    resp = client.get("/name?gc_orgID=2222&lang=fr&field=abbreviation")
+    assert resp.status_code == 200
+    assert resp.data == b"AAC"
+
+
+def test_name_field_legal_title_en(client):
+    resp = client.get("/name?gc_orgID=2222&lang=en&field=legal_title")
+    assert resp.status_code == 200
+    assert resp.data == b"Department of Agriculture and Agri-Food"
+
+
+def test_name_field_legal_title_fr(client):
+    resp = client.get("/name?gc_orgID=2222&lang=fr&field=legal_title")
+    assert resp.status_code == 200
+    assert resp.data == "Ministère de l’Agriculture et de l’Agroalimentaire".encode()
+
+
+def test_name_field_unrecognised_returns_400(client):
+    resp = client.get("/name?gc_orgID=2222&lang=en&field=abbrevation")
+    assert resp.status_code == 400
+    assert "field must be one of" in resp.data.decode()
+
+
+def test_name_field_french_synonym_abreviation(client):
+    resp = client.get("/name?gc_orgID=2222&lang=fr&field=abreviation")
+    assert resp.status_code == 200
+    assert resp.data == b"AAC"
+
+
+def test_name_field_french_synonym_appellation_legale(client):
+    resp = client.get("/name?gc_orgID=2222&lang=fr&field=appellation_legale")
+    assert resp.status_code == 200
+    assert resp.data == "Ministère de l’Agriculture et de l’Agroalimentaire".encode()
+
+
+def test_name_field_nom_synonym(client):
+    resp = client.get("/name?gc_orgID=2222&lang=en&field=nom")
+    assert resp.status_code == 200
+    assert resp.data == b"Agriculture and Agri-Food Canada"
+
+
+def test_name_field_abbreviation_empty_org_returns_200(client):
+    """Org 2270 has no abbreviation on record; should return 200 with empty body."""
+    resp = client.get("/name?gc_orgID=2270&lang=en&field=abbreviation")
+    assert resp.status_code == 200
+    assert resp.data == b""
+
+
+# --- POST /resolve new keys ---
+
+
+def test_post_resolve_includes_legal_title_fields(client):
+    resp = client.post("/resolve", json={"names": ["Agriculture and Agri-Food Canada"]})
+    assert resp.status_code == 200
+    result = resp.get_json()["results"][0]
+    assert result["matched"] is True
+    assert result["legal_title"] == "Department of Agriculture and Agri-Food"
+    assert "appellation_legale" in result
+    assert result["appellation_legale"] != ""
+
+
+def test_post_resolve_unmatched_legal_title_null(client):
+    resp = client.post("/resolve", json={"names": ["Department of Unicorns"]})
+    assert resp.status_code == 200
+    result = resp.get_json()["results"][0]
+    assert result["matched"] is False
+    assert result["legal_title"] is None
+    assert result["appellation_legale"] is None

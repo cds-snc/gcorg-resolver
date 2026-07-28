@@ -16,8 +16,9 @@ Usage:
 
 import argparse
 import csv
+import datetime
 import sys
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, timedelta
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -59,11 +60,13 @@ def fetch_daily_metric(
     end: date,
 ) -> dict[date, float]:
     """Return a mapping of date -> value for a single CloudWatch metric."""
-    start_dt = datetime(start.year, start.month, start.day, tzinfo=timezone.utc)
-    # CloudWatch end time is exclusive; advance one day past the last requested day.
-    end_dt = datetime(end.year, end.month, end.day, tzinfo=timezone.utc) + timedelta(
-        days=1
+    start_dt = datetime.datetime(
+        start.year, start.month, start.day, tzinfo=datetime.UTC
     )
+    # CloudWatch end time is exclusive; advance one day past the last requested day.
+    end_dt = datetime.datetime(
+        end.year, end.month, end.day, tzinfo=datetime.UTC
+    ) + timedelta(days=1)
 
     response = cw_client.get_metric_statistics(
         Namespace="AWS/Lambda",
@@ -125,7 +128,7 @@ def determine_fetch_range(existing_rows: list[dict]) -> tuple[date, date]:
     Start is DEFAULT_BACKFILL_START on the first run, or the last recorded date
     so that a potentially-incomplete day gets re-fetched and overwritten.
     """
-    end = date.today() - timedelta(days=1)
+    end = datetime.datetime.now(tz=datetime.UTC).date() - timedelta(days=1)
     if not existing_rows:
         return DEFAULT_BACKFILL_START, end
     last_date = date.fromisoformat(existing_rows[-1]["date"])

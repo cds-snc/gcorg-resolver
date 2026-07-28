@@ -1,6 +1,6 @@
 # Checks the GC Organizations Reference Standard for upstream changes.
-# If gc_concordance.csv has changed,  regenerates gc_org_aliases.csv
-# and commits both files back to the branch.
+# If gc_concordance.csv or gc_org_info.csv has changed, regenerates
+# gc_org_aliases.csv and commits all changed files back to the branch.
 #
 # Source dataset:
 #   https://open.canada.ca/data/en/dataset/57180b36-3428-4a7f-afe3-2161a6b44ec5
@@ -33,7 +33,7 @@ jobs:
       - name: Check for changes to reference standard
         id: check
         run: |
-          if git diff --quiet data/gc_concordance.csv; then
+          if git diff --quiet data/gc_concordance.csv data/gc_org_info.csv; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -48,6 +48,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/gc_concordance.csv data/gc_org_aliases.csv
+          git add data/gc_concordance.csv data/gc_org_info.csv data/gc_org_aliases.csv
           git commit -m "chore(data): update GC organizations reference standard"
           git push

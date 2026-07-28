@@ -1,6 +1,6 @@
-"""Download a fresh copy of the GC Organizations Reference Standard.
+"""Download fresh copies of the GC Organizations Reference Standard.
 
-Run manually when we want to refresh the pinned snapshot:
+Run manually when we want to refresh the pinned snapshots:
 
     python data/download_reference_standard.py
 
@@ -12,13 +12,20 @@ from pathlib import Path
 from urllib.error import URLError
 from urllib.request import urlopen
 
-URL = (
-    "https://open.canada.ca/data/dataset/"
-    "57180b36-3428-4a7f-afe3-2161a6b44ec5/resource/"
-    "3faaafb4-00e2-4303-947d-ac786b62559f/download/gc_concordance.csv"
+_BASE = (
+    "https://open.canada.ca/data/dataset/57180b36-3428-4a7f-afe3-2161a6b44ec5/resource/"
 )
 
-OUT_PATH = Path(__file__).parent / "gc_concordance.csv"
+RESOURCES = [
+    (
+        _BASE + "3faaafb4-00e2-4303-947d-ac786b62559f/download/gc_concordance.csv",
+        Path(__file__).parent / "gc_concordance.csv",
+    ),
+    (
+        _BASE + "cb5b5566-f599-4d12-abae-8279a0230928/download/gc_org_info.csv",
+        Path(__file__).parent / "gc_org_info.csv",
+    ),
+]
 
 TIMEOUT_SECONDS = 30
 MAX_ATTEMPTS = 3
@@ -39,7 +46,8 @@ def fetch_with_retry(url: str) -> bytes:
 
 
 if __name__ == "__main__":
-    print(f"Fetching {URL}")
-    body = fetch_with_retry(URL)
-    OUT_PATH.write_bytes(body)
-    print(f"Wrote {len(body):,} bytes to {OUT_PATH}")
+    for url, out_path in RESOURCES:
+        print(f"Fetching {url}")
+        body = fetch_with_retry(url)
+        out_path.write_bytes(body)
+        print(f"Wrote {len(body):,} bytes to {out_path}")

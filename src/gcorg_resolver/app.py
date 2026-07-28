@@ -11,6 +11,23 @@ from gcorg_resolver.resolver import resolve
 MAX_NAMES = 1000
 MAX_CONTENT_LENGTH = 512 * 1024  # 512 KB
 
+# Mapping from canonical field name to (english_attr, french_attr) on Org.
+_FIELD_ATTRS = {
+    "name": ("harmonized_name", "nom_harmonise"),
+    "abbreviation": ("abbreviation", "abreviation"),
+    "legal_title": ("legal_title", "appellation_legale"),
+}
+
+# Synonyms that fold onto a canonical field name.
+_FIELD_SYNONYMS = {
+    "nom": "name",
+    "abreviation": "abbreviation",  # common single-r misspelling
+    "appellation_legale": "legal_title",
+    "appellation_légale": "legal_title",
+}
+
+_VALID_FIELDS = ", ".join(_FIELD_ATTRS)
+
 
 def create_app() -> Flask:
     app = Flask(__name__)
@@ -80,6 +97,8 @@ def create_app() -> Flask:
                         "nom_harmonise": org.nom_harmonise,
                         "abbreviation": org.abbreviation,
                         "abreviation": org.abreviation,
+                        "legal_title": org.legal_title,
+                        "appellation_legale": org.appellation_legale,
                         "matched": True,
                     }
                 )
@@ -92,6 +111,8 @@ def create_app() -> Flask:
                         "nom_harmonise": None,
                         "abbreviation": None,
                         "abreviation": None,
+                        "legal_title": None,
+                        "appellation_legale": None,
                         "matched": False,
                     }
                 )
@@ -116,18 +137,24 @@ def create_app() -> Flask:
             return str(gc_org_id), 200, {"Content-Type": "text/plain"}
         return "", 200, {"Content-Type": "text/plain"}
 
-    # GET /name?gc_orgID=<id>&lang=<language>
+    # GET /name?gc_orgID=<id>&lang=<language>[&field=<field>]
     #
-    # Returns the organization name for the given gc_orgID in either English
+    # Returns the requested field for the given gc_orgID in either English
     # or French as plain text. The "lang" parameter accepts: "en", "english",
     # "anglais" (English) or "fr", "french", "francais" (French).
-    # Returns 400 if gc_orgID is missing or not a valid integer, if lang is
-    # missing or unrecognised, or if gc_orgID does not exist in the reference
-    # standard.
+    # The optional "field" parameter accepts: "name" (default), "abbreviation",
+    # "legal_title", with French synonyms also accepted. Returns 400 if
+    # gc_orgID is missing or not a valid integer, if lang is missing or
+    # unrecognised, if field is unrecognised, or if gc_orgID does not exist
+    # in the reference standard. Returns an empty body (200) when an org has
+    # no value for the requested field (e.g. no abbreviation on record).
     #
     # Example:
     #   GET /name?gc_orgID=2222&lang=fr
     #   -> "Agriculture et Agroalimentaire Canada"
+    #
+    #   GET /name?gc_orgID=2222&lang=en&field=legal_title
+    #   -> "Department of Agriculture and Agri-Food"
     #
     # Excel WEBSERVICE() example:
     #   =WEBSERVICE("http://example.com:5000/name?gc_orgID=" & A1 & "&lang=en")
@@ -153,17 +180,23 @@ def create_app() -> Flask:
         else:
             return "lang must be one of: en, fr", 400
 
+        raw_field = args.get("field", "").strip().lower()
+        if not raw_field:
+            field = "name"
+        else:
+            field = _FIELD_SYNONYMS.get(raw_field, raw_field)
+            if field not in _FIELD_ATTRS:
+                return f"field must be one of: {_VALID_FIELDS}", 400
+
         try:
             org = lookup(gc_org_id)
         except KeyError:
             return f"No organization found for gc_orgID {gc_org_id}", 404
 
-        if use_french:
-            name = org.nom_harmonise
-        else:
-            name = org.harmonized_name
+        en_attr, fr_attr = _FIELD_ATTRS[field]
+        value = getattr(org, fr_attr if use_french else en_attr)
 
-        return name, 200, {"Content-Type": "text/plain; charset=utf-8"}
+        return value, 200, {"Content-Type": "text/plain; charset=utf-8"}
 
     # GET /health
     #
