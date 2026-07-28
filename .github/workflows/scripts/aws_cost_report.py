@@ -3,11 +3,12 @@
 
 from __future__ import annotations
 
+import datetime
 import json
 import os
 import subprocess
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta
 from urllib import error, request
 
 
@@ -22,7 +23,7 @@ def safely_get_env_vars(names: list[str]) -> dict[str, str]:
 
 
 def calculate_last_week() -> tuple[str, str]:
-    today_utc = datetime.now(timezone.utc).date()
+    today_utc = datetime.datetime.now(datetime.UTC).date()
     current_week_monday = today_utc - timedelta(days=today_utc.weekday())
     previous_week_monday = current_week_monday - timedelta(days=7)
     return previous_week_monday.isoformat(), current_week_monday.isoformat()

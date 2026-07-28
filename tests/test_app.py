@@ -216,9 +216,7 @@ def test_name_field_legal_title_en(client):
 def test_name_field_legal_title_fr(client):
     resp = client.get("/name?gc_orgID=2222&lang=fr&field=legal_title")
     assert resp.status_code == 200
-    assert resp.data == "Ministère de l’Agriculture et de l’Agroalimentaire".encode(
-        "utf-8"
-    )
+    assert resp.data == "Ministère de l’Agriculture et de l’Agroalimentaire".encode()
 
 
 def test_name_field_unrecognised_returns_400(client):
@@ -236,9 +234,7 @@ def test_name_field_french_synonym_abreviation(client):
 def test_name_field_french_synonym_appellation_legale(client):
     resp = client.get("/name?gc_orgID=2222&lang=fr&field=appellation_legale")
     assert resp.status_code == 200
-    assert resp.data == "Ministère de l’Agriculture et de l’Agroalimentaire".encode(
-        "utf-8"
-    )
+    assert resp.data == "Ministère de l’Agriculture et de l’Agroalimentaire".encode()
 
 
 def test_name_field_nom_synonym(client):

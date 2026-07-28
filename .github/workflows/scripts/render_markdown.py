@@ -64,8 +64,8 @@ DEPENDENCIES
     tomllib (standard library, Python 3.11+)
 """
 
+import datetime
 import tomllib
-from datetime import date
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
@@ -299,7 +299,7 @@ def update_config_date(config_path: Path, today: str):
 # The main conversion function - this is called once per page defined in PAGES.
 # We'll iterate through pages with this function to create multiple docs.
 def convert(page: dict, template):
-    today = date.today().isoformat()
+    today = datetime.datetime.now(tz=datetime.UTC).date().isoformat()
     update_config_date(page["config_path"], today)
     config = load_config(page["config_path"])
     md_text = replace_language_toggle_with_github_link(
