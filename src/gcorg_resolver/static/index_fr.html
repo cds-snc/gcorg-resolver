@@ -58,27 +58,33 @@
       {
          &quot;abbreviation&quot;:&quot;LAC&quot;,
          &quot;abreviation&quot;:&quot;BAC&quot;,
+         &quot;appellation_legale&quot;:&quot;Bibliothèque et Archives Canada&quot;,
          &quot;gc_orgID&quot;:2262,
          &quot;harmonized_name&quot;:&quot;Library and Archives Canada&quot;,
          &quot;input&quot;:&quot;Bibliothèque et Archives Canada&quot;,
+         &quot;legal_title&quot;:&quot;Library and Archives Canada&quot;,
          &quot;matched&quot;:true,
          &quot;nom_harmonise&quot;:&quot;Bibliothèque et Archives Canada&quot;
       },
       {
          &quot;abbreviation&quot;:&quot;CRA&quot;,
          &quot;abreviation&quot;:&quot;ARC&quot;,
+         &quot;appellation_legale&quot;:&quot;Agence du revenu du Canada&quot;,
          &quot;gc_orgID&quot;:2303,
          &quot;harmonized_name&quot;:&quot;Canada Revenue Agency&quot;,
          &quot;input&quot;:&quot;CRA&quot;,
+         &quot;legal_title&quot;:&quot;Canada Revenue Agency&quot;,
          &quot;matched&quot;:true,
          &quot;nom_harmonise&quot;:&quot;Agence du revenu du Canada&quot;
       },
       {
          &quot;abbreviation&quot;:null,
          &quot;abreviation&quot;:null,
+         &quot;appellation_legale&quot;:null,
          &quot;gc_orgID&quot;:null,
          &quot;harmonized_name&quot;:null,
          &quot;input&quot;:&quot;Department of Unicorns&quot;,
+         &quot;legal_title&quot;:null,
          &quot;matched&quot;:false,
          &quot;nom_harmonise&quot;:null
       }
@@ -86,14 +92,32 @@
 }</code></pre>
 <gcds-heading tag="h3">GET /resolve et GET /name</gcds-heading>
 <gcds-text>Deux points de terminaison simplifiés destinés à être utilisés avec les fonctions <code>WEBSERVICE()</code> d'Excel et <code>IMPORTDATA()</code> de Google Sheets. <code>GET /resolve</code> renvoie l'identifiant <code>gc_orgID</code> en texte brut, ou une chaîne vide en l'absence de correspondance. Le résultat peut être transmis à <code>GET /name</code> pour obtenir un nom canonique. Ce processus en deux étapes encourage les utilisateurs à stocker l'identifiant unique <code>gc_orgID</code> avec le nom du département.</gcds-text>
+<gcds-text>Le paramètre optionnel <code>field</code> contrôle ce que renvoie <code>GET /name</code> :</gcds-text>
+<gcds-text>| Valeur de <code>field</code> | Renvoie | | --- | --- | | <code>name</code> (défaut) | Nom harmonisé | | <code>abbreviation</code> | Abréviation (chaîne vide si aucune n'est enregistrée) | | <code>legal_title</code> | Appellation légale tirée du référentiel |</gcds-text>
+<gcds-text>Les synonymes français sont acceptés : <code>nom</code>, <code>abreviation</code>, <code>appellation_legale</code>. Une valeur de <code>field</code> non reconnue retourne 400. En l'absence du paramètre <code>field</code>, la valeur par défaut est <code>name</code>.</gcds-text>
 <pre><code>GET /resolve?name=Agriculture
 -&gt; 2222
 
 GET /name?gc_orgID=2222&amp;lang=en
--&gt; Agriculture et Agroalimentaire Canada
+-&gt; Agriculture and Agri-Food Canada
 
 GET /name?gc_orgID=2222&amp;lang=fr
--&gt; Agriculture et Agroalimentaire Canada</code></pre>
+-&gt; Agriculture et Agroalimentaire Canada
+
+GET /name?gc_orgID=2222&amp;lang=en&amp;field=abbreviation
+-&gt; AAFC
+
+GET /name?gc_orgID=2222&amp;lang=fr&amp;field=abbreviation
+-&gt; AAC
+
+GET /name?gc_orgID=2222&amp;lang=en&amp;field=legal_title
+-&gt; Department of Agriculture and Agri-Food
+
+GET /name?gc_orgID=2222&amp;lang=fr&amp;field=legal_title
+-&gt; Ministère de l'Agriculture et de l'Agroalimentaire
+
+GET /name?gc_orgID=2270&amp;lang=en&amp;field=abbreviation
+-&gt;                                  (200, aucune abréviation enregistrée)</code></pre>
 <gcds-heading tag="h3">Excel</gcds-heading>
 <gcds-text>Vous pouvez utiliser cette API Excel pour résoudre automatiquement les organisations dans un classeur,</gcds-text>
 <gcds-text>sans avoir à utiliser Power Query ni aucun outil externe. Copiez-collez simplement les formules ci-dessous dans votre classeur.</gcds-text>
@@ -104,7 +128,10 @@ GET /name?gc_orgID=2222&amp;lang=fr
 =WEBSERVICE(&quot;https://gcorgs.cdssandbox.xyz/name?lang=en&amp;gc_orgID=&quot; &amp; A2)
 
 # Renvoie le nom français
-=WEBSERVICE(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;gc_orgID=&quot; &amp; A2)</code></pre>
+=WEBSERVICE(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;gc_orgID=&quot; &amp; A2)
+
+# Renvoie l'abréviation anglaise (p. ex. « ASPC ») au lieu du nom complet
+=WEBSERVICE(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;field=abbreviation&amp;gc_orgID=&quot; &amp; A2)</code></pre>
 <gcds-text>Notez que la fonction <code>=WEBSERVICE()</code> fonctionne uniquement dans Excel sous Windows. <strong>Elle ne fonctionne pas dans Excel pour Mac.</strong> Il s'agit d'une limitation d'Excel, et non d'une limitation de ce projet.</gcds-text>
 <gcds-heading tag="h3">Google Sheets</gcds-heading>
 <gcds-text>Les mêmes appels d'API fonctionnent dans Google Sheets, en utilisant la fonction <code>=IMPORTDATA()</code> et en fournissant un délimiteur qui n'existe dans aucun nom d'organisation canonique.</gcds-text>
@@ -115,7 +142,10 @@ GET /name?gc_orgID=2222&amp;lang=fr
 =IMPORTDATA(&quot;https://gcorgs.cdssandbox.xyz/name?lang=en&amp;gc_orgID=&quot; &amp; A2, &quot;\&quot;)
 
 # Renvoie le nom français
-=IMPORTDATA(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;gc_orgID=&quot; &amp; A2, &quot;\&quot;)</code></pre>
+=IMPORTDATA(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;gc_orgID=&quot; &amp; A2, &quot;\&quot;)
+
+# Renvoie l'abréviation française (p. ex. « ASPC ») au lieu du nom complet
+=IMPORTDATA(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;field=abbreviation&amp;gc_orgID=&quot; &amp; A2, &quot;\&quot;)</code></pre>
 <gcds-heading tag="h3">En ligne</gcds-heading>
 <gcds-text>Vous trouverez ici quelques exemples <em>rudimentaires</em> d'utilisation de l'API pour améliorer la qualité des données lors de la collecte de renseignements auprès des utilisateurs :</gcds-text>
 <ul>
@@ -126,7 +156,7 @@ GET /name?gc_orgID=2222&amp;lang=fr
 <gcds-link href="https://gcorgs.cdssandbox.xyz/examples/infer">Déduire le nom d'une organisation à partir de l'adresse courriel d'un utilisateur</gcds-link> (<gcds-link href="https://github.com/cds-snc/gcorg-resolver/blob/main/src/gcorg_resolver/static/example_infer.html">source</gcds-link>)
 </li>
 </ul>
-      <gcds-date-modified>2026-07-09</gcds-date-modified>
+      <gcds-date-modified>2026-08-05</gcds-date-modified>
     </gcds-container>
 
     <gcds-footer

@@ -56,27 +56,33 @@
       {
          &quot;abbreviation&quot;:&quot;LAC&quot;,
          &quot;abreviation&quot;:&quot;BAC&quot;,
+         &quot;appellation_legale&quot;:&quot;Bibliothèque et Archives Canada&quot;,
          &quot;gc_orgID&quot;:2262,
          &quot;harmonized_name&quot;:&quot;Library and Archives Canada&quot;,
          &quot;input&quot;:&quot;Bibliothèque et Archives Canada&quot;,
+         &quot;legal_title&quot;:&quot;Library and Archives Canada&quot;,
          &quot;matched&quot;:true,
          &quot;nom_harmonise&quot;:&quot;Bibliothèque et Archives Canada&quot;
       },
       {
          &quot;abbreviation&quot;:&quot;CRA&quot;,
          &quot;abreviation&quot;:&quot;ARC&quot;,
+         &quot;appellation_legale&quot;:&quot;Agence du revenu du Canada&quot;,
          &quot;gc_orgID&quot;:2303,
          &quot;harmonized_name&quot;:&quot;Canada Revenue Agency&quot;,
          &quot;input&quot;:&quot;CRA&quot;,
+         &quot;legal_title&quot;:&quot;Canada Revenue Agency&quot;,
          &quot;matched&quot;:true,
          &quot;nom_harmonise&quot;:&quot;Agence du revenu du Canada&quot;
       },
       {
          &quot;abbreviation&quot;:null,
          &quot;abreviation&quot;:null,
+         &quot;appellation_legale&quot;:null,
          &quot;gc_orgID&quot;:null,
          &quot;harmonized_name&quot;:null,
          &quot;input&quot;:&quot;Department of Unicorns&quot;,
+         &quot;legal_title&quot;:null,
          &quot;matched&quot;:false,
          &quot;nom_harmonise&quot;:null
       }
@@ -84,6 +90,9 @@
 }</code></pre>
 <gcds-heading tag="h3">GET /resolve and GET /name</gcds-heading>
 <gcds-text>Two simplified endpoints intended for use with Excel's <code>WEBSERVICE()</code> and Google Sheet's <code>IMPORTDATA()</code> functions.  <code>GET /resolve</code> returns the <code>gc_orgID</code> as plain text, or an empty string on no match. The result can be passed to <code>GET /name</code> to resolve to a canonical name. The two-step process encourages users to store the unique <code>gc_orgID</code> alongside the name of the department.</gcds-text>
+<gcds-text>The optional <code>field</code> parameter controls what is returned by <code>GET /name</code>:</gcds-text>
+<gcds-text>| <code>field</code> value | Returns | | --- | --- | | <code>name</code> (default) | Harmonized name | | <code>abbreviation</code> | Abbreviation (empty string if none on record) | | <code>legal_title</code> | Legal title from the reference standard |</gcds-text>
+<gcds-text>French synonyms are accepted: <code>nom</code>, <code>abreviation</code>, <code>appellation_legale</code>. An unrecognised <code>field</code> value returns 400. An absent <code>field</code> defaults to <code>name</code>.</gcds-text>
 <pre><code>GET /resolve?name=Agriculture
 -&gt; 2222
 
@@ -91,7 +100,22 @@ GET /name?gc_orgID=2222&amp;lang=en
 -&gt; Agriculture and Agri-Food Canada
 
 GET /name?gc_orgID=2222&amp;lang=fr
--&gt; Agriculture et Agroalimentaire Canada</code></pre>
+-&gt; Agriculture et Agroalimentaire Canada
+
+GET /name?gc_orgID=2222&amp;lang=en&amp;field=abbreviation
+-&gt; AAFC
+
+GET /name?gc_orgID=2222&amp;lang=fr&amp;field=abbreviation
+-&gt; AAC
+
+GET /name?gc_orgID=2222&amp;lang=en&amp;field=legal_title
+-&gt; Department of Agriculture and Agri-Food
+
+GET /name?gc_orgID=2222&amp;lang=fr&amp;field=legal_title
+-&gt; Ministère de l'Agriculture et de l'Agroalimentaire
+
+GET /name?gc_orgID=2270&amp;lang=en&amp;field=abbreviation
+-&gt;                                  (200, no abbreviation on record)</code></pre>
 <gcds-heading tag="h2">Examples</gcds-heading>
 <gcds-heading tag="h3">Excel</gcds-heading>
 <gcds-text>You can use this API from Excel to automatically resolve organizations in a workbook without having to use PowerQuery or any external tools. Simply cut and paste the formulas below into your workbook.</gcds-text>
@@ -102,7 +126,10 @@ GET /name?gc_orgID=2222&amp;lang=fr
 =WEBSERVICE(&quot;https://gcorgs.cdssandbox.xyz/name?lang=en&amp;gc_orgID=&quot; &amp; A2)
 
 # Returns the French name
-=WEBSERVICE(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;gc_orgID=&quot; &amp; A2)</code></pre>
+=WEBSERVICE(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;gc_orgID=&quot; &amp; A2)
+
+# Returns the English abbreviation (e.g. &quot;PHAC&quot;) instead of the full name
+=WEBSERVICE(&quot;https://gcorgs.cdssandbox.xyz/name?lang=en&amp;field=abbreviation&amp;gc_orgID=&quot; &amp; A2)</code></pre>
 <gcds-text>Note that the <code>=WEBSERVICE()</code> function only works in Excel on Windows. <strong>It does not work in Excel for Mac.</strong> This is a limitation of Excel for Mac, not a limitation of this project.</gcds-text>
 <gcds-heading tag="h3">Google Sheets</gcds-heading>
 <gcds-text>The same API calls work in Google Sheets, using the <code>=IMPORTDATA()</code> function and providing a delimiter that doesn't exist in any canonical organization names.</gcds-text>
@@ -113,7 +140,10 @@ GET /name?gc_orgID=2222&amp;lang=fr
 =IMPORTDATA(&quot;https://gcorgs.cdssandbox.xyz/name?lang=en&amp;gc_orgID=&quot; &amp; A2, &quot;\&quot;)
 
 # Returns the French name
-=IMPORTDATA(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;gc_orgID=&quot; &amp; A2, &quot;\&quot;)</code></pre>
+=IMPORTDATA(&quot;https://gcorgs.cdssandbox.xyz/name?lang=fr&amp;gc_orgID=&quot; &amp; A2, &quot;\&quot;)
+
+# Returns the English abbreviation (e.g. &quot;PHAC&quot;) instead of the full name
+=IMPORTDATA(&quot;https://gcorgs.cdssandbox.xyz/name?lang=en&amp;field=abbreviation&amp;gc_orgID=&quot; &amp; A2, &quot;\&quot;)</code></pre>
 <gcds-heading tag="h3">Online</gcds-heading>
 <gcds-text>You can see some <em>rudimentary</em> examples of how to use the API to improve data quality when collecting information from users here:</gcds-text>
 <ul>
@@ -124,7 +154,7 @@ GET /name?gc_orgID=2222&amp;lang=fr
 <gcds-link href="https://gcorgs.cdssandbox.xyz/examples/infer">Infer an organization name from a user's email</gcds-link> (<gcds-link href="https://github.com/cds-snc/gcorg-resolver/blob/main/src/gcorg_resolver/static/example_infer.html">source</gcds-link>)
 </li>
 </ul>
-      <gcds-date-modified>2026-07-09</gcds-date-modified>
+      <gcds-date-modified>2026-08-05</gcds-date-modified>
     </gcds-container>
 
     <gcds-footer
