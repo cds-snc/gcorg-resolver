@@ -70,7 +70,7 @@ echo "PASS  GET /name?gc_orgID=2222&lang=en&field=legal_title"
 
 echo "Testing /name GET endpoint (field=legal_title, French)..."
 got=$(curl -sf "$BASE_URL/name?gc_orgID=2222&lang=fr&field=legal_title")
-[[ "$got" == "Ministère de l'Agriculture et de l'Agroalimentaire" ]]
+[[ "$got" == "Ministère de l’Agriculture et de l’Agroalimentaire" ]]
 echo "PASS  GET /name?gc_orgID=2222&lang=fr&field=legal_title"
 
 # Org with no abbreviation on record should return 200 with empty body
