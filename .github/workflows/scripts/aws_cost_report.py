@@ -88,9 +88,11 @@ if __name__ == "__main__":
 
     start_date, end_date = calculate_last_week()
     raw_amount, unit = get_weekly_cost(start_date, end_date)
-    display_start_date = datetime.fromisoformat(start_date).strftime("%b %-d, %Y")
+    display_start_date = datetime.datetime.fromisoformat(start_date).strftime(
+        "%b %-d, %Y"
+    )
     display_end_date = (
-        datetime.fromisoformat(end_date).date() - timedelta(days=1)
+        datetime.datetime.fromisoformat(end_date).date() - timedelta(days=1)
     ).strftime("%b %-d, %Y")
 
     try:
