@@ -46,3 +46,12 @@ def test_short_query_does_not_fuzzy_match():
 
 def test_long_unrelated_string_returns_none():
     assert resolve("department of completely imaginary unicorns") is None
+
+
+def test_gc_org_id_resolves_to_itself():
+    assert resolve("2222") == 2222
+    assert resolve(" 2303 ") == 2303
+
+
+def test_unknown_gc_org_id_returns_none():
+    assert resolve("999999") is None

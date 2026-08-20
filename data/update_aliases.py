@@ -5,10 +5,10 @@ aliases to add. Existing aliases are never removed or modified — only new
 normalized forms that aren't already in the file get appended.
 
 For each row in the Names and Codes dataset, the following fields are treated
-as alias sources: harmonized_name, nom_harmonisé, abbreviation, abreviation,
-ati, open_gov_ouvert. Duplicate normalized forms are resolved according to the
-KNOWN_CONFLICTS dictionary or, if they're not known, the first value is
-accepted and we print a message for attention later.
+as alias sources: gc_orgID, harmonized_name, nom_harmonisé, abbreviation,
+abreviation, ati, open_gov_ouvert. Duplicate normalized forms are resolved
+according to the KNOWN_CONFLICTS dictionary or, if they're not known, the
+first value is accepted and we print a message for attention later.
 
 """
 
@@ -25,8 +25,10 @@ from gcorg_resolver.normalize import normalize
 CONCORDANCE_PATH = HERE / "gc_concordance.csv"
 ALIASES_PATH = HERE / "gc_org_aliases.csv"
 
-# Fields that potentially contain aliases that help us resolve names
+# Fields that potentially contain aliases that help us resolve names.
+# gc_orgID is one, so an ID resolves to its own org.
 ALIAS_FIELDS = [
+    "gc_orgID",
     "harmonized_name",
     "nom_harmonisé",
     "abbreviation",

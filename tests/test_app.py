@@ -270,3 +270,15 @@ def test_post_resolve_unmatched_legal_title_null(client):
     assert result["matched"] is False
     assert result["legal_title"] is None
     assert result["appellation_legale"] is None
+
+
+def test_post_resolve_accepts_gc_org_id_as_a_name(client):
+    resp = client.post("/resolve", json={"names": ["2222", "CRA"]})
+    assert resp.status_code == 200
+    results = resp.get_json()["results"]
+    assert results[0]["input"] == "2222"
+    assert results[0]["gc_orgID"] == 2222
+    assert results[0]["matched"] is True
+    assert results[0]["harmonized_name"] == "Agriculture and Agri-Food Canada"
+    assert results[0]["legal_title"] == "Department of Agriculture and Agri-Food"
+    assert results[1]["gc_orgID"] == 2303
