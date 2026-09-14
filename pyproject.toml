@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "gcorg-resolver"
 version = "0.2.0"
 description = "HTTP API that resolves Government of Canada organization names"
-requires-python = ">=3.11"
+requires-python = ">=3.14"
 license = "MIT"
 classifiers = [
     "License :: OSI Approved :: MIT License",

@@ -38,7 +38,7 @@ resource "aws_lambda_function" "api" {
   function_name                  = local.function_name
   role                           = aws_iam_role.lambda.arn
   handler                        = "gcorg_resolver.lambda_handler.handler"
-  runtime                        = "python3.11"
+  runtime                        = "python3.14"
   timeout                        = 30
   memory_size                    = 256
   filename                       = var.lambda_zip_path

@@ -26,7 +26,7 @@ uv pip install \
   --quiet \
   --target "$BUILD_DIR" \
   --python-platform linux \
-  --python-version 3.11 \
+  --python-version 3.14 \
   --only-binary :all: \
   --requirements "$REQUIREMENTS_FILE"
 
