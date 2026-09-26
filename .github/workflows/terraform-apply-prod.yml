@@ -56,14 +56,14 @@ jobs:
         run: bash infra/build_lambda.sh
 
       - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v6
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
         with:
           role-to-assume: arn:aws:iam::${{ vars.SDR_AWS_ACCOUNT }}:role/gcorg-resolver-apply-prod
           role-session-name: TFApplyProd
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Set up Terraform
-        uses: cds-snc/terraform-tools-setup@v1
+        uses: cds-snc/terraform-tools-setup@36df0d7572a15921998170395475093c183d720a # v1.3.0
         env:
           TERRAFORM_VERSION: 1.14.8
       
