@@ -58,6 +58,9 @@ KNOWN_CONFLICTS = {
     # Office of the Intelligence Commissioner of Canada (2276)
     "oic": 0,  # Too ambiguous to resolve
     "oic-ci": 0,
+    # Pêches et Océans Canada (2226)
+    # Major Projects Office (3710)
+    "mpo": 0,  # Too ambiguous to resolve
 }
 
 if __name__ == "__main__":

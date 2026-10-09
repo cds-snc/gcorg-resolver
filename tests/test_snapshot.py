@@ -19,6 +19,7 @@ CANONICAL_ORGS_EN: list[tuple[str, int]] = [
     ("Department of Finance Canada", 2225),
     ("Finance", 2225),
     ("Fisheries and Oceans Canada", 2226),
+    ("MPO", None),  # Pêches et Océans or Major Projects Office?
     ("DFO", 2226),
     ("Global Affairs Canada", 2227),
     ("Health Canada", 2228),
@@ -455,6 +456,7 @@ GC_EMAILS: list[tuple[str, int]] = [
     ("demo.account@mint.ca", 3637),
     ("not.real@monnaie.ca", 3637),
     ("fake.user@mpcc-cppm.gc.ca", 2264),
+    ("sample.user@mpo-bgp.gc.ca", 3710),
     ("fake.address@museedelhistoire.ca", 3621),
     ("fictitious@nac-cna.ca", 3625),
     ("not.real@nature.ca", 3623),
