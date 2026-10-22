@@ -52,3 +52,21 @@ def test_no_mojibake(rows: list[dict[str, str]]) -> None:
                     offenders.append((i, col, value))
     # Truncate the failure message so we don't dump hundreds of rows
     assert offenders == [], f"mojibake detected: {offenders[:5]}"
+
+
+CONCORDANCE_CSV = Path(__file__).resolve().parents[1] / "data" / "gc_concordance.csv"
+
+# 0 marks an ambiguous alias that is deliberately never matched
+AMBIGUOUS_ID = 0
+
+
+def test_every_alias_id_exists_in_concordance(rows: list[dict[str, str]]) -> None:
+    with CONCORDANCE_CSV.open(encoding="utf-8-sig", newline="") as f:
+        known_ids = {int(r["gc_orgID"]) for r in csv.DictReader(f)}
+    known_ids.add(AMBIGUOUS_ID)
+    dangling = {
+        r["name"]: int(r["gc_orgID"])
+        for r in rows
+        if int(r["gc_orgID"]) not in known_ids
+    }
+    assert dangling == {}, f"aliases with ids missing from concordance: {dangling}"
