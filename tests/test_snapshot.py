@@ -479,7 +479,6 @@ GC_EMAILS: list[tuple[str, int]] = [
     ("mock.email@ouranos.ca", 3483),
     ("noreply.demo@p3canada.ca", 3645),
     ("demo.user@parcdownsview.ca", 3690),
-    ("demo.account@parl.gc.ca", 3584),
     ("fake.user@partenariatcontrelecancer.ca", 3455),
     ("testing123@partnershipagainstcancer.ca", 3455),
     ("fake.inbox@patientsafetyinstitute.ca", 3456),
@@ -526,10 +525,6 @@ GC_EMAILS: list[tuple[str, int]] = [
     ("example.user@scics.ca", 2248),
     ("dummy.account@sdtc.ca", 3444),
     ("sample.inbox@securitepublique.gc.ca", 2235),
-    (
-        "noreply.demo@sen.parl.gc.ca",
-        3584,  # This is only half right, but we only use parl.gc.ca and don't dive into sub-subdomains
-    ),
     ("demo.user@sjport.com", 3495),
     ("sample.user@sshrc-crsh.gc.ca", 2316),
     ("dummy.account@statcan.gc.ca", 2293),
@@ -585,3 +580,12 @@ def test_bilingual_acronym_resolves(name: str, expected_id: int):
 @pytest.mark.parametrize(("name", "expected_id"), GC_EMAILS)
 def test_emails_resolves(name: str, expected_id: int):
     assert resolve(name) == expected_id
+
+
+@pytest.mark.parametrize(
+    "name",
+    ["demo.account@parl.gc.ca", "noreply.demo@sen.parl.gc.ca", "Parliament of Canada"],
+)
+def test_parliament_of_canada_is_unmatched(name: str):
+    # Parliament of Canada left the reference data, so it has no id to return
+    assert resolve(name) is None

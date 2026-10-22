@@ -50,6 +50,8 @@ def _alias_index() -> dict[str, int]:
 
 def resolve(name: str) -> int | None:
     """Return the ``gc_orgID`` that ``name`` resolves to, or ``None``."""
+    if not isinstance(name, str):
+        return None
     query = normalize(name)
     index = _alias_index()
     if query in index:
