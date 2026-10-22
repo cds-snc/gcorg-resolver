@@ -589,3 +589,12 @@ def test_emails_resolves(name: str, expected_id: int):
 def test_parliament_of_canada_is_unmatched(name: str):
     # Parliament of Canada left the reference data, so it has no id to return
     assert resolve(name) is None
+
+
+CDS_NAMES = ["Canadian Digital Service", "CDS", "Service numérique canadien"]
+
+
+@pytest.mark.parametrize("name", CDS_NAMES)
+def test_canadian_digital_service_resolves_to_ssc(name: str):
+    # CDS moved to Shared Services Canada
+    assert resolve(name) == 2292

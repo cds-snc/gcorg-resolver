@@ -347,3 +347,12 @@ def test_resolve_removed_parliament_aliases_are_unmatched(client):
     assert results[0]["matched"] is True
     assert results[1]["matched"] is False
     assert results[2]["matched"] is False
+
+
+def test_resolve_cds_names_to_ssc(client):
+    names = ["Canadian Digital Service", "CDS", "Service numérique canadien"]
+    resp = client.post("/resolve", json={"names": names})
+    assert resp.status_code == 200
+    results = resp.get_json()["results"]
+    assert [r["gc_orgID"] for r in results] == [2292, 2292, 2292]
+    assert all(r["harmonized_name"] == "Shared Services Canada" for r in results)
