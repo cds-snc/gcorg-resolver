@@ -81,6 +81,7 @@ CANONICAL_ORGS_EN: list[tuple[str, int]] = [
     ("HICC", 2269),
     ("Office of the Auditor General of Canada", 2270),
     ("Elections Canada", 2271),
+    ("Office of the Chief Electoral Officer / Bureau du directeur général des élections", 2271),
     ("Office of the Commissioner for Federal Judicial Affairs Canada", 2272),
     ("Office of the Commissioner of Lobbying of Canada", 2273),
     ("Office of the Commissioner of Official Languages", 2274),
