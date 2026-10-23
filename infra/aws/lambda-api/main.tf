@@ -48,6 +48,7 @@ resource "aws_lambda_function" "api" {
   environment {
     variables = {
       PYTHONDONTWRITEBYTECODE = "1"
+      ORIGIN_VERIFY_SECRET    = var.origin_verify_secret
     }
   }
 

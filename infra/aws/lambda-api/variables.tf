@@ -36,6 +36,13 @@ variable "api_throttle_burst" {
   default     = 100
 }
 
+variable "origin_verify_secret" {
+  description = "Secret CloudFront sends in X-Origin-Verify. Empty disables the check."
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
 variable "billing_tag_value" {
   description = "The value used to track billing costs."
   type        = string

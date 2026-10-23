@@ -62,10 +62,18 @@ resource "aws_cloudfront_distribution" "prod" {
   comment         = "gcorg-resolver prod"
   aliases         = ["gcorgs.cdssandbox.xyz"]
   price_class     = "PriceClass_100" # NA + EU edges (cheapest tier that includes CA + US)
+  web_acl_id      = aws_wafv2_web_acl.prod.arn
 
   origin {
     domain_name = trimprefix(data.terraform_remote_state.prod.outputs.api_endpoint, "https://")
     origin_id   = "api-gateway-prod"
+
+    # The app rejects requests without this header, so the API can't be
+    # reached around CloudFront's geo-restriction and WAF
+    custom_header {
+      name  = "X-Origin-Verify"
+      value = data.terraform_remote_state.prod.outputs.origin_verify_secret
+    }
 
     custom_origin_config {
       http_port              = 80

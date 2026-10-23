@@ -356,3 +356,42 @@ def test_resolve_cds_names_to_ssc(client):
     results = resp.get_json()["results"]
     assert [r["gc_orgID"] for r in results] == [2292, 2292, 2292]
     assert all(r["harmonized_name"] == "Shared Services Canada" for r in results)
+
+
+SECRET = "s3cret-from-cloudfront"
+
+
+@pytest.fixture()
+def locked_client(monkeypatch):
+    monkeypatch.setenv("ORIGIN_VERIFY_SECRET", SECRET)
+    app = create_app()
+    app.config["TESTING"] = True
+    with app.test_client() as c:
+        yield c
+
+
+def test_request_with_origin_secret_is_served(locked_client):
+    resp = locked_client.get("/health", headers={"X-Origin-Verify": SECRET})
+    assert resp.status_code == 200
+
+
+def test_request_without_origin_secret_is_forbidden(locked_client):
+    resp = locked_client.get("/health")
+    assert resp.status_code == 403
+
+
+@pytest.mark.parametrize("bad", ["wrong", "", SECRET + "x", "s3cret-é"])
+def test_request_with_wrong_origin_secret_is_forbidden(locked_client, bad):
+    resp = locked_client.post(
+        "/resolve", json={"names": ["CRA"]}, headers={"X-Origin-Verify": bad}
+    )
+    assert resp.status_code == 403
+
+
+def test_forbidden_response_still_carries_cors_headers(locked_client):
+    resp = locked_client.get("/health")
+    assert resp.headers["Access-Control-Allow-Origin"] == "*"
+
+
+def test_no_origin_secret_configured_serves_everything(client):
+    assert client.get("/health").status_code == 200
