@@ -29,6 +29,42 @@ _FIELD_SYNONYMS = {
 _VALID_FIELDS = ", ".join(_FIELD_ATTRS)
 
 
+def _resolve_one(name) -> dict:
+    """Build one /resolve result. Never raises: bad input is an unmatched row."""
+    org = None
+    if isinstance(name, str):
+        gc_org_id = resolve(name)
+        if gc_org_id is not None:
+            # An alias id missing from the reference data counts as unmatched
+            try:
+                org = lookup(gc_org_id)
+            except KeyError:
+                org = None
+    if org is None:
+        return {
+            "input": name,
+            "gc_orgID": None,
+            "harmonized_name": None,
+            "nom_harmonise": None,
+            "abbreviation": None,
+            "abreviation": None,
+            "legal_title": None,
+            "appellation_legale": None,
+            "matched": False,
+        }
+    return {
+        "input": name,
+        "gc_orgID": org.gc_orgID,
+        "harmonized_name": org.harmonized_name,
+        "nom_harmonise": org.nom_harmonise,
+        "abbreviation": org.abbreviation,
+        "abreviation": org.abreviation,
+        "legal_title": org.legal_title,
+        "appellation_legale": org.appellation_legale,
+        "matched": True,
+    }
+
+
 def create_app() -> Flask:
     app = Flask(__name__)
     app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
@@ -84,38 +120,7 @@ def create_app() -> Flask:
                 400,
             )
 
-        results = []
-        for name in names:
-            gc_org_id = resolve(name)
-            if gc_org_id is not None:
-                org = lookup(gc_org_id)
-                results.append(
-                    {
-                        "input": name,
-                        "gc_orgID": org.gc_orgID,
-                        "harmonized_name": org.harmonized_name,
-                        "nom_harmonise": org.nom_harmonise,
-                        "abbreviation": org.abbreviation,
-                        "abreviation": org.abreviation,
-                        "legal_title": org.legal_title,
-                        "appellation_legale": org.appellation_legale,
-                        "matched": True,
-                    }
-                )
-            else:
-                results.append(
-                    {
-                        "input": name,
-                        "gc_orgID": None,
-                        "harmonized_name": None,
-                        "nom_harmonise": None,
-                        "abbreviation": None,
-                        "abreviation": None,
-                        "legal_title": None,
-                        "appellation_legale": None,
-                        "matched": False,
-                    }
-                )
+        results = [_resolve_one(name) for name in names]
 
         return jsonify({"results": results})
 

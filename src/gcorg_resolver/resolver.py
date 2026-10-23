@@ -12,6 +12,7 @@ from difflib import get_close_matches
 from functools import cache
 from pathlib import Path
 
+from gcorg_resolver.load_reference_standard import known_ids
 from gcorg_resolver.normalize import normalize
 
 PKG_DIR = Path(__file__).resolve().parent
@@ -43,13 +44,22 @@ FUZZY_MATCH_MIN_RATIO = 0.85
 
 @cache
 def _alias_index() -> dict[str, int]:
+    # Aliases for orgs missing from the reference data map to 0 (ambiguous), so
+    # they never match and an exact hit doesn't fall through to a fuzzy match.
+    live_ids = known_ids()
     with ALIASES_PATH.open(encoding="utf-8", newline="") as f:
         reader = csv.DictReader(f)
-        return {row["name"]: int(row["gc_orgID"]) for row in reader}
+        index = {}
+        for row in reader:
+            gc_org_id = int(row["gc_orgID"])
+            index[row["name"]] = gc_org_id if gc_org_id in live_ids else 0
+        return index
 
 
 def resolve(name: str) -> int | None:
     """Return the ``gc_orgID`` that ``name`` resolves to, or ``None``."""
+    if not isinstance(name, str):
+        return None
     query = normalize(name)
     index = _alias_index()
     if query in index:

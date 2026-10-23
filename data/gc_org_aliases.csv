@@ -682,8 +682,8 @@ cdc-ccl.gc.ca,3615
 cdc-dcc.gc.ca,3652
 cdev.gc.ca,3635
 cdic.ca,3634
-cds,3591
-cds-snc.ca,3591
+cds,2292
+cds-snc.ca,2292
 cec.org,3412
 ced,2257
 ced-dec,2257
@@ -1054,9 +1054,9 @@ dfo,2226
 dfo mpo,2226
 dfo-mpo,2226
 dfo-mpo.gc.ca,2226
-digital service,2229
-digital service employment social development,2229
-digital service service numerique,2229
+digital service,2292
+digital service employment social development,2292
+digital service service numerique,2292
 directeur etablissement soldats,3422
 directeur general elections,2271
 directeur parlementaire budget,3433
@@ -1111,7 +1111,7 @@ employment insurance commission,2302
 employment insurance commission commission assurance-emploi,2302
 employment insurance financing board,3666
 employment social development,2229
-employment social development digital service,2229
+employment social development digital service,2292
 employment social development emploi developpement social,2229
 en-corporate.canada.travel,3647
 energie atomique limitee,3649
@@ -2072,6 +2072,7 @@ service appui tribunaux administratifs administrative tribunals support service,
 service correctionnel,2255
 service correctionnel correctional service,2255
 service delegues commerciaux,3560
+service numerique,2292
 service poursuites penales,2277
 service poursuites penales public prosecution service,2277
 service protection parlementaire,3434

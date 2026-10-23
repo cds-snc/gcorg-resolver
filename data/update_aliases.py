@@ -79,11 +79,13 @@ if __name__ == "__main__":
 
     # Scan the concordance for new aliases not already in the file.
     new_rows: list[tuple[str, int]] = []
+    concordance_ids: set[int] = set()
 
     with CONCORDANCE_PATH.open(encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
         for concordance_row in reader:
             gc_org_id = int(concordance_row["gc_orgID"])
+            concordance_ids.add(gc_org_id)
 
             for field in ALIAS_FIELDS:
                 raw = concordance_row.get(field, "").strip()
@@ -126,6 +128,17 @@ if __name__ == "__main__":
         writer = csv.writer(f)
         writer.writerow(["name", "gc_orgID"])
         writer.writerows(all_rows)
+
+    # Kept so they work again if the org returns; the resolver never matches them
+    dangling = sorted(
+        (gc_org_id, name)
+        for name, gc_org_id in all_rows
+        if gc_org_id != 0 and gc_org_id not in concordance_ids
+    )
+    if dangling:
+        print(f"{len(dangling)} aliases point at orgs not in the concordance:")
+        for gc_org_id, name in dangling:
+            print(f"  {gc_org_id} {name}")
 
     print(
         f"{len(existing_rows)} existing aliases, {len(new_rows)} new — {len(all_rows)} total written to {ALIASES_PATH}"

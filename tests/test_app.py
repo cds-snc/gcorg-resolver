@@ -1,6 +1,7 @@
 import pytest
 
 from gcorg_resolver.app import create_app
+from gcorg_resolver.resolver import resolve
 
 
 @pytest.fixture()
@@ -282,3 +283,76 @@ def test_post_resolve_accepts_gc_org_id_as_a_name(client):
     assert results[0]["harmonized_name"] == "Agriculture and Agri-Food Canada"
     assert results[0]["legal_title"] == "Department of Agriculture and Agri-Food"
     assert results[1]["gc_orgID"] == 2303
+
+
+def test_resolve_null_input_is_unmatched_and_batch_survives(client):
+    resp = client.post(
+        "/resolve", json={"names": ["Agriculture and Agri-Food Canada", None, "CRA"]}
+    )
+    assert resp.status_code == 200
+    results = resp.get_json()["results"]
+    assert len(results) == 3
+    assert results[0]["matched"] is True
+    assert results[1]["matched"] is False
+    assert results[1]["input"] is None
+    assert results[1]["gc_orgID"] is None
+    assert results[2]["gc_orgID"] == 2303
+
+
+@pytest.mark.parametrize("bad", [123, 1.5, True, ["CRA"], {"a": 1}])
+def test_resolve_non_string_input_is_unmatched_and_batch_survives(client, bad):
+    resp = client.post("/resolve", json={"names": ["CRA", bad, "CRA"]})
+    assert resp.status_code == 200
+    results = resp.get_json()["results"]
+    assert [r["matched"] for r in results] == [True, False, True]
+    assert results[1]["input"] == bad
+
+
+def test_resolve_empty_string_is_unmatched(client):
+    resp = client.post("/resolve", json={"names": ["", "CRA"]})
+    assert resp.status_code == 200
+    assert [r["matched"] for r in resp.get_json()["results"]] == [False, True]
+
+
+def test_resolve_alias_with_id_missing_from_reference_data_is_unmatched(
+    client, monkeypatch
+):
+    monkeypatch.setattr("gcorg_resolver.app.resolve", lambda name: 999999)
+    resp = client.post("/resolve", json={"names": ["anything"]})
+    assert resp.status_code == 200
+    result = resp.get_json()["results"][0]
+    assert result["matched"] is False
+    assert result["gc_orgID"] is None
+
+
+def test_resolve_alias_with_id_missing_only_fails_that_item(client, monkeypatch):
+    real = resolve
+
+    def fake(name):
+        return 999999 if name == "dangling" else real(name)
+
+    monkeypatch.setattr("gcorg_resolver.app.resolve", fake)
+    resp = client.post("/resolve", json={"names": ["CRA", "dangling", "CRA"]})
+    assert resp.status_code == 200
+    assert [r["matched"] for r in resp.get_json()["results"]] == [True, False, True]
+
+
+def test_resolve_removed_parliament_aliases_are_unmatched(client):
+    resp = client.post(
+        "/resolve", json={"names": ["Health Canada", "Parliament of Canada", None]}
+    )
+    assert resp.status_code == 200
+    results = resp.get_json()["results"]
+    assert len(results) == 3
+    assert results[0]["matched"] is True
+    assert results[1]["matched"] is False
+    assert results[2]["matched"] is False
+
+
+def test_resolve_cds_names_to_ssc(client):
+    names = ["Canadian Digital Service", "CDS", "Service numérique canadien"]
+    resp = client.post("/resolve", json={"names": names})
+    assert resp.status_code == 200
+    results = resp.get_json()["results"]
+    assert [r["gc_orgID"] for r in results] == [2292, 2292, 2292]
+    assert all(r["harmonized_name"] == "Shared Services Canada" for r in results)

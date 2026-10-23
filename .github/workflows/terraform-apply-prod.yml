@@ -35,8 +35,36 @@ env:
   TF_IN_AUTOMATION: "true"
 
 jobs:
+  # The upstream workflows push to main only when something changed, so a
+  # successful run that left main at its own commit has nothing to deploy.
+  changes:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    outputs:
+      deploy: ${{ steps.check.outputs.deploy }}
+    steps:
+      - name: Check for new commits
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          RUN_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          if [ "$EVENT_NAME" != "workflow_run" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          main_sha=$(gh api "repos/$GITHUB_REPOSITORY/commits/main" --jq .sha)
+          if [ "$main_sha" = "$RUN_SHA" ]; then
+            echo "main is still at $RUN_SHA; nothing to deploy"
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          fi
+
   apply:
-    if: ${{ github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
+    needs: changes
+    if: ${{ needs.changes.outputs.deploy == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
