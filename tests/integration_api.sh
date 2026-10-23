@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Integration tests for the dev or prod API
+# Integration tests for the prod API
 # Runs after terraform apply
 
 set -euo pipefail

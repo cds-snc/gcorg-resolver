@@ -5,7 +5,7 @@ permissions:
 
 on:
   workflow_run:
-    workflows: ["Terraform apply (dev)", "Terraform apply (prod)"]
+    workflows: ["Terraform apply (prod)"]
     types: [completed]
   workflow_dispatch:
     inputs:
@@ -24,7 +24,7 @@ jobs:
         (
           github.event.workflow_run.conclusion == 'success' &&
           github.event.workflow_run.head_repository.full_name == github.repository &&
-          (github.event.workflow_run.head_branch == 'dev' || github.event.workflow_run.head_branch == 'main')
+          github.event.workflow_run.head_branch == 'main'
         )
       }}
     runs-on: ubuntu-latest
@@ -46,9 +46,6 @@ jobs:
               echo "base_url=${{ vars.API_BASE_URL_PROD }}" >> "$GITHUB_OUTPUT"
               echo "IS_PROD=true" >> "$GITHUB_ENV"
             fi
-          elif [[ "${{ github.event.workflow_run.name }}" == "Terraform apply (dev)" ]]; then
-            echo "base_url=${{ vars.API_BASE_URL_DEV }}" >> "$GITHUB_OUTPUT"
-            echo "IS_PROD=false" >> "$GITHUB_ENV"
           else
             echo "base_url=${{ vars.API_BASE_URL_PROD }}" >> "$GITHUB_OUTPUT"
             echo "IS_PROD=true" >> "$GITHUB_ENV"

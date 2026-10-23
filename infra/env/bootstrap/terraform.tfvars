@@ -1,0 +1,5 @@
+billing_tag_value = "GCOrgResolver"
+region            = "ca-central-1"
+github_org        = "cds-snc"
+github_repo       = "gcorg-resolver"
+state_bucket_prod = "gcorg-resolver-prod-tfstate-b8g2l4"
