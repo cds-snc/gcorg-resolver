@@ -1,5 +1,6 @@
 """Flask REST API for resolving free-text GC org names to ``gc_orgID``."""
 
+import hmac
 import os
 
 from flask import Flask, jsonify, request, send_from_directory
@@ -10,6 +11,9 @@ from gcorg_resolver.resolver import resolve
 # Limit in a single API call
 MAX_NAMES = 1000
 MAX_CONTENT_LENGTH = 512 * 1024  # 512 KB
+
+# CloudFront sends this header with a shared secret; see require_origin_header
+ORIGIN_VERIFY_HEADER = "X-Origin-Verify"
 
 # Mapping from canonical field name to (english_attr, french_attr) on Org.
 _FIELD_ATTRS = {
@@ -68,6 +72,19 @@ def _resolve_one(name) -> dict:
 def create_app() -> Flask:
     app = Flask(__name__)
     app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
+
+    # When set, only CloudFront can reach the API; otherwise the public
+    # execute-api URL bypasses its geo-restriction and WAF.
+    origin_secret = os.environ.get("ORIGIN_VERIFY_SECRET", "").encode()
+
+    @app.before_request
+    def require_origin_header():
+        if not origin_secret:
+            return None
+        supplied = request.headers.get(ORIGIN_VERIFY_HEADER, "").encode()
+        if not hmac.compare_digest(supplied, origin_secret):
+            return jsonify({"error": "Forbidden"}), 403
+        return None
 
     # CORS: this API is intended to be consumed from arbitrary origins
     # (Excel, Google Sheets, third-party web pages, etc.), so we allow any
