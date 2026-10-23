@@ -1,5 +1,7 @@
 locals {
   PROD_STATE_BUCKET_ARN = "arn:aws:s3:::${var.state_bucket_prod}"
+  PROD_FUNCTION_ARN     = "arn:aws:lambda:${var.region}:${data.aws_caller_identity.current.account_id}:function:gcorg-resolver-prod"
+  PROD_LOG_GROUP_ARN    = "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/gcorg-resolver-prod"
 }
 
 # --- Prod plan role ---------------------------------------------------------
@@ -41,29 +43,39 @@ data "aws_iam_policy_document" "apply_prod" {
     ]
   }
 
-  # Matches the deployed policy. Scoping these to gcorg-resolver-* ARNs is
-  # untested against a CI apply (HTTP API tagging, DescribeLogGroups).
   statement {
-    sid       = "LambdaAll"
-    actions   = ["lambda:*"]
-    resources = ["*"]
+    sid     = "LambdaProd"
+    actions = ["lambda:*"]
+    resources = [
+      local.PROD_FUNCTION_ARN,
+      "${local.PROD_FUNCTION_ARN}:*",
+    ]
+  }
+
+  # HTTP API ids aren't known until creation; tags are managed under /tags
+  statement {
+    sid     = "ApiGatewayHttpApis"
+    actions = ["apigateway:*"]
+    resources = [
+      "arn:aws:apigateway:${var.region}::/apis",
+      "arn:aws:apigateway:${var.region}::/apis/*",
+      "arn:aws:apigateway:${var.region}::/tags/*",
+    ]
   }
 
   statement {
-    sid       = "ApiGatewayAll"
-    actions   = ["apigateway:*"]
-    resources = ["*"]
+    sid     = "LogsProd"
+    actions = ["logs:*"]
+    resources = [
+      local.PROD_LOG_GROUP_ARN,
+      "${local.PROD_LOG_GROUP_ARN}:*",
+    ]
   }
 
+  # DescribeLogGroups has no resource-level permissions
   statement {
-    sid       = "LogsAll"
-    actions   = ["logs:*"]
-    resources = ["*"]
-  }
-
-  statement {
-    sid       = "AcmAll"
-    actions   = ["acm:*"]
+    sid       = "LogsDescribe"
+    actions   = ["logs:DescribeLogGroups"]
     resources = ["*"]
   }
 
