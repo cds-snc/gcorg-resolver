@@ -115,3 +115,8 @@ def _default_index() -> dict[int, Org]:
 def lookup(gc_org_id: int) -> Org:
     """Return the ``Org`` for ``gc_org_id`` from the pinned snapshot."""
     return _default_index()[gc_org_id]
+
+
+def known_ids() -> set[int]:
+    """Return every ``gc_orgID`` in the pinned snapshot."""
+    return set(_default_index())

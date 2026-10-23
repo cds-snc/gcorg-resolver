@@ -4,6 +4,8 @@ from pathlib import Path
 
 import pytest
 
+from gcorg_resolver.resolver import resolve
+
 ALIASES_CSV = Path(__file__).resolve().parents[1] / "data" / "gc_org_aliases.csv"
 
 # Look for UTF-8 characters that have been rendered in Latin-1
@@ -56,17 +58,16 @@ def test_no_mojibake(rows: list[dict[str, str]]) -> None:
 
 CONCORDANCE_CSV = Path(__file__).resolve().parents[1] / "data" / "gc_concordance.csv"
 
-# 0 marks an ambiguous alias that is deliberately never matched
-AMBIGUOUS_ID = 0
 
-
-def test_every_alias_id_exists_in_concordance(rows: list[dict[str, str]]) -> None:
+def test_aliases_for_orgs_missing_from_concordance_are_unmatched(
+    rows: list[dict[str, str]],
+) -> None:
+    # Dangling aliases are kept on purpose, in case the org returns
     with CONCORDANCE_CSV.open(encoding="utf-8-sig", newline="") as f:
         known_ids = {int(r["gc_orgID"]) for r in csv.DictReader(f)}
-    known_ids.add(AMBIGUOUS_ID)
-    dangling = {
-        r["name"]: int(r["gc_orgID"])
+    matched = {
+        r["name"]: resolve(r["name"])
         for r in rows
         if int(r["gc_orgID"]) not in known_ids
     }
-    assert dangling == {}, f"aliases with ids missing from concordance: {dangling}"
+    assert all(v is None for v in matched.values()), matched
