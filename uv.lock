@@ -231,7 +231,7 @@ requires-dist = [
     { name = "mangum", marker = "extra == 'lambda'", specifier = ">=0.19" },
     { name = "matplotlib", marker = "extra == 'metrics'", specifier = ">=3.9" },
     { name = "pandas", marker = "extra == 'metrics'", specifier = ">=2.0" },
-    { name = "pillow", marker = "extra == 'metrics'", specifier = ">=12.3.0" },
+    { name = "pillow", marker = "extra == 'metrics'", specifier = ">=13.0.0" },
     { name = "plotly", marker = "extra == 'metrics'", specifier = ">=5.0" },
     { name = "unidecode", specifier = ">=1.3" },
 ]
