@@ -8,13 +8,9 @@ on:
     workflows: ["Terraform apply (prod)"]
     types: [completed]
   workflow_dispatch:
-    inputs:
-      base_url:
-        description: "API base URL to test"
-        required: false
-        default: ""
   schedule:
-    - cron: "30 6 * * *"  # 30 min after the daily data update
+    - cron: "5 12 * * *"  # Daily just after noon; off the hour to avoid GitHub's top-of-hour scheduling delays
+      timezone: "America/Toronto"
 
 jobs:
   integration-test:
@@ -35,29 +31,18 @@ jobs:
           persist-credentials: false
           ref: ${{ github.event_name == 'workflow_run' && format('refs/heads/{0}', github.event.workflow_run.head_branch) || github.ref }}
 
-      - name: Determine API base URL
-        id: url
-        run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            if [[ -n "${{ inputs.base_url }}" ]]; then
-              echo "base_url=${{ inputs.base_url }}" >> "$GITHUB_OUTPUT"
-              echo "IS_PROD=false" >> "$GITHUB_ENV"
-            else
-              echo "base_url=${{ vars.API_BASE_URL_PROD }}" >> "$GITHUB_OUTPUT"
-              echo "IS_PROD=true" >> "$GITHUB_ENV"
-            fi
-          else
-            echo "base_url=${{ vars.API_BASE_URL_PROD }}" >> "$GITHUB_OUTPUT"
-            echo "IS_PROD=true" >> "$GITHUB_ENV"
-          fi
+      - name: Set up uv
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          enable-cache: true
 
       - name: Run integration tests
         env:
-          BASE_URL: ${{ steps.url.outputs.base_url }}
-        run: bash tests/integration_api.sh
+          BASE_URL: ${{ vars.API_BASE_URL_PROD }}
+        run: uv run --frozen python tests/integration_api.py
 
-      - name: Slack message if integration testing fails in prod
-        if: ${{ failure() && env.IS_PROD == 'true' }}
+      - name: Slack message if integration testing fails
+        if: ${{ failure() }}
         run: |
           json='{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":":rotating_light: Integration tests failed in the <https://github.com/cds-snc/gcorg-resolver|GC Organization Name Resolution API>. Please investigate or reach out to <@U07QX02BQS2> for help."}}]}'
           curl -X POST -H 'Content-type: application/json' --data "$json" ${{ secrets.SRE_BOT_WEBHOOK_ALERT }}
