@@ -4,6 +4,8 @@ format:
   dashboard:
     theme: lumen
     embed-resources: true
+    # The page scrolls so the bottom tables show in full, not in scrolling cards
+    scrolling: true
 ---
 
 ```{r}
@@ -27,9 +29,10 @@ lambda_usage <- read_csv("lambda_usage_prod.csv") |>
     )
   )
 
-# Daily plots show only the most recent three months
+# Daily plots and the weekly table show only the most recent three months
+recent_start <- dashboard_end %m-% months(3)
 recent_usage <- lambda_usage |>
-  filter(date > dashboard_end %m-% months(3))
+  filter(date > recent_start)
 
 # Last 30 days of AWS costs by project, one row per table line, from get_aws_costs.py
 aws_costs <- read_csv("aws_costs.csv")
@@ -56,7 +59,7 @@ weekly <- lambda_usage |>
   arrange(week_start)
 ```
 
-## Row {height="25%"}
+## Row {height="200px"}
 
 ```{r}
 #| content: valuebox
@@ -137,7 +140,7 @@ list(
 )
 ```
 
-## Row
+## Row {height="500px"}
 
 ```{r}
 #| title: "Daily Usage"
@@ -200,6 +203,7 @@ recent_usage |>
 #| title: "Weekly Breakdown"
 #| width: 65%
 weekly |>
+  filter(week_start > recent_start) |>
   arrange(desc(week_start)) |>
   gt() |>
   fmt_date(columns = week_start, date_style = "m_day_year") |>
