@@ -183,6 +183,7 @@ lambda_usage |>
 ```{r}
 #| title: "Weekly Breakdown"
 weekly |>
+  arrange(desc(week_start)) |>
   gt() |>
   fmt_date(columns = week_start, date_style = "m_day_year") |>
   fmt_number(columns = c(invocations, errors, throttles, concurrent_max), decimals = 0) |>

@@ -10,7 +10,7 @@ Steps:
 3. Write one row per complete day to data/lambda_usage_{env}.csv.
 
 Usage:
-    python data/lambda_usage.py --env prod
+    python data/get_lambda_usage.py --env prod
 
 """
 
