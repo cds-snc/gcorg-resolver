@@ -44,3 +44,5 @@ lambda_usage*.csv
 usage_dashboard.html
 
 docs/*
+# Agent notes; whitelist a file to track it
+notes/*
