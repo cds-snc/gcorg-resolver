@@ -31,6 +31,9 @@ lambda_usage <- read_csv("lambda_usage_prod.csv") |>
 recent_usage <- lambda_usage |>
   filter(date > dashboard_end %m-% months(3))
 
+# Last 30 days of AWS costs by project, one row per table line, from get_aws_costs.py
+aws_costs <- read_csv("aws_costs.csv")
+
 ```
 
 ```{r}
@@ -195,6 +198,7 @@ recent_usage |>
 
 ```{r}
 #| title: "Weekly Breakdown"
+#| width: 65%
 weekly |>
   arrange(desc(week_start)) |>
   gt() |>
@@ -212,4 +216,57 @@ weekly |>
   ) |>
   cols_align(align = "right", columns = c(invocations, errors, throttles, duration_avg_ms, concurrent_max)) |>
   cols_align(align = "left", columns = week_start)
+```
+
+```{r}
+#| title: "AWS Costs, Last 30 Days"
+#| width: 35%
+# Built by hand because R's format() has no portable unpadded day
+period_start <- first(aws_costs$period_start)
+period_end <- first(aws_costs$period_end)
+cost_period <- paste0(
+  month(period_start, label = TRUE), " ", mday(period_start), " to ",
+  month(period_end, label = TRUE), " ", mday(period_end), ", ", year(period_end)
+)
+
+# Two significant figures under a dollar, so fractions of a cent still show
+format_usd <- function(x) {
+  if_else(
+    x >= 1 | x == 0,
+    scales::dollar(x, accuracy = 0.01),
+    paste0("$", formatC(signif(x, 2), format = "fg", digits = 2, flag = "#"))
+  )
+}
+
+account_total <- aws_costs |>
+  filter(kind == "grand_total") |>
+  pull(amount)
+
+# Each group's total goes in its heading, so the body is only the breakdown
+cost_rows <- aws_costs |>
+  filter(kind != "grand_total") |>
+  group_by(group) |>
+  mutate(group_label = paste0(group, ": ", format_usd(amount[kind == "total"]))) |>
+  ungroup() |>
+  filter(kind != "total") |>
+  mutate(cost = format_usd(amount))
+
+cost_rows |>
+  select(group_label, kind, name, cost) |>
+  gt(groupname_col = "group_label", rowname_col = "name") |>
+  tab_header(
+    title = cost_period,
+    subtitle = paste("Account total:", format_usd(account_total))
+  ) |>
+  tab_stub_indent(rows = kind %in% c("detail", "rest"), indent = 3) |>
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_row_groups()
+  ) |>
+  cols_hide(kind) |>
+  cols_label(cost = paste0("Cost (", first(aws_costs$unit), ")")) |>
+  cols_align(align = "right", columns = cost) |>
+  tab_source_note(
+    "Projects are split by their CostCentre tag. Shared account costs are everything untagged, mostly policy-required security services and sales tax."
+  )
 ```

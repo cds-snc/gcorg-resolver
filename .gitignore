@@ -22,6 +22,7 @@ models/
 
 data/*.html
 data/lambda_usage*.csv
+data/aws_costs*.csv
 
 infra/.build/
 infra/**/.terraform/
