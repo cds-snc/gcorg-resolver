@@ -1,0 +1,13 @@
+Package: gcorgusagedashboard
+Title: Usage Dashboard for the GC Organization Name Resolution API
+Version: 0.0.1
+Description: R packages needed to render usage_dashboard.qmd. Not an
+    installable package; CI reads this file to install dependencies.
+Imports:
+    gt,
+    knitr,
+    lubridate,
+    rmarkdown,
+    scales,
+    tidyverse,
+    tsibble
