@@ -59,6 +59,17 @@ def get_weekly_cost(start_date: str, end_date: str) -> tuple[str, str]:
     return str(amount), unit
 
 
+def dashboard_line(url: str, result: str) -> str:
+    """Slack line linking the usage dashboard.
+
+    result is the dashboard deploy job's result, or empty on a manual run,
+    when we can't tell and just link it.
+    """
+    if result and result != "success":
+        return f":warning: Usage dashboard update failed; last good version: {url}"
+    return f":bar_chart: Usage dashboard: {url}"
+
+
 def post_slack_message(webhook_url: str, message: str) -> None:
     data = json.dumps({"text": message}).encode("utf-8")
 
@@ -105,6 +116,11 @@ if __name__ == "__main__":
         f":calendar: {display_start_date} to {display_end_date}\n"
         f":moneybag: ${formatted_amount} {unit}"
     )
+
+    dashboard_url = os.environ.get("DASHBOARD_URL", "").strip()
+    if dashboard_url:
+        dashboard_result = os.environ.get("DASHBOARD_RESULT", "").strip()
+        message += "\n" + dashboard_line(dashboard_url, dashboard_result)
 
     # print(message)
     post_slack_message(webhook_url, message)

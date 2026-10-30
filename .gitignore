@@ -22,6 +22,7 @@ models/
 
 data/*.html
 data/lambda_usage*.csv
+data/aws_costs*.csv
 
 infra/.build/
 infra/**/.terraform/
@@ -43,3 +44,5 @@ lambda_usage*.csv
 usage_dashboard.html
 
 docs/*
+# Agent notes; whitelist a file to track it
+notes/*

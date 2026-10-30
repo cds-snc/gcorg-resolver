@@ -1,0 +1,109 @@
+# Render the usage dashboard from fresh CloudWatch and Cost Explorer data,
+# publish it to GitHub Pages, then post the weekly AWS cost report with a link
+# to it. Runs every Monday.
+
+name: Usage dashboard
+
+on:
+  schedule:
+    - cron: "0 9 * * 1" # Monday 9:00
+      timezone: "America/Toronto"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One Pages deployment at a time; let a running one finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  AWS_REGION: ca-central-1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write # assume the AWS role via OIDC
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.SDR_AWS_ACCOUNT }}:role/gcorg-resolver-dashboard-read
+          role-session-name: UsageDashboard
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          enable-cache: true
+
+      - name: Fetch Lambda usage
+        run: uv run --frozen --extra metrics python data/get_lambda_usage.py --env prod
+
+      - name: Fetch AWS costs
+        run: uv run --frozen --extra metrics python data/get_aws_costs.py
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05 # v2.14.0
+        with:
+          use-public-rspm: true
+
+      - name: Install R dependencies
+        uses: r-lib/actions/setup-r-dependencies@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05 # v2.14.0
+        with:
+          working-directory: data
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b # v2.2.0
+
+      - name: Render dashboard
+        run: quarto render data/usage_dashboard.qmd
+
+      - name: Stage site
+        run: |
+          mkdir _site
+          cp data/usage_dashboard.html _site/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: _site
+
+  # Separate job so only the deploy step holds pages: write.
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  # Scheduled runs only, so a manual dashboard rebuild doesn't repost costs.
+  # always() so the weekly cost still goes out if the dashboard failed.
+  cost-report:
+    needs: deploy
+    if: always() && github.event_name == 'schedule'
+    permissions:
+      contents: read
+      id-token: write # assume the AWS role via OIDC
+    uses: ./.github/workflows/aws-cost-report.yml
+    with:
+      dashboard_result: ${{ needs.deploy.result }}
+    secrets:
+      SRE_BOT_WEBHOOK_INFO: ${{ secrets.SRE_BOT_WEBHOOK_INFO }}

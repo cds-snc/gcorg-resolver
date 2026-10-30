@@ -131,6 +131,29 @@ resource "aws_iam_policy" "cost_report_read" {
   policy      = data.aws_iam_policy_document.cost_report_read.json
 }
 
+# --- Usage dashboard role ---------------------------------------------------
+
+# Neither action supports resource-level permissions
+data "aws_iam_policy_document" "dashboard_read" {
+  statement {
+    sid       = "CloudWatchMetricsRead"
+    actions   = ["cloudwatch:GetMetricStatistics"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "CostExplorerRead"
+    actions   = ["ce:GetCostAndUsage"]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "dashboard_read" {
+  name        = "gcorg-resolver-dashboard-read"
+  description = "Read-only metrics and costs for the weekly usage dashboard."
+  policy      = data.aws_iam_policy_document.dashboard_read.json
+}
+
 # --- OIDC provider + roles --------------------------------------------------
 
 module "github_oidc" {
@@ -156,6 +179,11 @@ module "github_oidc" {
       repo_name = var.github_repo
       claim     = "ref:refs/heads/main"
     },
+    {
+      name      = "gcorg-resolver-dashboard-read"
+      repo_name = var.github_repo
+      claim     = "ref:refs/heads/main"
+    },
   ]
 }
 
@@ -163,10 +191,11 @@ module "github_oidc" {
 # Keys are static so the instances are known at plan time.
 locals {
   ROLE_POLICIES = {
-    "gcorg-resolver-plan-prod::readonly" = { role = "gcorg-resolver-plan-prod", policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess" }
-    "gcorg-resolver-plan-prod::state"    = { role = "gcorg-resolver-plan-prod", policy_arn = aws_iam_policy.plan_state_prod.arn }
-    "gcorg-resolver-apply-prod::apply"   = { role = "gcorg-resolver-apply-prod", policy_arn = aws_iam_policy.apply_prod.arn }
-    "Billing-ReadOnly::cost-report"      = { role = "Billing-ReadOnly", policy_arn = aws_iam_policy.cost_report_read.arn }
+    "gcorg-resolver-plan-prod::readonly"       = { role = "gcorg-resolver-plan-prod", policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess" }
+    "gcorg-resolver-plan-prod::state"          = { role = "gcorg-resolver-plan-prod", policy_arn = aws_iam_policy.plan_state_prod.arn }
+    "gcorg-resolver-apply-prod::apply"         = { role = "gcorg-resolver-apply-prod", policy_arn = aws_iam_policy.apply_prod.arn }
+    "Billing-ReadOnly::cost-report"            = { role = "Billing-ReadOnly", policy_arn = aws_iam_policy.cost_report_read.arn }
+    "gcorg-resolver-dashboard-read::dashboard" = { role = "gcorg-resolver-dashboard-read", policy_arn = aws_iam_policy.dashboard_read.arn }
   }
 }
 

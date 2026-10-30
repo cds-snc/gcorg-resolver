@@ -1,8 +1,18 @@
 name: AWS cost report
 
+# Called by the usage dashboard workflow after it publishes, so the report can
+# link to a fresh dashboard.
 on:
-  schedule:
-    - cron: "0 13 * * 1" # Monday morning (13:00 UTC)
+  workflow_call:
+    inputs:
+      dashboard_result:
+        description: "Result of the dashboard deploy job"
+        type: string
+        required: false
+        default: ""
+    secrets:
+      SRE_BOT_WEBHOOK_INFO:
+        required: true
   workflow_dispatch:
 
 permissions:
@@ -11,6 +21,7 @@ permissions:
 
 env:
   AWS_REGION: us-east-1
+  DASHBOARD_URL: https://cds-snc.github.io/gcorg-resolver/
 
 jobs:
   weekly-cost-report:
@@ -18,6 +29,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
@@ -29,4 +42,6 @@ jobs:
       - name: Query weekly tagged cost and post to Slack
         env:
           SRE_BOT_WEBHOOK_INFO: ${{ secrets.SRE_BOT_WEBHOOK_INFO }}
+          # Empty on manual runs
+          DASHBOARD_RESULT: ${{ inputs.dashboard_result }}
         run: python3 .github/workflows/scripts/aws_cost_report.py

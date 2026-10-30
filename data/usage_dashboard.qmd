@@ -4,6 +4,8 @@ format:
   dashboard:
     theme: lumen
     embed-resources: true
+    # The page scrolls so the bottom tables show in full, not in scrolling cards
+    scrolling: true
 ---
 
 ```{r}
@@ -27,6 +29,14 @@ lambda_usage <- read_csv("lambda_usage_prod.csv") |>
     )
   )
 
+# Daily plots and the weekly table show only the most recent three months
+recent_start <- dashboard_end %m-% months(3)
+recent_usage <- lambda_usage |>
+  filter(date > recent_start)
+
+# Last 30 days of AWS costs by project, one row per table line, from get_aws_costs.py
+aws_costs <- read_csv("aws_costs.csv")
+
 ```
 
 ```{r}
@@ -40,7 +50,7 @@ weekly <- lambda_usage |>
     week_start = min(date),
     errors = sum(errors),
     throttles = sum(throttles),
-    duration_avg_ms = weighted.mean(x = duration_avg_ms, w = invocations),
+    duration_avg_ms = weighted.mean(x = duration_avg_ms, w = invocations, na.rm = TRUE),
     invocations = sum(invocations),
     total = invocations + errors + throttles,
     concurrent_max = max(concurrent_max),
@@ -49,7 +59,7 @@ weekly <- lambda_usage |>
   arrange(week_start)
 ```
 
-## Row {height="25%"}
+## Row {height="200px"}
 
 ```{r}
 #| content: valuebox
@@ -116,8 +126,8 @@ list(
 #| content: valuebox
 #| title: "Avg Duration (ms)"
 current_duration <- last(weekly$duration_avg_ms)
-mean_duration <- weighted.mean(x = weekly$duration_avg_ms, w = weekly$total)
-sd_duration <- sd(weekly$duration_avg_ms)
+mean_duration <- weighted.mean(x = weekly$duration_avg_ms, w = weekly$total, na.rm = TRUE)
+sd_duration <- sd(weekly$duration_avg_ms, na.rm = TRUE)
 
 list(
   icon = "hourglass",
@@ -130,11 +140,11 @@ list(
 )
 ```
 
-## Row
+## Row {height="500px"}
 
 ```{r}
 #| title: "Daily Usage"
-lambda_usage |>
+recent_usage |>
   select(-duration_avg_ms, -concurrent_max) |>
   pivot_longer(
     cols = c("invocations", "errors", "throttles"),
@@ -151,7 +161,11 @@ lambda_usage |>
       "throttles" = "darkorange"
     )) +
   scale_y_continuous(labels = scales::comma) +
-  scale_x_date(date_labels = "%b %d", date_breaks = "1 week") +
+  scale_x_date(
+    date_breaks = "2 weeks",
+    date_minor_breaks = "1 week",
+    labels = scales::label_date_short()
+  ) +
   labs(
     x = "",
     y = "Count",
@@ -164,10 +178,15 @@ lambda_usage |>
 
 ```{r}
 #| title: "Daily Duration"
-lambda_usage |>
+recent_usage |>
   ggplot(aes(x = date, y = duration_avg_ms)) +
-  geom_point(color = "mediumseagreen", aes(size = invocations)) +
-  scale_x_date(date_labels = "%b %d", date_breaks = "1 week") +
+  # Duration is blank on days with no invocations
+  geom_point(color = "mediumseagreen", aes(size = invocations), na.rm = TRUE) +
+  scale_x_date(
+    date_breaks = "2 weeks",
+    date_minor_breaks = "1 week",
+    labels = scales::label_date_short()
+  ) +
   labs(
     x = "",
     y = "Duration (ms)",
@@ -182,7 +201,10 @@ lambda_usage |>
 
 ```{r}
 #| title: "Weekly Breakdown"
+#| width: 65%
 weekly |>
+  filter(week_start > recent_start) |>
+  arrange(desc(week_start)) |>
   gt() |>
   fmt_date(columns = week_start, date_style = "m_day_year") |>
   fmt_number(columns = c(invocations, errors, throttles, concurrent_max), decimals = 0) |>
@@ -198,4 +220,57 @@ weekly |>
   ) |>
   cols_align(align = "right", columns = c(invocations, errors, throttles, duration_avg_ms, concurrent_max)) |>
   cols_align(align = "left", columns = week_start)
+```
+
+```{r}
+#| title: "AWS Costs, Last 30 Days"
+#| width: 35%
+# Built by hand because R's format() has no portable unpadded day
+period_start <- first(aws_costs$period_start)
+period_end <- first(aws_costs$period_end)
+cost_period <- paste0(
+  month(period_start, label = TRUE), " ", mday(period_start), " to ",
+  month(period_end, label = TRUE), " ", mday(period_end), ", ", year(period_end)
+)
+
+# Two significant figures under a dollar, so fractions of a cent still show
+format_usd <- function(x) {
+  if_else(
+    x >= 1 | x == 0,
+    scales::dollar(x, accuracy = 0.01),
+    paste0("$", formatC(signif(x, 2), format = "fg", digits = 2, flag = "#"))
+  )
+}
+
+account_total <- aws_costs |>
+  filter(kind == "grand_total") |>
+  pull(amount)
+
+# Each group's total goes in its heading, so the body is only the breakdown
+cost_rows <- aws_costs |>
+  filter(kind != "grand_total") |>
+  group_by(group) |>
+  mutate(group_label = paste0(group, ": ", format_usd(amount[kind == "total"]))) |>
+  ungroup() |>
+  filter(kind != "total") |>
+  mutate(cost = format_usd(amount))
+
+cost_rows |>
+  select(group_label, kind, name, cost) |>
+  gt(groupname_col = "group_label", rowname_col = "name") |>
+  tab_header(
+    title = cost_period,
+    subtitle = paste("Account total:", format_usd(account_total))
+  ) |>
+  tab_stub_indent(rows = kind %in% c("detail", "rest"), indent = 3) |>
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_row_groups()
+  ) |>
+  cols_hide(kind) |>
+  cols_label(cost = paste0("Cost (", first(aws_costs$unit), ")")) |>
+  cols_align(align = "right", columns = cost) |>
+  tab_source_note(
+    "Projects are split by their CostCentre tag. Shared account costs are everything untagged, mostly policy-required security services and sales tax."
+  )
 ```
