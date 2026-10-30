@@ -34,6 +34,9 @@ METRICS = [
     ("ConcurrentExecutions", "Maximum", "concurrent_max"),
 ]
 
+# Columns left blank on days with no invocations, where an average is undefined.
+NO_TRAFFIC_BLANK = {"duration_avg_ms"}
+
 ONE_DAY_SECONDS = 86400
 
 # Default start date used when no existing CSV is found.
@@ -78,7 +81,12 @@ def fetch_daily_metric(
         Statistics=[stat],
     )
 
-    return {dp["Timestamp"].date(): dp[stat] for dp in response["Datapoints"]}
+    # boto3 returns timestamps in the local timezone; convert so day buckets
+    # keep their UTC date wherever the script runs.
+    return {
+        dp["Timestamp"].astimezone(datetime.UTC).date(): dp[stat]
+        for dp in response["Datapoints"]
+    }
 
 
 def fetch_all_metrics(
@@ -100,8 +108,9 @@ def fetch_all_metrics(
     while day <= end:
         row = {"date": day.isoformat()}
         for _, _, col in METRICS:
-            # Days with zero activity are absent from CloudWatch; treat as 0.
-            row[col] = raw[col].get(day, 0.0)
+            # Days with zero activity are absent from CloudWatch.
+            default = None if col in NO_TRAFFIC_BLANK else 0.0
+            row[col] = raw[col].get(day, default)
         rows.append(row)
         day += timedelta(days=1)
 
@@ -216,7 +225,8 @@ def main(argv: list[str] | None = None) -> None:
     # through the CSV consistently with rows loaded from disk (which are strings).
     for row in new_rows:
         for _, _, col in METRICS:
-            row[col] = float(row[col])
+            if row[col] is not None:
+                row[col] = float(row[col])
 
     all_rows = merge_rows(existing_rows, new_rows)
     write_csv(all_rows, csv_path)

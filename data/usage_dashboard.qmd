@@ -44,7 +44,7 @@ weekly <- lambda_usage |>
     week_start = min(date),
     errors = sum(errors),
     throttles = sum(throttles),
-    duration_avg_ms = weighted.mean(x = duration_avg_ms, w = invocations),
+    duration_avg_ms = weighted.mean(x = duration_avg_ms, w = invocations, na.rm = TRUE),
     invocations = sum(invocations),
     total = invocations + errors + throttles,
     concurrent_max = max(concurrent_max),
@@ -120,8 +120,8 @@ list(
 #| content: valuebox
 #| title: "Avg Duration (ms)"
 current_duration <- last(weekly$duration_avg_ms)
-mean_duration <- weighted.mean(x = weekly$duration_avg_ms, w = weekly$total)
-sd_duration <- sd(weekly$duration_avg_ms)
+mean_duration <- weighted.mean(x = weekly$duration_avg_ms, w = weekly$total, na.rm = TRUE)
+sd_duration <- sd(weekly$duration_avg_ms, na.rm = TRUE)
 
 list(
   icon = "hourglass",
@@ -174,7 +174,8 @@ recent_usage |>
 #| title: "Daily Duration"
 recent_usage |>
   ggplot(aes(x = date, y = duration_avg_ms)) +
-  geom_point(color = "mediumseagreen", aes(size = invocations)) +
+  # Duration is blank on days with no invocations
+  geom_point(color = "mediumseagreen", aes(size = invocations), na.rm = TRUE) +
   scale_x_date(
     date_breaks = "2 weeks",
     date_minor_breaks = "1 week",
