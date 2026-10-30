@@ -27,6 +27,10 @@ lambda_usage <- read_csv("lambda_usage_prod.csv") |>
     )
   )
 
+# Daily plots show only the most recent three months
+recent_usage <- lambda_usage |>
+  filter(date > dashboard_end %m-% months(3))
+
 ```
 
 ```{r}
@@ -134,7 +138,7 @@ list(
 
 ```{r}
 #| title: "Daily Usage"
-lambda_usage |>
+recent_usage |>
   select(-duration_avg_ms, -concurrent_max) |>
   pivot_longer(
     cols = c("invocations", "errors", "throttles"),
@@ -151,7 +155,11 @@ lambda_usage |>
       "throttles" = "darkorange"
     )) +
   scale_y_continuous(labels = scales::comma) +
-  scale_x_date(date_labels = "%b %d", date_breaks = "1 week") +
+  scale_x_date(
+    date_breaks = "2 weeks",
+    date_minor_breaks = "1 week",
+    labels = scales::label_date_short()
+  ) +
   labs(
     x = "",
     y = "Count",
@@ -164,10 +172,14 @@ lambda_usage |>
 
 ```{r}
 #| title: "Daily Duration"
-lambda_usage |>
+recent_usage |>
   ggplot(aes(x = date, y = duration_avg_ms)) +
   geom_point(color = "mediumseagreen", aes(size = invocations)) +
-  scale_x_date(date_labels = "%b %d", date_breaks = "1 week") +
+  scale_x_date(
+    date_breaks = "2 weeks",
+    date_minor_breaks = "1 week",
+    labels = scales::label_date_short()
+  ) +
   labs(
     x = "",
     y = "Duration (ms)",
