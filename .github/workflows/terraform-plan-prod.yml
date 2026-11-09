@@ -63,4 +63,5 @@ jobs:
         uses: cds-snc/terraform-plan@529b272050a8f718d14c59e62b59c124eead7efc # v5.0.4
         with:
           directory: infra/env/prod
+          terraform-plan: -lock-timeout=5m
           github-token: ${{ secrets.GITHUB_TOKEN}}
