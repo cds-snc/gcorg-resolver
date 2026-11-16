@@ -44,17 +44,16 @@ PERIOD_DAYS = 30
 COST_CENTRE_TAG = "CostCentre"
 
 RESOLVER = "GC Organization Name Resolution API"
-PROGRAM_CODE = "Program code lookup"
-SERVICE_INVENTORY = "Service inventory lookup"
+LOOKUPS = "Service and program lookups"
 SHARED = "Shared account costs"
 
 # CostCentre tag values. gcorg-resolver's matches billing_tag_value in
 # infra/env/*/terraform.tfvars; the lookups' live in the service-inventory-lookup
-# repo.
+# repo. The lookups were two sites, each with its own tag, until they merged
+# under "lookup" in November 2026; the old tags keep earlier periods counted.
 PROJECT_TAGS = {
-    RESOLVER: "GCOrgResolver",
-    PROGRAM_CODE: "program-code-lookup",
-    SERVICE_INVENTORY: "service-inventory-lookup",
+    RESOLVER: ["GCOrgResolver"],
+    LOOKUPS: ["lookup", "service-inventory-lookup", "program-code-lookup"],
 }
 
 # Items in Everything else at or above this many dollars are listed by name.
@@ -172,8 +171,9 @@ def group_filters() -> list[tuple[str, dict]]:
     The shared group is "none of the project tags", so untagged resources and
     stray tag values both land there and the groups always add up to the bill.
     """
-    groups = [(name, tag_filter([tag])) for name, tag in PROJECT_TAGS.items()]
-    groups.append((SHARED, {"Not": tag_filter(list(PROJECT_TAGS.values()))}))
+    groups = [(name, tag_filter(tags)) for name, tags in PROJECT_TAGS.items()]
+    all_tags = [tag for tags in PROJECT_TAGS.values() for tag in tags]
+    groups.append((SHARED, {"Not": tag_filter(all_tags)}))
     return groups
 
 

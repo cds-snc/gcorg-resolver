@@ -236,27 +236,28 @@ def test_fetch_with_no_costs_returns_no_items():
 # ---------------------------------------------------------------------------
 
 
-def test_groups_are_the_three_projects_then_shared():
+def test_groups_are_the_projects_then_shared():
     names = [name for name, _ in gac.group_filters()]
     assert names == [
         gac.RESOLVER,
-        gac.PROGRAM_CODE,
-        gac.SERVICE_INVENTORY,
+        gac.LOOKUPS,
         gac.SHARED,
     ]
 
 
 @pytest.mark.parametrize(
-    ("group", "tag"),
+    ("group", "tags"),
     [
-        ("GC Organization Name Resolution API", "GCOrgResolver"),
-        ("Program code lookup", "program-code-lookup"),
-        ("Service inventory lookup", "service-inventory-lookup"),
+        ("GC Organization Name Resolution API", ["GCOrgResolver"]),
+        (
+            "Service and program lookups",
+            ["lookup", "service-inventory-lookup", "program-code-lookup"],
+        ),
     ],
 )
-def test_project_groups_filter_on_their_cost_centre_tag(group, tag):
+def test_project_groups_filter_on_their_cost_centre_tags(group, tags):
     filters = dict(gac.group_filters())
-    assert filters[group] == {"Tags": {"Key": "CostCentre", "Values": [tag]}}
+    assert filters[group] == {"Tags": {"Key": "CostCentre", "Values": tags}}
 
 
 def test_shared_group_is_everything_without_a_project_tag():
@@ -267,8 +268,9 @@ def test_shared_group_is_everything_without_a_project_tag():
                 "Key": "CostCentre",
                 "Values": [
                     "GCOrgResolver",
-                    "program-code-lookup",
+                    "lookup",
                     "service-inventory-lookup",
+                    "program-code-lookup",
                 ],
             }
         }
